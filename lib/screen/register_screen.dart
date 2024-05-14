@@ -76,7 +76,7 @@ class RegisterScreen extends StatelessWidget {
                 elevation: 10,
                 child: TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'Number',
+                    labelText: 'Phone Number',
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.phone),
                     labelStyle: TextStyle(fontWeight: FontWeight.bold),
