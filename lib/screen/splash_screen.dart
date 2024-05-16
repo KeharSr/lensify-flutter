@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:final_assignment/screen/register_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -23,9 +24,22 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.greenAccent,
-      body: Center(
-        child: Image.asset('assets/images/applogo.png'),
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xFFFF9396),
+              Color(0xFFEF2A39)
+            ], // Add your gradient colors
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: Lottie.asset(
+              'assets/animations/splash.json'), // Add your image asset path
+        ),
       ),
     );
   }
