@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:final_assignment/screen/register_screen.dart';
+import 'package:final_assignment/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         const Duration(seconds: 2),
         () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const RegisterScreen())));
+            MaterialPageRoute(builder: (context) => const LoginScreen())));
   }
 
   @override
@@ -29,16 +29,15 @@ class _SplashScreenState extends State<SplashScreen> {
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFFFF9396),
-              Color(0xFFEF2A39)
-            ], // Add your gradient colors
+              Colors.white,
+              Colors.white,
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
         ),
         child: Center(
-          child: Lottie.asset(
-              'assets/animations/splash.json'), // Add your image asset path
+          child: Lottie.asset('assets/animations/splash.json'),
         ),
       ),
     );

@@ -1,7 +1,18 @@
+import 'package:final_assignment/screen/dashboard_screen.dart';
+import 'package:final_assignment/screen/register_screen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,16 +29,23 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Image(
                     height: 150,
-                    image: AssetImage("assets/images/applogo.png"),
+                    image: AssetImage("assets/images/applogo2.png"),
                   ),
                   Text(
-                    'Welcome back',
-                    style: TextStyle(fontSize: 30),
+                    'Welcome back,',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontFamily: "Poppins",
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(height: 10),
                   Text(
-                    "First of all lets login",
-                    style: TextStyle(fontSize: 15),
+                    "Discover Limitless Choices with lensify",
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 10,
@@ -35,11 +53,22 @@ class LoginScreen extends StatelessWidget {
                 ],
               ),
               Form(
+                key: _formKey,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Column(
                     children: [
                       TextFormField(
+                        controller: _emailController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter your email';
+                          }
+                          if (value != 'admin@gmail.com') {
+                            return 'Enter a valid email';
+                          }
+                          return null;
+                        },
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.email_outlined),
@@ -50,12 +79,28 @@ class LoginScreen extends StatelessWidget {
                         height: 16,
                       ),
                       TextFormField(
+                        controller: _passwordController,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Enter your password';
+                          }
+                          if (value.length < 4) {
+                            return 'Password must be at least 6 characters';
+                          }
+                          if (value != 'admin') {
+                            return 'Enter a valid password';
+                          }
+                          return null;
+                        },
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
                           prefixIcon: Icon(Icons.password_rounded),
                           labelText: 'Password',
-                          suffixIcon: Icon(Icons.visibility),
+                          suffixIcon: Icon(
+                            Icons.remove_red_eye_outlined,
+                          ),
                         ),
+                        obscureText: true,
                       ),
                       const SizedBox(
                         height: 8,
@@ -65,8 +110,24 @@ class LoginScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              Checkbox(value: true, onChanged: (value) {}),
-                              const Text("Remember me")
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: Checkbox(
+                                  value: true,
+                                  onChanged: (value) {},
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 19,
+                              ),
+                              const Text(
+                                "Remember me",
+                                style: TextStyle(
+                                    fontFamily: 'Poppins-SemiBold',
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              )
                             ],
                           ),
                           TextButton(
@@ -82,7 +143,16 @@ class LoginScreen extends StatelessWidget {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const DashboardScreen(),
+                                ),
+                              );
+                            }
+                          },
                           style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   const Color.fromARGB(255, 4, 141, 252),
@@ -102,7 +172,14 @@ class LoginScreen extends StatelessWidget {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RegistrationScreen()),
+                            );
+                          },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.white,
                               shape: RoundedRectangleBorder(
@@ -115,8 +192,8 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(
-                        height: 32,
-                      )
+                        height: 10,
+                      ),
                     ],
                   ),
                 ),
@@ -142,7 +219,60 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey.shade400),
+                          borderRadius: BorderRadius.circular(100)),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Image(
+                          height: 40,
+                          width: 40,
+                          image: AssetImage("assets/icons/google.png"),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey.shade400),
+                          borderRadius: BorderRadius.circular(100)),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Image(
+                          height: 40,
+                          width: 40,
+                          image: AssetImage("assets/icons/facebook.png"),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey.shade400),
+                          borderRadius: BorderRadius.circular(100)),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Image(
+                          height: 40,
+                          width: 40,
+                          image: AssetImage("assets/icons/tweeter.png"),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
