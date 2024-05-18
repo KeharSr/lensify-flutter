@@ -1,3 +1,5 @@
+import 'package:final_assignment/common_widget/my_button.dart';
+import 'package:final_assignment/common_widget/my_text_form_field.dart';
 import 'package:final_assignment/screen/dashboard_screen.dart';
 import 'package:final_assignment/screen/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -47,9 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         fontFamily: "Poppins",
                         fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(
-                    height: 10,
-                  )
+                  SizedBox(height: 10),
                 ],
               ),
               Form(
@@ -58,8 +59,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Column(
                     children: [
-                      TextFormField(
+                      MyTextFormField(
                         controller: _emailController,
+                        labelText: 'Email',
+                        prefixIcon: Icons.email_outlined,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Enter your email';
@@ -69,17 +72,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.email_outlined),
-                          labelText: 'Email',
-                        ),
                       ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
+                      const SizedBox(height: 16),
+                      MyTextFormField(
                         controller: _passwordController,
+                        labelText: 'Password',
+                        prefixIcon: Icons.password_rounded,
+                        obscureText: _obscureText,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Enter your password';
@@ -92,19 +91,20 @@ class _LoginScreenState extends State<LoginScreen> {
                           }
                           return null;
                         },
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          prefixIcon: Icon(Icons.password_rounded),
-                          labelText: 'Password',
-                          suffixIcon: Icon(
-                            Icons.remove_red_eye_outlined,
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              _obscureText = !_obscureText;
+                            });
+                          },
+                          child: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
                           ),
                         ),
-                        obscureText: true,
                       ),
-                      const SizedBox(
-                        height: 8,
-                      ),
+                      const SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -118,16 +118,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   onChanged: (value) {},
                                 ),
                               ),
-                              const SizedBox(
-                                width: 19,
-                              ),
+                              const SizedBox(width: 19),
                               const Text(
                                 "Remember me",
                                 style: TextStyle(
-                                    fontFamily: 'Poppins-SemiBold',
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold),
-                              )
+                                  fontFamily: 'Poppins-SemiBold',
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ],
                           ),
                           TextButton(
@@ -136,64 +135,37 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 32,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const DashboardScreen(),
-                                ),
-                              );
-                            }
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 4, 141, 252),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                          child: const Text(
-                            "Sign In",
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () {
+                      const SizedBox(height: 32),
+                      MyButton(
+                        backgroundColor: const Color.fromARGB(255, 2, 141, 255),
+                        text: "Sign In",
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      const RegistrationScreen()),
+                                builder: (context) => const DashboardScreen(),
+                              ),
                             );
-                          },
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              )),
-                          child: const Text(
-                            "Create Account",
-                            style: TextStyle(fontSize: 18, color: Colors.black),
-                          ),
-                        ),
+                          }
+                        },
                       ),
-                      const SizedBox(
-                        height: 10,
+                      const SizedBox(height: 16),
+                      MyButton(
+                        backgroundColor:
+                            const Color.fromARGB(255, 254, 254, 254),
+                        text: "Create Account",
+                        textColor: Colors.black,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegistrationScreen(),
+                            ),
+                          );
+                        },
                       ),
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),
@@ -227,8 +199,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.shade400),
-                          borderRadius: BorderRadius.circular(100)),
+                        border: Border.all(color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
                       child: IconButton(
                         onPressed: () {},
                         icon: const Image(
@@ -238,13 +211,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 16,
-                    ),
+                    const SizedBox(width: 16),
                     Container(
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.shade400),
-                          borderRadius: BorderRadius.circular(100)),
+                        border: Border.all(color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
                       child: IconButton(
                         onPressed: () {},
                         icon: const Image(
@@ -254,13 +226,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 16,
-                    ),
+                    const SizedBox(width: 16),
                     Container(
                       decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey.shade400),
-                          borderRadius: BorderRadius.circular(100)),
+                        border: Border.all(color: Colors.grey.shade400),
+                        borderRadius: BorderRadius.circular(100),
+                      ),
                       child: IconButton(
                         onPressed: () {},
                         icon: const Image(

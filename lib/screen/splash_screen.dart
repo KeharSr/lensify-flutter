@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:final_assignment/screen/login_screen.dart';
+import 'package:final_assignment/screen/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -16,9 +16,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        const Duration(seconds: 2),
-        () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen())));
+      const Duration(seconds: 2),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const RegistrationScreen(),
+        ),
+      ),
+    );
   }
 
   @override
