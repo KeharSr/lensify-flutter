@@ -1,5 +1,5 @@
-import 'package:final_assignment/common_widget/my_button.dart';
-import 'package:final_assignment/common_widget/my_text_form_field.dart';
+import 'package:final_assignment/common/widgets/my_button.dart';
+import 'package:final_assignment/common/widgets/my_text_form_field.dart';
 import 'package:final_assignment/screen/dashboard_screen.dart';
 import 'package:final_assignment/screen/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -155,7 +155,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         backgroundColor:
                             const Color.fromARGB(255, 254, 254, 254),
                         text: "Create Account",
-                        textColor: Colors.black,
                         onPressed: () {
                           Navigator.push(
                             context,

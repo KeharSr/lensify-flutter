@@ -1,8 +1,9 @@
-import 'package:final_assignment/common_widget/my_button.dart';
-import 'package:final_assignment/common_widget/my_text_form_field.dart';
+
+
+import 'package:final_assignment/common/widgets/my_button.dart';
+import 'package:final_assignment/common/widgets/my_text_form_field.dart';
 import 'package:flutter/material.dart';
 
-import 'dashboard_screen.dart';
 import 'login_screen.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -144,13 +145,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         MyTextFormField(
                           controller: _passwordController,
                           labelText: "Password",
-                          prefixIcon: Icons.password,
+                          prefixIcon: Icons.password_sharp,
                           obscureText: _obscureText,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your password';
                             }
-                            if (value.length < 6) {
+                            if (value.length < 5) {
                               return 'Please enter a valid password';
                             }
                             return null;
@@ -180,36 +181,38 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                             ),
                             const SizedBox(width: 19),
-                            const Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: "I agree to the ",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  TextSpan(
-                                    text: "Privacy Policy ",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 3, 139, 251),
-                                      decoration: TextDecoration.underline,
-                                      decorationColor:
-                                          Color.fromARGB(255, 3, 139, 251),
+                            const Flexible(
+                              child: Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "I agree to the ",
+                                      style: TextStyle(color: Colors.black),
                                     ),
-                                  ),
-                                  TextSpan(
-                                    text: "and ",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                  TextSpan(
-                                    text: "Terms of use ",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 3, 139, 251),
-                                      decoration: TextDecoration.underline,
-                                      decorationColor:
-                                          Color.fromARGB(255, 3, 139, 251),
+                                    TextSpan(
+                                      text: "Privacy Policy ",
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 3, 139, 251),
+                                        decoration: TextDecoration.underline,
+                                        decorationColor:
+                                            Color.fromARGB(255, 3, 139, 251),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    TextSpan(
+                                      text: "and ",
+                                      style: TextStyle(color: Colors.black),
+                                    ),
+                                    TextSpan(
+                                      text: "Terms of use ",
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 3, 139, 251),
+                                        decoration: TextDecoration.underline,
+                                        decorationColor:
+                                            Color.fromARGB(255, 3, 139, 251),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -224,7 +227,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const DashboardScreen(),
+                                  builder: (context) => const LoginScreen(),
                                 ),
                               );
                             }
