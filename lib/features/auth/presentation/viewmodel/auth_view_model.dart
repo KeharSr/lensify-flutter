@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:final_assignment/core/common/my_snackbar.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart';
@@ -19,8 +17,6 @@ class AuthViewModel extends StateNotifier<AuthState> {
   AuthViewModel(this.navigator, this.authUseCase) : super(AuthState.initial());
   final AuthUseCase authUseCase;
   final LoginViewNavigator navigator;
-
-  
 
   Future<void> registerUser(AuthEntity user) async {
     state = state.copyWith(isLoading: true);
@@ -53,7 +49,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
-        openRegisterView();
+        openHomeView();
       },
     );
   }
@@ -62,7 +58,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     navigator.openRegisterView();
   }
 
-  // void openHomeView() {
-  //   navigator.openHomeView();
-  // }
+  void openHomeView() {
+    navigator.openHomeView();
+  }
 }

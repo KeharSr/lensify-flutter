@@ -1,6 +1,5 @@
 import 'package:final_assignment/core/common/widgets/my_button.dart';
 import 'package:final_assignment/core/common/widgets/my_text_form_field.dart';
-import 'package:final_assignment/features/auth/presentation/view/register_view.dart';
 import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -155,12 +154,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
                             const Color.fromARGB(255, 254, 254, 254),
                         text: "Create Account",
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegisterView(),
-                            ),
-                          );
+                          ref
+                              .read(authViewModelProvider.notifier)
+                              .openRegisterView();
                         },
                       ),
                       const SizedBox(height: 10),

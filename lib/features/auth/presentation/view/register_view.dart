@@ -6,8 +6,6 @@ import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
-
 class RegisterView extends ConsumerStatefulWidget {
   const RegisterView({super.key});
 

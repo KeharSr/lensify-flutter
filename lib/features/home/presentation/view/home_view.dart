@@ -1,20 +1,26 @@
+// import 'package:final_assignment/features/home/presentation/view/bottom_view/explore_view.dart';
+// import 'package:final_assignment/features/home/presentation/view/bottom_view/profile_view.dart';
+// import 'package:final_assignment/features/home/presentation/view/bottom_view/wishlist_view.dart';
 // import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-// class BottomNavBar extends StatefulWidget {
-//   const BottomNavBar({super.key});
+// class HomeView extends ConsumerStatefulWidget {
+//   const HomeView({super.key});
 
 //   @override
-//   _BottomNavBarState createState() => _BottomNavBarState();
+//   ConsumerState <HomeView> createState() => _HomeViewState();
 // }
 
-// class _BottomNavBarState extends State<BottomNavBar> {
+// class _HomeViewState extends ConsumerState<HomeView> {
 //   int _selectedIndex = 0;
 
-//   void _onItemTapped(int index) {
-//     setState(() {
-//       _selectedIndex = index;
-//     });
-//   }
+//   List<Widget> lstScreen=[
+//     HomeView(),
+//     ExploreView(),
+//     WishlistView(),
+//     ProfileView(),
+//   ];
+  
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -127,6 +133,12 @@
 //           ),
 //         ),
 //       ),
+//       currentIndex: _selectedIndex,
+//       onTap: (index){
+//         setState(() {
+//           _selectedIndex = index;
+//         });
+//       },
 //       floatingActionButton: FloatingActionButton(
 //         shape: const RoundedRectangleBorder(
 //           borderRadius: BorderRadius.all(Radius.circular(25)),
@@ -139,3 +151,59 @@
 //     );
 //   }
 // }
+
+import 'package:final_assignment/features/home/presentation/view/bottom_view/explore_view.dart';
+import 'package:final_assignment/features/home/presentation/view/bottom_view/profile_view.dart';
+import 'package:final_assignment/features/home/presentation/view/bottom_view/wishlist_view.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
+class HomeView extends ConsumerStatefulWidget {
+  const HomeView({super.key});
+
+  @override
+  ConsumerState<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends ConsumerState<HomeView> {
+  int selectedIndex = 0;
+  List<Widget> lstScreen = [
+    const ExploreView(),
+    const HomeView(),
+    const WishlistView(),
+    const ProfileView(),
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: lstScreen[selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore),
+            label: 'Explore',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Wishlist',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: selectedIndex,
+        onTap: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+        },
+      ),
+    );
+  }
+}
