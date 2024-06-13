@@ -1,4 +1,5 @@
 import 'package:final_assignment/theme/app_bar_theme.dart';
+import 'package:final_assignment/theme/bottom_navigator_bar_theme.dart';
 import 'package:final_assignment/theme/elevated_button_theme.dart';
 import 'package:final_assignment/theme/text_field_theme.dart';
 import 'package:final_assignment/theme/text_theme.dart';
@@ -16,6 +17,7 @@ class KAppTheme {
     elevatedButtonTheme: KElevatedButtonTheme.lightElevatedButtonTheme,
     appBarTheme: KAppBarTheme.lightAppBarTheme,
     inputDecorationTheme: KTextFieldTheme.lightInputDecorationTheme,
+    bottomNavigationBarTheme: KBottomNavigatorBarTheme.lightBottomNavigatorBarTheme,
   );
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
@@ -26,5 +28,6 @@ class KAppTheme {
     elevatedButtonTheme: KElevatedButtonTheme.darkElevatedButtonTheme,
     appBarTheme: KAppBarTheme.darkAppBarTheme,
     inputDecorationTheme: KTextFieldTheme.darkInputDecorationTheme,
+    bottomNavigationBarTheme: KBottomNavigatorBarTheme.darkBottomNavigatorBarTheme,
   );
 }

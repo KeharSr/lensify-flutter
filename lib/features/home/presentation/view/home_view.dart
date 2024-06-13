@@ -152,6 +152,7 @@
 //   }
 // }
 
+import 'package:final_assignment/features/home/presentation/view/bottom_view/dashboard_view.dart';
 import 'package:final_assignment/features/home/presentation/view/bottom_view/explore_view.dart';
 import 'package:final_assignment/features/home/presentation/view/bottom_view/profile_view.dart';
 import 'package:final_assignment/features/home/presentation/view/bottom_view/wishlist_view.dart';
@@ -169,8 +170,8 @@ class HomeView extends ConsumerStatefulWidget {
 class _HomeViewState extends ConsumerState<HomeView> {
   int selectedIndex = 0;
   List<Widget> lstScreen = [
+    const DashboardView(),
     const ExploreView(),
-    const HomeView(),
     const WishlistView(),
     const ProfileView(),
   ];

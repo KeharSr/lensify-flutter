@@ -2,7 +2,6 @@ import 'package:final_assignment/app/constants/hive_table_constants.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 import 'package:uuid/uuid.dart';
 
 part 'auth_hive_model.g.dart';
@@ -13,7 +12,6 @@ final authHiveModelProvider = Provider(
 
 @HiveType(typeId: HiveTableConstant.userTableId)
 class AuthHiveModel {
- 
   @HiveField(0)
   final String userId;
 
@@ -42,7 +40,6 @@ class AuthHiveModel {
     required this.lname,
     required this.email,
     required this.phone,
-    
     required this.username,
     required this.password,
   }) : userId = userId ?? const Uuid().v4();
@@ -87,6 +84,6 @@ class AuthHiveModel {
 
   @override
   String toString() {
-    return 'userId: $userId, fname: $fname, lname: $lname, phone: $phone,  username: $username, password: $password';
+    return 'userId: $userId, fname: $fname, lname: $lname, phone: $phone, email: $email, username: $username, password: $password';
   }
 }

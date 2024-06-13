@@ -244,12 +244,9 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                             const Text("Already have an account? "),
                             TextButton(
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const LoginView(),
-                                  ),
-                                );
+                                ref
+                                    .read(authViewModelProvider.notifier)
+                                    .openLoginView();
                               },
                               child: const Text(
                                 "Login",

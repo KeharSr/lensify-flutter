@@ -10,6 +10,6 @@ class RegisterViewNavigator with  LoginViewRoute{}
 
 mixin RegisterViewRoute {
   openRegisterView() {
-    NavigateRoute.pushRoute(const RegisterView());
+    NavigateRoute.popAndPushRoute(const RegisterView());
   }
 }
