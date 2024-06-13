@@ -1,17 +1,18 @@
-import 'package:final_assignment/common/widgets/my_button.dart';
-import 'package:final_assignment/common/widgets/my_text_form_field.dart';
-import 'package:final_assignment/screen/dashboard_screen.dart';
-import 'package:final_assignment/screen/register_screen.dart';
+import 'package:final_assignment/core/common/widgets/my_button.dart';
+import 'package:final_assignment/core/common/widgets/my_text_form_field.dart';
+import 'package:final_assignment/features/auth/presentation/view/register_view.dart';
+import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginView extends ConsumerStatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginViewState extends ConsumerState<LoginView> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
@@ -32,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Image(
                     height: 150,
-                    image: AssetImage("assets/images/applogo2.png"),
+                    image: AssetImage("assets/images/applogo.png"),
                   ),
                   Text(
                     'Welcome back,',
@@ -67,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value!.isEmpty) {
                             return 'Enter your email';
                           }
-                          if (value != 'admin@gmail.com') {
+                          if (!value.contains('@')) {
                             return 'Enter a valid email';
                           }
                           return null;
@@ -86,9 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value.length < 4) {
                             return 'Password must be at least 6 characters';
                           }
-                          if (value != 'admin') {
-                            return 'Enter a valid password';
-                          }
+
                           return null;
                         },
                         suffixIcon: GestureDetector(
@@ -139,14 +138,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       MyButton(
                         backgroundColor: const Color.fromARGB(255, 2, 141, 255),
                         text: "Sign In",
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DashboardScreen(),
-                              ),
-                            );
+                            await ref
+                                .read(authViewModelProvider.notifier)
+                                .loginUser(
+                                  _emailController.text,
+                                  _passwordController.text,
+                                );
                           }
                         },
                       ),
@@ -159,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RegistrationScreen(),
+                              builder: (context) => const RegisterView(),
                             ),
                           );
                         },

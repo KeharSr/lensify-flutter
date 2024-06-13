@@ -1,19 +1,21 @@
-
-
-import 'package:final_assignment/common/widgets/my_button.dart';
-import 'package:final_assignment/common/widgets/my_text_form_field.dart';
+import 'package:final_assignment/core/common/widgets/my_button.dart';
+import 'package:final_assignment/core/common/widgets/my_text_form_field.dart';
+import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
+import 'package:final_assignment/features/auth/presentation/view/login_view.dart';
+import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'login_screen.dart';
 
-class RegistrationScreen extends StatefulWidget {
-  const RegistrationScreen({super.key});
+
+class RegisterView extends ConsumerStatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<RegistrationScreen> createState() => _RegistrationScreenState();
+  ConsumerState<RegisterView> createState() => _RegisterViewState();
 }
 
-class _RegistrationScreenState extends State<RegistrationScreen> {
+class _RegisterViewState extends ConsumerState<RegisterView> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final _fNameController = TextEditingController();
@@ -37,7 +39,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 children: [
                   const Image(
                     height: 100,
-                    image: AssetImage("assets/images/applogo2.png"),
+                    image: AssetImage("assets/images/applogo.png"),
                   ),
                   const Text(
                     "Let's Create Your Account",
@@ -224,12 +226,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           text: 'Create Account',
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const LoginScreen(),
-                                ),
+                              final student = AuthEntity(
+                                fname: _fNameController.text,
+                                lname: _lNameController.text,
+                                email: _emailController.text,
+                                username: _userNameController.text,
+                                phone: _phoneNumberController.text,
+                                password: _passwordController.text,
                               );
+                              ref
+                                  .read(authViewModelProvider.notifier)
+                                  .registerUser(student);
                             }
                           },
                         ),
@@ -242,7 +249,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
+                                    builder: (context) => const LoginView(),
                                   ),
                                 );
                               },
