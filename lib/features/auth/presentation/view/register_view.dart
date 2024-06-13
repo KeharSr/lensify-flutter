@@ -226,7 +226,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           text: 'Create Account',
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              final student = AuthEntity(
+                              final user = AuthEntity(
                                 fname: _fNameController.text,
                                 lname: _lNameController.text,
                                 email: _emailController.text,
@@ -236,7 +236,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                               );
                               ref
                                   .read(authViewModelProvider.notifier)
-                                  .registerUser(student);
+                                  .registerUser(user);
                             }
                           },
                         ),
