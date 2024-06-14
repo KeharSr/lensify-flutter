@@ -15,9 +15,7 @@ class AuthEntity extends Equatable {
     required this.fname,
     required this.lname,
     required this.email,
-    
     required this.phone,
-    
     required this.username,
     required this.password,
   });
