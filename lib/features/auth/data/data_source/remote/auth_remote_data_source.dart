@@ -20,17 +20,17 @@ class AuthRemoteDataSource {
 
   AuthRemoteDataSource({required this.dio, required this.userSharedPrefs});
 
-  Future<Either<Failure, bool>> createUser(AuthEntity register) async {
+  Future<Either<Failure, bool>> createUser(AuthEntity createUser) async {
     try {
       Response response = await dio.post(
-        ApiEndpoints.register,
+        ApiEndpoints.createUser,
         data: {
-          "firstName": register.firstName,
-          "lastName": register.lastName,
-          "email": register.email,
-          "phone": register.phone,
-          "userName": register.userName,
-          "password": register.password,
+          "firstName": createUser.firstName,
+          "lastName": createUser.lastName,
+          "email": createUser.email,
+          "phone": createUser.phone,
+          "userName": createUser.userName,
+          "password": createUser.password,
         },
       );
       if (response.statusCode == 200) {
@@ -44,6 +44,39 @@ class AuthRemoteDataSource {
         );
       }
     } on DioException catch (e) {
+      return Left(Failure(
+        error: e.toString(),
+        statusCode: e.response?.statusCode.toString() ?? '0',
+      ));
+    }
+  }
+
+  Future<Either<Failure, bool>> loginUser(
+    String email,
+    String password,
+  ) async {
+    try{
+      Response response = await dio.post(
+        ApiEndpoints.loginUser,
+        data: {
+          "email": email,
+          "password": password,
+        },
+      );
+      if(response.statusCode ==200){
+        String token = response.data['token'];
+
+        await userSharedPrefs.setUserToken(token);
+        return const Right(true);
+      }else{
+        return Left(
+          Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString(),
+          ),
+        );
+      }
+    } on DioException catch(e){
       return Left(Failure(
         error: e.toString(),
         statusCode: e.response?.statusCode.toString() ?? '0',

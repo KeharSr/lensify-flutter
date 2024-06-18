@@ -7,31 +7,21 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final authRemoteRepositoryProvider = Provider(
   (ref) => AuthRemoteRepository(
-     ref.read(authRemoteDataSourceProvider),
+    ref.read(authRemoteDataSourceProvider),
   ),
 );
 
-class AuthRemoteRepository implements IAuthRepository{
+class AuthRemoteRepository implements IAuthRepository {
   final AuthRemoteDataSource _authRemoteDataSource;
   AuthRemoteRepository(this._authRemoteDataSource);
-
-  
-  
 
   @override
   Future<Either<Failure, bool>> createUser(AuthEntity user) {
     return _authRemoteDataSource.createUser(user);
   }
-  
+
   @override
   Future<Either<Failure, bool>> loginUser(String email, String password) {
-    // TODO: implement loginUser
-    throw UnimplementedError();
-  }
-  
-  @override
-  Future<Either<Failure, bool>> registerUser(AuthEntity user) {
-    // TODO: implement registerUser
-    throw UnimplementedError();
+    return _authRemoteDataSource.loginUser(email, password);
   }
 }
