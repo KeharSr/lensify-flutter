@@ -20,7 +20,7 @@ class AuthRemoteDataSource {
 
   AuthRemoteDataSource({required this.dio, required this.userSharedPrefs});
 
-  Future<Either<Failure, bool>> registerUser(AuthEntity register) async {
+  Future<Either<Failure, bool>> createUser(AuthEntity register) async {
     try {
       Response response = await dio.post(
         ApiEndpoints.register,

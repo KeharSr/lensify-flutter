@@ -1,7 +1,6 @@
 import 'package:final_assignment/core/common/widgets/my_button.dart';
 import 'package:final_assignment/core/common/widgets/my_text_form_field.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
-import 'package:final_assignment/features/auth/presentation/view/login_view.dart';
 import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -234,7 +233,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                               );
                               ref
                                   .read(authViewModelProvider.notifier)
-                                  .registerUser(user);
+                                  .createUser(user);
                             }
                           },
                         ),

@@ -22,9 +22,9 @@ class AuthViewModel extends StateNotifier<AuthState> {
   final LoginViewNavigator navigator;
   final RegisterViewNavigator registerNavigator;
 
-  Future<void> registerUser(AuthEntity user) async {
+  Future<void> createUser(AuthEntity user) async {
     state = state.copyWith(isLoading: true);
-    var data = await authUseCase.registerUser(user);
+    var data = await authUseCase.createUser(user);
     data.fold(
       (failure) {
         state = state.copyWith(
