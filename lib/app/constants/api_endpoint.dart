@@ -1,8 +1,12 @@
-class ApiEndpoints{
+class ApiEndpoints {
   ApiEndpoints._();
 
   static const Duration connectionTimeout = Duration(seconds: 1000);
   static const Duration receiveTimeout = Duration(seconds: 1000);
-  static const String baseUrl = 'https://192.168.56.1:3000/api/v1/';
+  static const String baseUrl = 'https://192.168.56.1:5000/api/v1/';
 
+// ===========Auth Routes===========
+  static const String login = 'auth/login';
+  static const String register = 'auth/register';
 }
+

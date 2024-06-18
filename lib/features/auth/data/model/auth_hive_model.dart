@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 
 part 'auth_hive_model.g.dart';
 
+
 final authHiveModelProvider = Provider(
   (ref) => AuthHiveModel.empty(),
 );
@@ -16,10 +17,10 @@ class AuthHiveModel {
   final String userId;
 
   @HiveField(1)
-  final String fname;
+  final String firstName;
 
   @HiveField(2)
-  final String lname;
+  final String lastName;
 
   @HiveField(3)
   final String email;
@@ -28,7 +29,7 @@ class AuthHiveModel {
   final String phone;
 
   @HiveField(5)
-  final String username;
+  final String userName;
 
   @HiveField(6)
   final String password;
@@ -36,11 +37,11 @@ class AuthHiveModel {
   // Constructor
   AuthHiveModel({
     String? userId,
-    required this.fname,
-    required this.lname,
+    required this.firstName,
+    required this.lastName,
     required this.email,
     required this.phone,
-    required this.username,
+    required this.userName,
     required this.password,
   }) : userId = userId ?? const Uuid().v4();
 
@@ -48,33 +49,33 @@ class AuthHiveModel {
   AuthHiveModel.empty()
       : this(
           userId: '',
-          fname: '',
-          lname: '',
+          firstName: '',
+          lastName: '',
           email: '',
           phone: '',
-          username: '',
+          userName: '',
           password: '',
         );
 
   // Convert Hive Object to Entity
   AuthEntity toEntity() => AuthEntity(
         id: userId,
-        fname: fname,
-        lname: lname,
+        firstName: firstName,
+        lastName: lastName,
         email: email,
         phone: phone,
-        username: username,
+        userName: userName,
         password: password,
       );
 
   // Convert Entity to Hive Object
   AuthHiveModel toHiveModel(AuthEntity entity) => AuthHiveModel(
         userId: const Uuid().v4(),
-        fname: entity.fname,
-        lname: entity.lname,
+        firstName: entity.firstName,
+        lastName: entity.lastName,
         email: entity.email,
         phone: entity.phone,
-        username: entity.username,
+        userName: entity.userName,
         password: entity.password,
       );
 
@@ -84,6 +85,6 @@ class AuthHiveModel {
 
   @override
   String toString() {
-    return 'userId: $userId, fname: $fname, lname: $lname, phone: $phone, email: $email, username: $username, password: $password';
+    return 'userId: $userId, firstName: $firstName, lastName: $lastName, phone: $phone, email: $email, userName: $userName, password: $password';
   }
 }

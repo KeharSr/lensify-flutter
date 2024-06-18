@@ -16,8 +16,8 @@ class RegisterView extends ConsumerStatefulWidget {
 class _RegisterViewState extends ConsumerState<RegisterView> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
-  final _fNameController = TextEditingController();
-  final _lNameController = TextEditingController();
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
   final _emailController = TextEditingController();
   final _userNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
@@ -55,7 +55,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           children: [
                             Flexible(
                               child: MyTextFormField(
-                                controller: _fNameController,
+                                controller: _firstNameController,
                                 labelText: "First Name",
                                 prefixIcon: Icons.person,
                                 validator: (value) {
@@ -75,7 +75,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                             const SizedBox(width: 16),
                             Expanded(
                               child: MyTextFormField(
-                                controller: _lNameController,
+                                controller: _lastNameController,
                                 labelText: "Last Name",
                                 prefixIcon: Icons.person,
                                 validator: (value) {
@@ -225,10 +225,10 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               final user = AuthEntity(
-                                fname: _fNameController.text,
-                                lname: _lNameController.text,
+                                firstName: _firstNameController.text,
+                                lastName: _lastNameController.text,
                                 email: _emailController.text,
-                                username: _userNameController.text,
+                                userName: _userNameController.text,
                                 phone: _phoneNumberController.text,
                                 password: _passwordController.text,
                               );
