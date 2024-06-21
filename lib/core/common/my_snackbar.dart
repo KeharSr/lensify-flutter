@@ -1,7 +1,6 @@
 import 'package:final_assignment/app/navigator_key/navigator_key.dart';
 import 'package:flutter/material.dart';
 
-
 showMySnackBar({
   required String message,
   Color? color,
@@ -18,4 +17,3 @@ showMySnackBar({
     ),
   );
 }
-

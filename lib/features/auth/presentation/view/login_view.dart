@@ -14,8 +14,10 @@ class LoginView extends ConsumerStatefulWidget {
 class _LoginViewState extends ConsumerState<LoginView> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController =
+      TextEditingController(text: "user@gmail.com");
+  final TextEditingController _passwordController =
+      TextEditingController(text: "password");
 
   @override
   Widget build(BuildContext context) {

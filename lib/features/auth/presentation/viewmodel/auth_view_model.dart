@@ -11,13 +11,13 @@ final authViewModelProvider = StateNotifierProvider<AuthViewModel, AuthState>(
   (ref) => AuthViewModel(
     ref.read(loginViewNavigatorProvider),
     ref.read(registerViewNavigatorProvider),
-    
     ref.read(authUseCaseProvider),
   ),
 );
 
 class AuthViewModel extends StateNotifier<AuthState> {
-  AuthViewModel(this.navigator, this.registerNavigator,this.authUseCase) : super(AuthState.initial());
+  AuthViewModel(this.navigator, this.registerNavigator, this.authUseCase)
+      : super(AuthState.initial());
   final AuthUseCase authUseCase;
   final LoginViewNavigator navigator;
   final RegisterViewNavigator registerNavigator;
@@ -53,6 +53,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
+        showMySnackBar(message: "Successfully logged in");
         openHomeView();
       },
     );
