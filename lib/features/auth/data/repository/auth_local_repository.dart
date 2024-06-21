@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:final_assignment/core/common/failure/failure.dart';
-import 'package:final_assignment/features/auth/data/data_source/auth_local_data_source.dart';
+import 'package:final_assignment/features/auth/data/data_source/local/auth_local_data_source.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/repository/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -27,6 +27,12 @@ class AuthLocalRepository implements IAuthRepository {
   @override
   Future<Either<Failure, bool>> createUser(AuthEntity user) {
     return _authLocalDataSource.createUser(user);
+  }
+  
+  @override
+  Future<Either<Failure, AuthEntity>> getCurrentUser() {
+    // TODO: implement getCurrentUser
+    throw UnimplementedError();
   }
 
  

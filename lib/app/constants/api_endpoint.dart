@@ -9,4 +9,5 @@ class ApiEndpoints {
 // ===========Auth Routes===========
   static const String loginUser = 'user/login';
   static const String createUser = 'user/create';
+  static const String currentUser = 'user/existingUser';
 }

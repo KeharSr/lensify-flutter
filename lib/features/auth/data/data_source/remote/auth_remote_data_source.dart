@@ -4,6 +4,7 @@ import 'package:final_assignment/app/constants/api_endpoint.dart';
 import 'package:final_assignment/core/common/failure/failure.dart';
 import 'package:final_assignment/core/common/shared_prefs/user_shared_prefs.dart';
 import 'package:final_assignment/core/networking/remote/http_service.dart';
+import 'package:final_assignment/features/auth/data/dto/get_current_user_dto.dart';
 import 'package:final_assignment/features/auth/data/model/auth_api_model.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,7 +23,7 @@ class AuthRemoteDataSource {
   final AuthApiModel authApiModel;
 
   AuthRemoteDataSource({
-    required this.dio, 
+    required this.dio,
     required this.userSharedPrefs,
     required this.authApiModel,
   });
@@ -45,10 +46,8 @@ class AuthRemoteDataSource {
         );
       }
     } on DioException catch (e) {
-      return Left(
-        Failure(
+      return Left(Failure(
         error: e.message.toString(),
-        
       ));
     }
   }
@@ -86,26 +85,43 @@ class AuthRemoteDataSource {
       );
     }
   }
+
+  // Get current user
+  Future<Either<Failure, AuthEntity>> getCurrentUser() async {
+    try {
+      String? token;
+      var data = await userSharedPrefs.getUserToken();
+      data.fold(
+        (l) => token = null,
+        (r) => token = r,
+      );
+      var response = await dio.get(
+        ApiEndpoints.currentUser,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          }),
+      );
+
+      if(response.statusCode==200){
+        GetCurrentUserDto getCurrentUserDto = 
+          GetCurrentUserDto.fromJson(response.data);
+
+        return Right(getCurrentUserDto.toEntity());
+      }else{
+        return Left(
+          Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString(),
+          ),
+        );}
+      
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.message.toString(),
+        ),
+      );
+    }
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

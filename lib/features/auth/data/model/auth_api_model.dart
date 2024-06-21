@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'auth_api_model.g.dart';
 
 //provider
-final authApiModelProvider = Provider<AuthApiModel>((ref) => AuthApiModel.empty());
+final authApiModelProvider = Provider<AuthApiModel>((ref) => const AuthApiModel.empty());
 
 @JsonSerializable()
 class AuthApiModel {

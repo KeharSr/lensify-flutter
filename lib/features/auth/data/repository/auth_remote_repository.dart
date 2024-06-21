@@ -24,4 +24,10 @@ class AuthRemoteRepository implements IAuthRepository {
   Future<Either<Failure, bool>> loginUser(String email, String password) {
     return _authRemoteDataSource.loginUser(email, password);
   }
+  
+  @override
+  Future<Either<Failure, AuthEntity>> getCurrentUser() {
+    return _authRemoteDataSource.getCurrentUser();
+  }
+  
 }
