@@ -1,16 +1,15 @@
-import 'package:final_assignment/core/common/my_snackbar.dart';
+import 'package:final_assignment/core/common/widgets/my_snackbar.dart';
 import 'package:final_assignment/features/home/presentation/navigator/home_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
-final homeViewModelProvider = StateNotifierProvider<HomeViewModel, bool>(
-  (ref) => HomeViewModel(ref.read(homeViewNavigatorProvider)),
+final mainViewModelProvider = StateNotifierProvider<MainViewModel, bool>(
+  (ref) => MainViewModel(ref.read(mainViewNavigatorProvider)),
 );
 
-class HomeViewModel extends StateNotifier<bool> {
-  HomeViewModel(this.homeNavigator) : super(false);
-  final HomeViewNavigator homeNavigator;
+class MainViewModel extends StateNotifier<bool> {
+  MainViewModel(this.mainNavigator) : super(false);
+  final MainViewNavigator mainNavigator;
 
   void logout() async {
     showMySnackBar(message: 'Logging out....', color: Colors.red);
@@ -19,6 +18,6 @@ class HomeViewModel extends StateNotifier<bool> {
   }
 
   openLoginView() {
-    homeNavigator.openLoginView();
+    mainNavigator.openLoginView();
   }
 }

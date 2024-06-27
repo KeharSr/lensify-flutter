@@ -1,4 +1,4 @@
-import 'package:final_assignment/core/common/my_snackbar.dart';
+import 'package:final_assignment/core/common/widgets/my_snackbar.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart';
 import 'package:final_assignment/features/auth/presentation/navigator/login_navigator.dart';
