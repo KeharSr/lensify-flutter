@@ -1,4 +1,4 @@
-import 'package:final_assignment/features/home/data/model/product_api_model.dart';
+
 import 'package:final_assignment/features/home/domain/entity/product_entity.dart';
 
 class ProductState {

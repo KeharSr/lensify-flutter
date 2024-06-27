@@ -274,10 +274,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   Widget build(BuildContext context) {
     final state = ref.watch(productViewModelProvider);
 
-    // Debug print to check the state of products
-    print('Products: ${state.products}');
-    print('Is Loading: ${state.isLoading}');
-
+    
     return NotificationListener(
       onNotification: (notification) {
         if (notification is ScrollEndNotification &&

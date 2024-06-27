@@ -10,8 +10,9 @@ final productViewModelProvider =
 
 class ProductViewmodel extends StateNotifier<ProductState> {
   ProductViewmodel({required this.productUsecase})
-      : super(ProductState.initial());
-  getProducts();
+      : super(ProductState.initial()) {
+    getProducts();
+  }
 
   final ProductUsecase productUsecase;
 
