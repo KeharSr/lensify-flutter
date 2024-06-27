@@ -1,23 +1,19 @@
-import 'package:final_assignment/features/home/data/data_source/product_data_source.dart';
+import 'package:final_assignment/features/home/domain/usecases/product_usecase.dart';
 import 'package:final_assignment/features/home/presentation/state/product_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 final productViewModelProvider =
-    StateNotifierProvider<ProductsViewmodel, ProductState>((ref) {
-  final productDataSource = ref.read(productDataSourceProvider);
-  return ProductsViewmodel(productDataSource);
-});
+    StateNotifierProvider<ProductViewmodel, ProductState>(
+        (ref) => ProductViewmodel(
+              productUsecase: ref.watch(productUsecaseProvider),
+            ));
 
-class ProductsViewmodel extends StateNotifier<ProductState> {
-  final ProductDataSource _productDataSource;
-  ProductsViewmodel(
-    this._productDataSource,
-  ) : super(
-          ProductState.initial(),
-        ) {
-    getProducts();
-  }
+class ProductViewmodel extends StateNotifier<ProductState> {
+  ProductViewmodel({required this.productUsecase})
+      : super(ProductState.initial());
+  getProducts();
+
+  final ProductUsecase productUsecase;
 
   Future resetState() async {
     state = ProductState.initial();
@@ -32,7 +28,7 @@ class ProductsViewmodel extends StateNotifier<ProductState> {
     final hasReachedMax = currentState.hasReachedMax;
     if (!hasReachedMax) {
       // get data from data source
-      final result = await _productDataSource.getAllProducts(page);
+      final result = await productUsecase.pagination(page, 6);
       result.fold(
         (failure) =>
             state = state.copyWith(hasReachedMax: true, isLoading: false),

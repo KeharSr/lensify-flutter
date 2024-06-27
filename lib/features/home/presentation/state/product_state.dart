@@ -1,9 +1,8 @@
 import 'package:final_assignment/features/home/data/model/product_api_model.dart';
-
-
+import 'package:final_assignment/features/home/domain/entity/product_entity.dart';
 
 class ProductState {
-  final List<ProductsApiModel> products;
+  final List<ProductEntity> products;
   final bool hasReachedMax;
   final int page;
   final bool isLoading;
@@ -25,7 +24,7 @@ class ProductState {
   }
 
   ProductState copyWith({
-    List<ProductsApiModel>? products,
+    List<ProductEntity>? products,
     bool? hasReachedMax,
     int? page,
     bool? isLoading,
