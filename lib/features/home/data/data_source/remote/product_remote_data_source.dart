@@ -42,7 +42,7 @@ class ProductRemoteDataSource {
       final token = await userSharedPrefs.getUserToken();
       token.fold((l) => throw Failure(error: l.error), (r) => r);
       final response = await dio.get(
-        ApiEndpoints.pagination,
+        ApiEndpoints.paginatonProducts,
         queryParameters: {
           'page': page,
           'limit': limit,
