@@ -15,6 +15,8 @@ class ApiEndpoints {
   static const String getAllProducts = 'products/get_all_products';
   static const String updateProduct = 'products/update_Product';
 
+  static const String pagination = 'products/pagination';
+
   static const int limitPage = 10;
 
 }

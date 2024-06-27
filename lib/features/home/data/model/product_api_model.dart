@@ -8,7 +8,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'product_api_model.g.dart';
 
 //provider
-final productsApiModelProvider =
+final productApiModelProvider =
     Provider<ProductApiModel>((ref) => const ProductApiModel.empty());
 
 @JsonSerializable()
