@@ -7,7 +7,7 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.leadingIcon,
     this.leadingOnTap,
-    this.showRefresh = true,
+    this.showRefresh = false,
   });
 
   final Widget? title;
@@ -19,7 +19,9 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+      ),
       child: AppBar(
         automaticallyImplyLeading: false,
         leading: showRefresh

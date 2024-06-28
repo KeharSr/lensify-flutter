@@ -18,8 +18,8 @@ class MySearchContainer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Container(
-        width: 300,
-        padding: const EdgeInsets.all(16),
+        width: 340,
+        padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: showBackground ? Colors.white : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
