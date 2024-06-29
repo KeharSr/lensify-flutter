@@ -29,7 +29,7 @@ class ProductViewmodel extends StateNotifier<ProductState> {
     final hasReachedMax = currentState.hasReachedMax;
     if (!hasReachedMax) {
       // get data from data source
-      final result = await productUsecase.pagination(page, 6);
+      final result = await productUsecase.pagination(page, 2);
       result.fold(
         (failure) =>
             state = state.copyWith(hasReachedMax: true, isLoading: false),
@@ -47,8 +47,9 @@ class ProductViewmodel extends StateNotifier<ProductState> {
       );
     }
   }
-  
 }
+
+
 
 
 

@@ -7,18 +7,20 @@ class MySearchContainer extends StatelessWidget {
     this.icon,
     this.showBackground = true,
     this.showBorder = true,
+    this.fontSize = 16,
   });
 
   final String text;
   final IconData? icon;
   final bool showBackground, showBorder;
+  final double fontSize;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Container(
-        width: 340,
+        width: 320,
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
           color: showBackground ? Colors.white : Colors.transparent,

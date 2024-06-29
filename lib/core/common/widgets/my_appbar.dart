@@ -1,3 +1,6 @@
+
+
+
 import 'package:flutter/material.dart';
 
 class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -7,28 +10,26 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.actions,
     this.leadingIcon,
     this.leadingOnTap,
-    this.showRefresh = false,
+    this.showBackArrow = false,
   });
 
   final Widget? title;
-  final bool showRefresh;
   final IconData? leadingIcon;
   final List<Widget>? actions;
   final VoidCallback? leadingOnTap;
+  final bool showBackArrow;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: AppBar(
         automaticallyImplyLeading: false,
-        leading: showRefresh
+        leading: showBackArrow
             ? IconButton(
-                icon: Icon(leadingIcon ?? Icons.refresh, color: Colors.black),
-                onPressed: leadingOnTap ?? () => Navigator.pop(context),
-              )
+          onPressed: leadingOnTap ?? () => Navigator.pop(context),
+          icon: Icon(leadingIcon ?? Icons.arrow_back, color: Colors.black),
+        )
             : null,
         title: title,
         actions: actions,
@@ -37,5 +38,5 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight((AppBar().preferredSize.height));
+  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
 }
