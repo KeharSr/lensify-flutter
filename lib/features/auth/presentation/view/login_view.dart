@@ -85,7 +85,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           if (value!.isEmpty) {
                             return 'Enter your password';
                           }
-                          if (value.length < 4) {
+                          if (value.length < 6) {
                             return 'Password must be at least 6 characters';
                           }
 
@@ -136,19 +136,40 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         ],
                       ),
                       const SizedBox(height: 32),
-                      MyButton(
-                        backgroundColor: const Color.fromARGB(255, 2, 141, 255),
-                        text: "Sign In",
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            await ref
-                                .read(authViewModelProvider.notifier)
-                                .loginUser(
-                                  _emailController.text,
-                                  _passwordController.text,
-                                );
-                          }
-                        },
+                      Row(
+                        children: [
+                          Expanded(
+                            child: MyButton(
+                              backgroundColor:
+                                  const Color.fromARGB(255, 2, 141, 255),
+                              text: "Login",
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  await ref
+                                      .read(authViewModelProvider.notifier)
+                                      .loginUser(
+                                        _emailController.text,
+                                        _passwordController.text,
+                                      );
+                                }
+                              },
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey.shade400),
+                              borderRadius: BorderRadius.circular(100),
+                            ),
+                            child: IconButton(
+                                icon: const Icon(Icons.fingerprint),
+                                onPressed: () async {
+                                  await ref
+                                      .read(authViewModelProvider.notifier)
+                                      .authenticateWithBiometrics();
+                                }),
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 16),
                       MyButton(

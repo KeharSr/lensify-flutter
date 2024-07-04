@@ -5,7 +5,6 @@ import 'package:final_assignment/features/auth/data/model/auth_hive_model.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 final authLocalDataSourceProvider = Provider(
   (ref) => AuthLocalDataSource(
     ref.read(hiveServiceProvider),
@@ -39,4 +38,6 @@ class AuthLocalDataSource {
       return Left(Failure(error: e.toString()));
     }
   }
+
+// currentUser
 }
