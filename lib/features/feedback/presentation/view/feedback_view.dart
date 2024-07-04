@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class FeebackView extends StatefulWidget {
-  const FeebackView({super.key});
+class FeedbackView extends StatefulWidget {
+  const FeedbackView({super.key});
 
   @override
-  State<FeebackView> createState() => _FeebackViewState();
+  State<FeedbackView> createState() => _FeedbackViewState();
 }
 
-class _FeebackViewState extends State<FeebackView> {
+class _FeedbackViewState extends State<FeedbackView> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Text('Feedback'),
       ),
