@@ -166,7 +166,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
                                 onPressed: () async {
                                   await ref
                                       .read(authViewModelProvider.notifier)
-                                      .authenticateWithBiometrics();
+                                      .fingerPrintLogin();
                                 }),
                           ),
                         ],

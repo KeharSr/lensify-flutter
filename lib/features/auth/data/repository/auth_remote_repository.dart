@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:final_assignment/core/common/failure/failure.dart';
+import 'package:final_assignment/core/failure/failure.dart';
 import 'package:final_assignment/features/auth/data/data_source/remote/auth_remote_data_source.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/repository/auth_repository.dart';
@@ -13,6 +13,7 @@ final authRemoteRepositoryProvider = Provider(
 
 class AuthRemoteRepository implements IAuthRepository {
   final AuthRemoteDataSource _authRemoteDataSource;
+
   AuthRemoteRepository(this._authRemoteDataSource);
 
   @override
@@ -24,10 +25,14 @@ class AuthRemoteRepository implements IAuthRepository {
   Future<Either<Failure, bool>> loginUser(String email, String password) {
     return _authRemoteDataSource.loginUser(email, password);
   }
-  
+
   @override
   Future<Either<Failure, AuthEntity>> getCurrentUser() {
     return _authRemoteDataSource.getCurrentUser();
   }
-  
+
+  @override
+  Future<Either<Failure, bool>> fingerPrintLogin(String id) {
+    return _authRemoteDataSource.fingerPrintLogin(id);
+  }
 }

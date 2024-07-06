@@ -10,30 +10,44 @@ final feedbackViewModelProvider =
 
 class FeedbackViewModel extends StateNotifier<FeedbackState> {
   FeedbackViewModel() : super(FeedbackState.initial()) {
-    startListeningToAccelerometer();
+    startListeningToGyroscope();
   }
 
-  StreamSubscription? _accelerometerSubscription;
+  StreamSubscription? _gyroscopeSubscription;
   DateTime? _lastShakeTimestamp;
+  List<double> _shakeHistory = [];
 
-  void startListeningToAccelerometer() {
-    _accelerometerSubscription = accelerometerEvents.listen((event) {
+  void startListeningToGyroscope() {
+    _gyroscopeSubscription = gyroscopeEventStream().listen((event) {
       final now = DateTime.now();
+      final double rotationRate = event.x.abs() + event.y.abs() + event.z.abs();
+      print(
+          "Rotation Rate: $rotationRate, time since last shake: ${now.difference(_lastShakeTimestamp ?? now)}");
+
       if (_lastShakeTimestamp == null ||
-          now.difference(_lastShakeTimestamp!) > Duration(seconds: 1)) {
-        final threshold = 12.0; // Adjust this threshold based on your needs
-        final acceleration =
-            event.x * event.x + event.y * event.y + event.z * event.z;
-        if (acceleration > threshold * threshold) {
-          _lastShakeTimestamp = now;
+          now.difference(_lastShakeTimestamp!) > Duration(milliseconds: 300)) {
+        // Decreased debounce duration
+        _lastShakeTimestamp = now;
+        _shakeHistory.add(rotationRate);
+        if (_shakeHistory.length > 10) _shakeHistory.removeAt(0);
+        if (_isShakePattern()) {
           _handleShakeEvent();
+          _shakeHistory.clear();
         }
       }
     });
   }
 
-  void stopListeningToAccelerometer() {
-    _accelerometerSubscription?.cancel();
+  bool _isShakePattern() {
+    int shakeCount = _shakeHistory
+        .where((rate) => rate > 3.0)
+        .length; // Lowered threshold for shake detection
+    print("Shake count: $shakeCount");
+    return shakeCount >= 3;
+  }
+
+  void stopListeningToGyroscope() {
+    _gyroscopeSubscription?.cancel();
   }
 
   void _handleShakeEvent() {
@@ -46,7 +60,13 @@ class FeedbackViewModel extends StateNotifier<FeedbackState> {
 
   @override
   void dispose() {
-    stopListeningToAccelerometer();
+    stopListeningToGyroscope();
     super.dispose();
+  }
+}
+
+Stream<GyroscopeEvent> gyroscopeEventStream() async* {
+  await for (final event in gyroscopeEvents) {
+    yield event;
   }
 }

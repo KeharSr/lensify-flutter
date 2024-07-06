@@ -72,7 +72,6 @@
 //   }
 // }
 
-
 import 'package:final_assignment/core/common/widgets/my_snackbar.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart';
@@ -84,11 +83,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:local_auth/local_auth.dart';
 
 final authViewModelProvider = StateNotifierProvider<AuthViewModel, AuthState>(
-      (ref) => AuthViewModel(
+  (ref) => AuthViewModel(
     ref.read(loginViewNavigatorProvider),
     ref.read(registerViewNavigatorProvider),
     ref.read(authUseCaseProvider),
-
   ),
 );
 
@@ -99,20 +97,20 @@ class AuthViewModel extends StateNotifier<AuthState> {
   final AuthUseCase authUseCase;
   final LoginViewNavigator navigator;
   final RegisterViewNavigator registerNavigator;
-  final LocalAuthentication auth = LocalAuthentication();
+  late LocalAuthentication _localAuth;
 
   Future<void> createUser(AuthEntity user) async {
     state = state.copyWith(isLoading: true);
     var data = await authUseCase.createUser(user);
     data.fold(
-          (failure) {
+      (failure) {
         state = state.copyWith(
           isLoading: false,
           error: failure.error,
         );
         showMySnackBar(message: failure.error, color: Colors.red);
       },
-          (success) {
+      (success) {
         state = state.copyWith(isLoading: false, error: null);
         showMySnackBar(message: "Successfully registered");
       },
@@ -120,17 +118,17 @@ class AuthViewModel extends StateNotifier<AuthState> {
   }
 
   Future<void> loginUser(
-      String email,
-      String password,
-      ) async {
+    String email,
+    String password,
+  ) async {
     state = state.copyWith(isLoading: true);
     var data = await authUseCase.loginUser(email, password);
     data.fold(
-          (failure) {
+      (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
         showMySnackBar(message: failure.error, color: Colors.red);
       },
-          (success) {
+      (success) {
         state = state.copyWith(isLoading: false, error: null);
         showMySnackBar(message: "Successfully logged in");
         openHomeView();
@@ -143,11 +141,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
     state = state.copyWith(isLoading: true);
     var data = await authUseCase.getCurrentUser();
     data.fold(
-          (failure) {
+      (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
         showMySnackBar(message: failure.error, color: Colors.red);
       },
-          (success) {
+      (success) {
         state = state.copyWith(isLoading: false, error: null);
         showMySnackBar(message: "Successfully logged in");
         openHomeView();
@@ -155,35 +153,43 @@ class AuthViewModel extends StateNotifier<AuthState> {
     );
   }
 
-  // authenticate with biometrics
-  Future<void> authenticateWithBiometrics() async {
-    state = state.copyWith(isLoading: true);
-    try {
-      bool authenticated = await auth.authenticate(
-        localizedReason: 'Please authenticate to proceed',
-        // biometricOnly: true,
+  Future<void> fingerPrintLogin() async {
+    _localAuth = LocalAuthentication();
 
+    bool authenticated = false;
+    try {
+      authenticated = await _localAuth.authenticate(
+        localizedReason: 'Authenticate to enable fingerprint',
+        options: const AuthenticationOptions(
+          stickyAuth: true,
+          biometricOnly: true,
+          useErrorDialogs: true,
+        ),
       );
-      if (authenticated) {
-        state = state.copyWith(isLoading: false, error: null);
-        showMySnackBar(message: "Biometric authentication successful");
-        openHomeView();
-      } else {
-        state = state.copyWith(isLoading: false, error: "Authentication failed");
-        showMySnackBar(message: "Biometric authentication failed", color: Colors.red);
-      }
     } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-      showMySnackBar(message: e.toString(), color: Colors.red);
-      print('PlatformException: $e');
+      showMySnackBar(
+          message: 'Fingerprint authentication failed', color: Colors.red);
+    }
+
+    if (authenticated) {
+      authUseCase.fingerPrintLogin().then((data) {
+        data.fold(
+          (l) {
+            showMySnackBar(message: l.error, color: Colors.red);
+          },
+          (r) {
+            showMySnackBar(message: "User logged in successfully");
+            navigator.openHomeView();
+          },
+        );
+      });
+    } else {
+      showMySnackBar(
+          message: 'Fingerprint authentication failed', color: Colors.red);
     }
   }
 
-
-
-
-
-
+  // authenticate with biometrics
 
   void openRegisterView() {
     navigator.openRegisterView();
@@ -196,6 +202,4 @@ class AuthViewModel extends StateNotifier<AuthState> {
   void openHomeView() {
     navigator.openHomeView();
   }
-
-
 }

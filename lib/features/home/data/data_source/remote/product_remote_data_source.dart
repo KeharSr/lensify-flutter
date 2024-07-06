@@ -1,20 +1,16 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:final_assignment/app/constants/api_endpoint.dart';
-import 'package:final_assignment/core/common/failure/failure.dart';
-import 'package:final_assignment/core/common/shared_prefs/user_shared_prefs.dart';
-
-
+import 'package:final_assignment/core/failure/failure.dart';
 import 'package:final_assignment/core/networking/remote/http_service.dart';
+import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
 import 'package:final_assignment/features/home/data/dto/pagination_dto.dart';
 import 'package:final_assignment/features/home/data/model/product_api_model.dart';
 import 'package:final_assignment/features/home/domain/entity/product_entity.dart';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
-
-final productRemoteDataSourceProvider = Provider<ProductRemoteDataSource>((ref) {
+final productRemoteDataSourceProvider =
+    Provider<ProductRemoteDataSource>((ref) {
   final dio = ref.watch(httpServiceProvider);
   final productApiModel = ref.watch(productApiModelProvider);
   final userSharedPrefs = ref.watch(userSharedPrefsProvider);

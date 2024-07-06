@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
-import 'package:final_assignment/core/common/failure/failure.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../failure/failure.dart';
 
 final userSharedPrefsProvider = Provider<UserSharedPrefs>((ref) {
   return UserSharedPrefs();

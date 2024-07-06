@@ -182,7 +182,7 @@ import 'package:final_assignment/core/common/widgets/my_carousel_slider.dart';
 import 'package:final_assignment/core/common/widgets/my_curved_edges.dart';
 import 'package:final_assignment/core/common/widgets/my_search_container.dart';
 import 'package:final_assignment/core/common/widgets/my_vertical_product_cart.dart';
-import 'package:final_assignment/features/feedback/presentation/view/feedback_view.dart';
+import 'package:final_assignment/features/feedback/presentation/navigator/feedback_navigator.dart';
 import 'package:final_assignment/features/feedback/presentation/viewmodel/feedback_viewmodel.dart';
 import 'package:final_assignment/features/home/presentation/viewmodel/products_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -201,15 +201,13 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   void initState() {
     super.initState();
-    ref
-        .read(feedbackViewModelProvider.notifier)
-        .startListeningToAccelerometer();
+    ref.read(feedbackViewModelProvider.notifier).startListeningToGyroscope();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
-    ref.read(feedbackViewModelProvider.notifier).stopListeningToAccelerometer();
+    ref.read(feedbackViewModelProvider.notifier).stopListeningToGyroscope();
     super.dispose();
   }
 
@@ -218,8 +216,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Send Feedback'),
-          content: Text('Are you sure you want to send feedback?'),
+          title: const Text('Send Feedback'),
+          content: const Text('Are you sure you want to send feedback?'),
           actions: [
             TextButton(
               onPressed: () {
@@ -228,20 +226,17 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     .read(feedbackViewModelProvider.notifier)
                     .setShowFeedbackDialog(false);
               },
-              child: Text('No'),
+              child: const Text('No'),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop(); // Close the dialog
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FeedbackView()),
-                );
+                ref.read(feedbackViewNavigatorProvider).openFeedbackView();
                 ref
                     .read(feedbackViewModelProvider.notifier)
                     .setShowFeedbackDialog(false);
               },
-              child: Text('Yes'),
+              child: const Text('Yes'),
             ),
           ],
         );
