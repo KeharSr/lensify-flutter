@@ -102,6 +102,7 @@ Future<void> main() async {
   //   expect(authState.error, isNull);
   //   expect(authState.isLoading, isFalse);
   // });
+  //
 
   tearDown(() {
     container.dispose();
