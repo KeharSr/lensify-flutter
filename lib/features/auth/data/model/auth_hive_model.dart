@@ -6,7 +6,6 @@ import 'package:uuid/uuid.dart';
 
 part 'auth_hive_model.g.dart';
 
-
 final authHiveModelProvider = Provider(
   (ref) => AuthHiveModel.empty(),
 );
@@ -26,7 +25,7 @@ class AuthHiveModel {
   final String email;
 
   @HiveField(4)
-  final String phone;
+  final String phoneNumber;
 
   @HiveField(5)
   final String userName;
@@ -40,7 +39,7 @@ class AuthHiveModel {
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.phone,
+    required this.phoneNumber,
     required this.userName,
     required this.password,
   }) : userId = userId ?? const Uuid().v4();
@@ -52,7 +51,7 @@ class AuthHiveModel {
           firstName: '',
           lastName: '',
           email: '',
-          phone: '',
+          phoneNumber: '',
           userName: '',
           password: '',
         );
@@ -63,7 +62,7 @@ class AuthHiveModel {
         firstName: firstName,
         lastName: lastName,
         email: email,
-        phone: phone,
+        phoneNumber: phoneNumber,
         userName: userName,
         password: password,
       );
@@ -74,7 +73,7 @@ class AuthHiveModel {
         firstName: entity.firstName,
         lastName: entity.lastName,
         email: entity.email,
-        phone: entity.phone,
+        phoneNumber: entity.phoneNumber,
         userName: entity.userName,
         password: entity.password,
       );
@@ -85,6 +84,6 @@ class AuthHiveModel {
 
   @override
   String toString() {
-    return 'userId: $userId, firstName: $firstName, lastName: $lastName, phone: $phone, email: $email, userName: $userName, password: $password';
+    return 'userId: $userId, firstName: $firstName, lastName: $lastName, phone: $phoneNumber, email: $email, userName: $userName, password: $password';
   }
 }

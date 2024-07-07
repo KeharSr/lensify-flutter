@@ -44,6 +44,16 @@ class UserSharedPrefs {
     }
   }
 
+  Future<Either<Failure, bool>> removeUserToken() async {
+    try {
+      _sharedPreferences = await SharedPreferences.getInstance();
+      await _sharedPreferences.remove('token');
+      return const Right(true);
+    } catch (e) {
+      return Left(Failure(error: e.toString()));
+    }
+  }
+
   Future<Either<Failure, bool>> saveFingerPrintId(String id) async {
     try {
       _sharedPreferences = await SharedPreferences.getInstance();

@@ -2,11 +2,11 @@ import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-
 part 'auth_api_model.g.dart';
 
 //provider
-final authApiModelProvider = Provider<AuthApiModel>((ref) => const AuthApiModel.empty());
+final authApiModelProvider =
+    Provider<AuthApiModel>((ref) => const AuthApiModel.empty());
 
 @JsonSerializable()
 class AuthApiModel {
@@ -14,7 +14,7 @@ class AuthApiModel {
   final String id;
   final String firstName;
   final String lastName;
-  final String phone;
+  final String phoneNumber;
   final String email;
   final String userName;
   final String? password;
@@ -24,7 +24,7 @@ class AuthApiModel {
     required this.firstName,
     required this.email,
     required this.lastName,
-    required this.phone,
+    required this.phoneNumber,
     required this.userName,
     required this.password,
   });
@@ -34,7 +34,7 @@ class AuthApiModel {
         firstName = '',
         lastName = '',
         email = '',
-        phone = '',
+        phoneNumber = '',
         userName = '',
         password = '';
 
@@ -50,11 +50,12 @@ class AuthApiModel {
       firstName: firstName,
       lastName: lastName,
       email: email,
-      phone: phone,      
+      phoneNumber: phoneNumber,
       userName: userName,
       password: password ?? '',
     );
   }
+
   //Convert Entity to API Object
   AuthApiModel fromEntity(AuthEntity entity) {
     return AuthApiModel(
@@ -62,7 +63,7 @@ class AuthApiModel {
       firstName: entity.firstName,
       lastName: entity.lastName,
       email: entity.email,
-      phone: entity.phone,
+      phoneNumber: entity.phoneNumber,
       userName: entity.userName,
       password: entity.password,
     );
@@ -74,7 +75,6 @@ class AuthApiModel {
   }
 
   @override
-  List<Object?> get props => [id, firstName, lastName, email, phone, userName, password];
-  
-  
+  List<Object?> get props =>
+      [id, firstName, lastName, email, phoneNumber, userName, password];
 }

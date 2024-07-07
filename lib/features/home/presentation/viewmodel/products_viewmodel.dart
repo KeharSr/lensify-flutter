@@ -1,20 +1,35 @@
+import 'package:final_assignment/core/common/my_yes_no_dialog.dart';
+import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
 import 'package:final_assignment/features/home/domain/usecases/product_usecase.dart';
+import 'package:final_assignment/features/home/presentation/navigator/home_navigator.dart';
 import 'package:final_assignment/features/home/presentation/state/product_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final productViewModelProvider =
     StateNotifierProvider<ProductViewmodel, ProductState>(
-        (ref) => ProductViewmodel(
-              productUsecase: ref.watch(productUsecaseProvider),
-            ));
+  (ref) => ProductViewmodel(
+    navigator: ref.watch(mainViewNavigatorProvider),
+    productUsecase: ref.watch(productUsecaseProvider),
+    userSharedPrefs: ref.watch(userSharedPrefsProvider),
+  ),
+);
 
 class ProductViewmodel extends StateNotifier<ProductState> {
-  ProductViewmodel({required this.productUsecase})
-      : super(ProductState.initial()) {
+  ProductViewmodel({
+    required this.navigator,
+    required this.productUsecase,
+    required this.userSharedPrefs,
+  }) : super(ProductState.initial()) {
     getProducts();
   }
 
+  final MainViewNavigator navigator;
   final ProductUsecase productUsecase;
+  final UserSharedPrefs userSharedPrefs;
+
+  void openLoginView() {
+    navigator.openLoginView();
+  }
 
   Future resetState() async {
     state = ProductState.initial();
@@ -44,6 +59,25 @@ class ProductViewmodel extends StateNotifier<ProductState> {
             );
           }
         },
+      );
+    }
+  }
+
+  Future logout() async {
+    final accept =
+        await myYesNoDialog(title: 'Are you sure you want to logout?');
+
+    if (accept) {
+      final result = await userSharedPrefs.removeUserToken();
+      result.fold(
+        (failure) => state = state.copyWith(
+          isLoading: false,
+          error: failure.error,
+        ),
+        // success
+        
+
+        (data) => openLoginView(),
       );
     }
   }
