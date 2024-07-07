@@ -14,6 +14,8 @@ class ProductUsecase {
 
   ProductUsecase({required this.productRepository});
 
+  
+
   Future<Either<Failure, List<ProductEntity>>> pagination(int page, int limit) {
     return productRepository.pagination(page, limit);
   }

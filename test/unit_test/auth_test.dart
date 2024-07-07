@@ -65,6 +65,44 @@ Future<void> main() async {
     expect(authState.error, isNull);
   });
 
+  // // Test createUser
+  // test('createUser test with valid user data', () async {
+  //   const correctUser = AuthEntity(
+  //     id: '1',
+  //     firstName: 'Kehar',
+  //     lastName: 'Singh',
+  //     email: 'kehar@gmail.com',
+  //     phoneNumber: '1234567890',
+  //     userName: 'kehar123',
+  //     password: 'kehar123',
+  //   );
+
+  //   // Arrange
+  //   when(mockAuthUseCase.createUser(any)).thenAnswer((invocation) {
+  //     final user = invocation.positionalArguments[0] as AuthEntity;
+
+  //     return Future.value(
+  //       user.email == correctUser.email &&
+  //       user.password == correctUser.password &&
+  //       user.firstName == correctUser.firstName &&
+  //       user.lastName == correctUser.lastName &&
+  //       user.phoneNumber == correctUser.phoneNumber &&
+  //       user.userName == correctUser.userName
+  //         ? const Right(true)
+  //         : Left(Failure(error: 'Invalid user data'))
+  //     );
+  //   });
+
+  //   // Act
+  //   await container.read(authViewModelProvider.notifier).createUser(correctUser);
+
+  //   final authState = container.read(authViewModelProvider);
+
+  //   // Assert
+  //   expect(authState.error, isNull);
+  //   expect(authState.isLoading, isFalse);
+  // });
+
   tearDown(() {
     container.dispose();
   });

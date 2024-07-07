@@ -9,4 +9,5 @@ final productRepositoryProvider =
 
 abstract class IProductRepository {
   Future<Either<Failure, List<ProductEntity>>> pagination(int page, int limit);
+  
 }
