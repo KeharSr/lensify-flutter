@@ -18,7 +18,7 @@ class AuthUseCase {
 
   AuthUseCase({required this.authRepository, required this.userSharedPrefs});
 
-  Future<Either<Failure, bool>> createUser(AuthEntity? user) async {
+  Future<Either<Failure, bool>> createUser(AuthEntity?                                                                                                                                                                                                                                                                                            user) async {
     return await authRepository.createUser(user ?? const AuthEntity.empty());
   }
 
