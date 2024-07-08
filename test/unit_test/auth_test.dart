@@ -58,7 +58,7 @@ Future<void> main() async {
     //Act
     await container
         .read(authViewModelProvider.notifier)
-        .loginUser('kehar@gmail.com', 'kehar123');
+        .loginUser('kehar@gmail.com', 'kehar1234');
 
     final authState = container.read(authViewModelProvider);
 
