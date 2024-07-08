@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:final_assignment/core/failure/failure.dart';
+import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart';
 import 'package:final_assignment/features/auth/presentation/navigator/login_navigator.dart';
 import 'package:final_assignment/features/auth/presentation/navigator/register_navigator.dart';
@@ -66,42 +67,42 @@ Future<void> main() async {
   });
 
   // // Test createUser
-  // test('createUser test with valid user data', () async {
-  //   const correctUser = AuthEntity(
-  //     id: '1',
-  //     firstName: 'Kehar',
-  //     lastName: 'Singh',
-  //     email: 'kehar@gmail.com',
-  //     phoneNumber: '1234567890',
-  //     userName: 'kehar123',
-  //     password: 'kehar123',
-  //   );
+  test('createUser test with valid user data', () async {
+    const correctUser = AuthEntity(
+      id: '1',
+      firstName: 'Kehar',
+      lastName: 'Singh',
+      email: 'kehar@gmail.com',
+      phoneNumber: '1234567890',
+      userName: 'kehar123',
+      password: 'kehar123',
+    );
 
-  //   // Arrange
-  //   when(mockAuthUseCase.createUser(any)).thenAnswer((invocation) {
-  //     final user = invocation.positionalArguments[0] as AuthEntity;
+    // Arrange
+    when(mockAuthUseCase.createUser(any)).thenAnswer((invocation) {
+      final user = invocation.positionalArguments[0] as AuthEntity;
 
-  //     return Future.value(
-  //       user.email == correctUser.email &&
-  //       user.password == correctUser.password &&
-  //       user.firstName == correctUser.firstName &&
-  //       user.lastName == correctUser.lastName &&
-  //       user.phoneNumber == correctUser.phoneNumber &&
-  //       user.userName == correctUser.userName
-  //         ? const Right(true)
-  //         : Left(Failure(error: 'Invalid user data'))
-  //     );
-  //   });
+      return Future.value(user.email == correctUser.email &&
+              user.password == correctUser.password &&
+              user.firstName == correctUser.firstName &&
+              user.lastName == correctUser.lastName &&
+              user.phoneNumber == correctUser.phoneNumber &&
+              user.userName == correctUser.userName
+          ? const Right(true)
+          : Left(Failure(error: 'Invalid user data')));
+    });
 
-  //   // Act
-  //   await container.read(authViewModelProvider.notifier).createUser(correctUser);
+    // Act
+    await container
+        .read(authViewModelProvider.notifier)
+        .createUser(correctUser);
 
-  //   final authState = container.read(authViewModelProvider);
+    final authState = container.read(authViewModelProvider);
 
-  //   // Assert
-  //   expect(authState.error, isNull);
-  //   expect(authState.isLoading, isFalse);
-  // });
+    // Assert
+    expect(authState.error, isNull);
+    expect(authState.isLoading, isFalse);
+  });
   //
 
   tearDown(() {
