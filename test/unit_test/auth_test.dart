@@ -103,7 +103,37 @@ Future<void> main() async {
     expect(authState.error, isNull);
     expect(authState.isLoading, isFalse);
   });
-  //
+
+  // test get current user
+
+  test('get current user test', () async {
+    const correctUser = AuthEntity(
+      id: '1',
+      firstName: 'Kehar',
+      lastName: 'Singh',
+      email: '',
+      phoneNumber: '',
+      userName: '',
+      password: '',
+    );
+
+    // Arrange
+    when(mockAuthUseCase.getCurrentUser()).thenAnswer((_) {
+      return Future.value(const Right(correctUser));
+    });
+
+    // Act
+
+    await container.read(authViewModelProvider.notifier).getCurrentUser();
+
+    final authState = container.read(authViewModelProvider);
+
+    // Assert
+    expect(authState.error, isNull);
+    expect(authState.isLoading, isFalse);
+  });
+
+  
 
   tearDown(() {
     container.dispose();
