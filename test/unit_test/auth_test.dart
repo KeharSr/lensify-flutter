@@ -43,7 +43,7 @@ Future<void> main() async {
 
   test('login test with valid username and password', () async {
     const correctEmail = 'kehar@gmail.com';
-    const correctPassword = 'kehar123';
+    const correctPassword = 'kehar1234';
 
     //Arrange
     when(mockAuthUseCase.loginUser(any, any)).thenAnswer((invocation) {
