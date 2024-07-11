@@ -110,14 +110,6 @@ class AuthRemoteDataSource {
       if (response.statusCode == 200) {
         final getCurrentUserDto = GetCurrentUserDto.fromJson(response.data);
 
-        print('DTO user id: ${getCurrentUserDto.user.id}');
-        print('DTO user firstName: ${getCurrentUserDto.user.firstName}');
-        print('DTO user lastName: ${getCurrentUserDto.user.lastName}');
-        print('DTO user email: ${getCurrentUserDto.user.email}');
-        print('DTO user phoneNumber: ${getCurrentUserDto.user.phoneNumber}');
-        print('DTO user userName: ${getCurrentUserDto.user.userName}');
-        print('DTO user password: ${getCurrentUserDto.user.password}');
-
         return Right(getCurrentUserDto.user.toEntity());
       } else {
         return Left(

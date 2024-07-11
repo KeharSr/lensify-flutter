@@ -1,5 +1,4 @@
-import 'package:final_assignment/features/home/data/model/product_api_model.dart';
-
+import 'package:final_assignment/features/product/data/model/product_api_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'pagination_dto.g.dart';

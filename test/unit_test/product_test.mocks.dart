@@ -9,14 +9,14 @@ import 'package:dartz/dartz.dart' as _i3;
 import 'package:final_assignment/core/failure/failure.dart' as _i6;
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart'
     as _i9;
-import 'package:final_assignment/features/home/domain/entity/product_entity.dart'
-    as _i7;
-import 'package:final_assignment/features/home/domain/repository/product_repository.dart'
-    as _i2;
-import 'package:final_assignment/features/home/domain/usecases/product_usecase.dart'
-    as _i4;
 import 'package:final_assignment/features/home/presentation/navigator/home_navigator.dart'
     as _i8;
+import 'package:final_assignment/features/product/domain/entity/product_entity.dart'
+    as _i7;
+import 'package:final_assignment/features/product/domain/reopsitory/product_repository.dart'
+    as _i2;
+import 'package:final_assignment/features/product/domain/usecase/product_usecase.dart'
+    as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -104,6 +104,50 @@ class MockProductUsecase extends _i1.Mock implements _i4.ProductUsecase {
             [
               page,
               limit,
+            ],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>>);
+
+  @override
+  _i5.Future<
+      _i3.Either<_i6.Failure, List<_i7.ProductEntity>>> getProductsByCategory(
+    int? page,
+    int? limit,
+    String? category,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getProductsByCategory,
+          [
+            page,
+            limit,
+            category,
+          ],
+        ),
+        returnValue:
+            _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>>.value(
+                _FakeEither_1<_i6.Failure, List<_i7.ProductEntity>>(
+          this,
+          Invocation.method(
+            #getProductsByCategory,
+            [
+              page,
+              limit,
+              category,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>>.value(
+                _FakeEither_1<_i6.Failure, List<_i7.ProductEntity>>(
+          this,
+          Invocation.method(
+            #getProductsByCategory,
+            [
+              page,
+              limit,
+              category,
             ],
           ),
         )),

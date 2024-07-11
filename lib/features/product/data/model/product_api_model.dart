@@ -1,7 +1,5 @@
-
-
 import 'package:equatable/equatable.dart';
-import 'package:final_assignment/features/home/domain/entity/product_entity.dart';
+import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -73,7 +71,9 @@ class ProductApiModel extends Equatable {
   }
 
   List<ProductApiModel> fromEntityList(List<ProductEntity> products) {
-    return products.map((product) => ProductApiModel.fromEntity(product)).toList();
+    return products
+        .map((product) => ProductApiModel.fromEntity(product))
+        .toList();
   }
 
   @override

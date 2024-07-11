@@ -1,4 +1,4 @@
-import 'package:final_assignment/features/home/domain/entity/product_entity.dart';
+import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
 
 class ProductState {
   final List<ProductEntity> products;

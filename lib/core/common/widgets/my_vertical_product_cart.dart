@@ -1,5 +1,5 @@
 import 'package:final_assignment/app/constants/api_endpoint.dart';
-import 'package:final_assignment/features/home/domain/entity/product_entity.dart';
+import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 
 class MyProductCard extends StatelessWidget {
@@ -116,7 +116,3 @@ class MyProductCard extends StatelessWidget {
     );
   }
 }
-
-
-
-

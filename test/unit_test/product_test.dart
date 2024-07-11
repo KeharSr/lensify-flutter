@@ -1,9 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
-import 'package:final_assignment/features/home/domain/entity/product_entity.dart';
-import 'package:final_assignment/features/home/domain/usecases/product_usecase.dart';
 import 'package:final_assignment/features/home/presentation/navigator/home_navigator.dart';
-import 'package:final_assignment/features/home/presentation/viewmodel/products_viewmodel.dart';
+import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
+import 'package:final_assignment/features/product/domain/usecase/product_usecase.dart';
+import 'package:final_assignment/features/product/presentation/view_model/products_viewmodel.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -39,14 +39,15 @@ Future<void> main() async {
     ]);
   });
 
-  // Test initial state
-
-  test('check product initial state', () async {
-    when(mockProductUsecase.pagination(1, 2))
+  // Test getProducts
+  test('get product entity and return true if sucessfully get', () async {
+    when(mockProductUsecase.getProductsByCategory(1, 2, "All"))
         .thenAnswer((_) => Future.value(Right(products)));
 
     // Test getProducts
-    await container.read(productViewModelProvider.notifier).getProducts();
+    await container
+        .read(productViewModelProvider.notifier)
+        .getProductsByCategory('All');
 
     // store the state
     final productState = container.read(productViewModelProvider);
@@ -57,13 +58,13 @@ Future<void> main() async {
     expect(productState.products, products);
   });
 
-  // Test getProducts
-  test('get product entity and return true if sucessfully get', () async {
-    when(mockProductUsecase.pagination(1, 2))
+  // Test resetState
+  test('reset state and get products by category', () async {
+    when(mockProductUsecase.getProductsByCategory(1, 2, "All"))
         .thenAnswer((_) => Future.value(Right(products)));
 
-    // Test getProducts
-    await container.read(productViewModelProvider.notifier).getProducts();
+    // Test resetState
+    await container.read(productViewModelProvider.notifier).resetState('All');
 
     // store the state
     final productState = container.read(productViewModelProvider);

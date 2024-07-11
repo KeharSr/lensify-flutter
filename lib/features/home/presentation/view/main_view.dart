@@ -81,16 +81,10 @@
 //   }
 // }
 
-
-
-
-
-
-
 import 'package:final_assignment/features/home/presentation/view/bottom_view/explore_view.dart';
-import 'package:final_assignment/features/home/presentation/view/bottom_view/home_view.dart';
 import 'package:final_assignment/features/home/presentation/view/bottom_view/profile_view.dart';
 import 'package:final_assignment/features/home/presentation/view/bottom_view/wishlist_view.dart';
+import 'package:final_assignment/features/product/presentation/view/product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -109,6 +103,7 @@ class _MainViewState extends ConsumerState<MainView> {
     const WishlistView(),
     const ProfileView(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

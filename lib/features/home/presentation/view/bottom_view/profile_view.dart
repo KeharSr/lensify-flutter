@@ -81,7 +81,7 @@ import 'package:final_assignment/features/settings/presentation/widgets/profile_
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../viewmodel/products_viewmodel.dart';
+import '../../../../product/presentation/view_model/products_viewmodel.dart';
 
 class ProfileView extends ConsumerStatefulWidget {
   const ProfileView({super.key});
