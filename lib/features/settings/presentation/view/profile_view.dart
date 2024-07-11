@@ -34,15 +34,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                           fontSize: 20, fontWeight: FontWeight.bold),
                     ),
               const SizedBox(height: 20),
-              // ProfileMenuItem(
-              //     icon: Icons.brightness_6, text: 'Select Mode', onTap: () {}),
-              // ProfileMenuItem(
-              //     icon: Icons.info, text: 'Account Information', onTap: () {}),
-              // ProfileMenuItem(icon: Icons.lock, text: 'Password', onTap: () {}),
-              // ProfileMenuItem(
-              //     icon: Icons.favorite, text: 'Favorite', onTap: () {}),
-              // ProfileMenuItem(
-              //     icon: Icons.settings, text: 'Settings', onTap: () {}),
+
               ProfileMenuItem(
                   icon: Icons.fingerprint,
                   text: 'Enable Fingerprint',
