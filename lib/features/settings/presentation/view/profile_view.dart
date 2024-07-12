@@ -38,6 +38,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
               ProfileMenuItem(
                   icon: Icons.fingerprint,
                   text: 'Enable Fingerprint',
+                  textColor: Colors.red,
                   onTap: () {
                     ref
                         .read(currentUserViewModelProvider.notifier)

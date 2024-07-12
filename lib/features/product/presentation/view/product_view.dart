@@ -95,9 +95,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
     return DefaultTabController(
       length: 3, // Number of tabs
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Lets Shop'),
-        ),
         body: NotificationListener<ScrollNotification>(
           onNotification: (notification) {
             if (notification is ScrollEndNotification &&

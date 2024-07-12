@@ -106,25 +106,3 @@ Future<void> main() async {
     container.dispose();
   });
 }
-
-// test get current user
-
-// test('get current user test', () async {
-//
-//
-// // Arrange
-// when(mockAuthUseCase.getCurrentUser()).thenAnswer((_) {
-// return Future.value( Right(AuthTestData.getAuthTestData()));
-// });
-//
-// // Act
-//
-// await container.read(authViewModelProvider.notifier).getCurrentUser();
-//
-// final authState = container.read(authViewModelProvider);
-//
-// // Assert
-// expect(authState.error, isNull);
-// expect(authState.isLoading, isFalse);
-// expect(authState., matcher)
-// });
