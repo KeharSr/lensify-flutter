@@ -23,6 +23,10 @@ class ApiEndpoints {
   static const String paginatonProducts = 'product/pagination';
   static const int limit = 2;
 
+  //cart routes
+  static const String addToCart = 'cart/add_to_cart';
+  static const String getCart = 'cart/get_cart';
+
   // static const String imageUrl = 'http://192.168.1.133:5000/products/';
   static const String imageUrl = 'http://192.168.1.133:5000/products/';
 }
