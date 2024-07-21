@@ -1,5 +1,12 @@
 import 'package:equatable/equatable.dart';
+import 'package:final_assignment/features/cart/domain/entity/cart_entity.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+part 'cart_api_model.g.dart';
+
+//provider
+final cartApiModelProvider = Provider<CartApiModel>((ref) => const CartApiModel.empty());
 
 @JsonSerializable()
 class CartApiModel extends Equatable {
@@ -28,8 +35,8 @@ class CartApiModel extends Equatable {
   Map<String, dynamic> toJson() => _$CartApiModelToJson(this);
 
   // To Entity
-  CartApiModel toEntity() {
-    return CartApiModel(
+  CartEntity toEntity() {
+    return CartEntity(
       id: id,
       userId: userId,
       productId: productId,
@@ -38,7 +45,7 @@ class CartApiModel extends Equatable {
   }
 
   // Covert Entity to Api Object
-  factory CartApiModel.fromEntity(CartApiModel entity) {
+  factory CartApiModel.fromEntity(CartEntity entity) {
     return CartApiModel(
       id: entity.id,
       userId: entity.userId,
@@ -48,13 +55,12 @@ class CartApiModel extends Equatable {
   }
 
   //Convert Api List to Entity List
-  List<CartEntity> toEntityList(List<CartApiModel> carts) {
-    return carts.map((cart) => cart.toEntity()).toList();
+  List<CartEntity> toEntityList(List<CartApiModel>carts){
+    return carts.map((cart)=>cart.toEntity()).toList();
   }
 
-  //Convert Entity List to Api List
-  List<CartApiModel> fromEntityList(List<CartEntity> carts) {
-    return carts.map((cart) => CartApiModel.fromEntity(cart)).toList();
+  List<CartApiModel> fromEntityList(List<CartEntity>carts){
+    return carts.map((cart)=>CartApiModel.fromEntity(cart)).toList();
   }
 
   @override
