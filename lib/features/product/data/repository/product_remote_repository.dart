@@ -17,11 +17,6 @@ class ProductRemoteRepository implements IProductRepository {
   ProductRemoteRepository({required this.productRemoteDataSource});
 
   @override
-  Future<Either<Failure, List<ProductEntity>>> pagination(int page, int limit) {
-    return productRemoteDataSource.pagination(page: page, limit: limit);
-  }
-
-  @override
   Future<Either<Failure, List<ProductEntity>>> getProductsByCategory(
       int page, int limit, String category) {
     return productRemoteDataSource.getProductsByCategory(

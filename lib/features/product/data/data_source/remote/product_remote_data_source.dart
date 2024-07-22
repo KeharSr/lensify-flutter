@@ -5,7 +5,6 @@ import 'package:final_assignment/core/failure/failure.dart';
 import 'package:final_assignment/core/networking/remote/http_service.dart';
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
 import 'package:final_assignment/features/product/data/dto/category_dto.dart';
-import 'package:final_assignment/features/product/data/dto/pagination_dto.dart';
 import 'package:final_assignment/features/product/data/model/product_api_model.dart';
 import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,35 +31,6 @@ class ProductRemoteDataSource {
     required this.productApiModel,
     required this.userSharedPrefs,
   });
-
-  Future<Either<Failure, List<ProductEntity>>> pagination(
-      {required int page, required int limit}) async {
-    try {
-      final token = await userSharedPrefs.getUserToken();
-      token.fold((l) => throw Failure(error: l.error), (r) => r);
-      final response = await dio.get(
-        ApiEndpoints.paginatonProducts,
-        queryParameters: {
-          'page': page,
-          'limit': limit,
-        },
-        options: Options(
-          headers: {
-            'authorization': 'Bearer $token',
-          },
-        ),
-      );
-      if (response.statusCode == 200) {
-        final paginationDto = PaginationDto.fromJson(response.data);
-        return Right(productApiModel.toEntityList(paginationDto.products));
-      }
-      return Left(Failure(
-          error: response.data['message'],
-          statusCode: response.statusCode.toString()));
-    } on DioException catch (e) {
-      return Left(Failure(error: e.error.toString()));
-    }
-  }
 
 // get products by category
 

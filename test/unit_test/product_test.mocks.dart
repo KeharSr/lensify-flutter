@@ -71,45 +71,6 @@ class MockProductUsecase extends _i1.Mock implements _i4.ProductUsecase {
       ) as _i2.IProductRepository);
 
   @override
-  _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>> pagination(
-    int? page,
-    int? limit,
-  ) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #pagination,
-          [
-            page,
-            limit,
-          ],
-        ),
-        returnValue:
-            _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>>.value(
-                _FakeEither_1<_i6.Failure, List<_i7.ProductEntity>>(
-          this,
-          Invocation.method(
-            #pagination,
-            [
-              page,
-              limit,
-            ],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>>.value(
-                _FakeEither_1<_i6.Failure, List<_i7.ProductEntity>>(
-          this,
-          Invocation.method(
-            #pagination,
-            [
-              page,
-              limit,
-            ],
-          ),
-        )),
-      ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>>);
-
-  @override
   _i5.Future<
       _i3.Either<_i6.Failure, List<_i7.ProductEntity>>> getProductsByCategory(
     int? page,

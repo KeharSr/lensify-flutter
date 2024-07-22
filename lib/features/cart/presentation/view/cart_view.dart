@@ -1,178 +1,132 @@
-import 'package:flutter/material.dart';
+import 'package:final_assignment/core/common/widgets/my_appbar.dart';
+import 'package:final_assignment/core/common/widgets/my_cart_items.dart';
+import 'package:final_assignment/core/common/widgets/my_search_container.dart';
+import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
 
-class CartScreen extends StatelessWidget {
-  final List<CartItem> items = [
-    CartItem(
-      name: 'Green Nike sports shoe',
-      brand: 'Nike',
-      color: 'Green',
-      size: 'EU 34',
-      price: 134.0,
-      quantity: 1,
-    ),
-    CartItem(
-      name: 'Blue T-shirt for all ages',
-      brand: 'Zara',
-      color: 'Blue',
-      size: '',
-      price: 35.0,
-      quantity: 1,
-    ),
-    CartItem(
-      name: 'Track suit red',
-      brand: 'Nike',
-      color: 'Red',
-      size: '',
-      price: 500.0,
-      quantity: 1,
-    ),
-    CartItem(
-      name: 'Air Max Red & Black',
-      brand: 'Nike',
-      color: 'Red & Black',
-      size: '',
-      price: 600.0,
-      quantity: 1,
-    ),
-    CartItem(
-      name: 'Iphone 14 pro 512gb',
-      brand: 'Apple',
-      color: '',
-      size: '',
-      price: 1998.0,
-      quantity: 2,
-    ),
-  ];
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class CartView extends ConsumerStatefulWidget {
+  const CartView({super.key});
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _CartViewState();
+}
+
+class _CartViewState extends ConsumerState<CartView> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => ref.read(cartViewModelProvider.notifier).getCarts());
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    double total =
-        items.fold(0, (sum, item) => sum + (item.price * item.quantity));
+    final cartState = ref.watch(cartViewModelProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+      appBar: MyAppbar(
+        title: const Text(
+          'My Cart',
+          style: TextStyle(color: Colors.white),
         ),
-        title: Text('Cart', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.separated(
-              itemCount: items.length,
-              separatorBuilder: (context, index) => Divider(height: 1),
-              itemBuilder: (context, index) {
-                return CartItemWidget(item: items[index]);
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              child: Text('Checkout \$${total.toStringAsFixed(1)}'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue,
-                minimumSize: Size(double.infinity, 50),
-              ),
-              onPressed: () {
-                // Implement checkout logic
-              },
+        actions: [
+          IconButton(
+            onPressed: () {
+              // Add any additional actions if needed
+            },
+            icon: const Icon(
+              Icons.more_vert,
+              color: Colors.white,
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class CartItem {
-  final String name;
-  final String brand;
-  final String color;
-  final String size;
-  final double price;
-  final int quantity;
-
-  CartItem({
-    required this.name,
-    required this.brand,
-    required this.color,
-    required this.size,
-    required this.price,
-    required this.quantity,
-  });
-}
-
-class CartItemWidget extends StatelessWidget {
-  final CartItem item;
-
-  const CartItemWidget({Key? key, required this.item}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: 60,
-            height: 60,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(Icons.shopping_bag, color: Colors.grey),
-          ),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(item.name, style: TextStyle(fontWeight: FontWeight.bold)),
-                if (item.color.isNotEmpty || item.size.isNotEmpty)
-                  Text('${item.color} ${item.size}',
-                      style: TextStyle(color: Colors.grey)),
-                SizedBox(height: 8),
-                Text('\$${item.price}',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ],
-            ),
-          ),
-          Column(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await ref.read(cartViewModelProvider.notifier).getCarts();
+        },
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.remove, size: 16),
-                      onPressed: () {
-                        // Implement decrease quantity
-                      },
-                    ),
-                    Text('${item.quantity}'),
-                    IconButton(
-                      icon: Icon(Icons.add, size: 16),
-                      onPressed: () {
-                        // Implement increase quantity
-                      },
-                    ),
-                  ],
-                ),
+              const MySearchContainer(
+                text: 'Search in cart',
+                icon: Icons.search,
               ),
+              const SizedBox(height: 16),
+              if (cartState.isLoading)
+                const Center(
+                  child: CircularProgressIndicator(),
+                )
+              else if (cartState.error != null)
+                Center(
+                  child: Text(
+                    'Error: ${cartState.error}',
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                )
+              else if (cartState.products.isEmpty)
+                const Center(
+                  child: Text(
+                    'Your cart is empty',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                )
+              else
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      GridView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
+                          childAspectRatio: 4,
+                        ),
+                        itemCount: cartState.products.length,
+                        itemBuilder: (context, index) {
+                          final cartItem = cartState.products[index];
+                          return MyCartItemCard(cartItem: cartItem);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
-        ],
+        ),
       ),
+      bottomNavigationBar: cartState.products.isNotEmpty
+          ? Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                child: Text(
+                  'Checkout \$${cartState.products.fold(0, (sum, item) => sum + (item.productPrice * item.quantity)).toStringAsFixed(2)}',
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  minimumSize: const Size(double.infinity, 50),
+                ),
+                onPressed: () {
+                  // Implement checkout logic
+                },
+              ),
+            )
+          : null,
     );
   }
 }

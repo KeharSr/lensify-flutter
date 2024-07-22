@@ -37,33 +37,6 @@ class ProductViewmodel extends StateNotifier<ProductState> {
     getProductsByCategory(category);
   }
 
-  Future getProducts() async {
-    state = state.copyWith(isLoading: true);
-    final currentState = state;
-    final page = currentState.page + 1;
-    final products = currentState.products;
-    final hasReachedMax = currentState.hasReachedMax;
-    if (!hasReachedMax) {
-      // get data from data source
-      final result = await productUsecase.pagination(page, 2);
-      result.fold(
-        (failure) =>
-            state = state.copyWith(hasReachedMax: true, isLoading: false),
-        (data) {
-          if (data.isEmpty) {
-            state = state.copyWith(hasReachedMax: true);
-          } else {
-            state = state.copyWith(
-              products: [...products, ...data],
-              page: page,
-              isLoading: false,
-            );
-          }
-        },
-      );
-    }
-  }
-
   Future logout() async {
     final accept =
         await myYesNoDialog(title: 'Are you sure you want to logout?');

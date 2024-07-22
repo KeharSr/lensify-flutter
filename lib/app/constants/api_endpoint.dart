@@ -19,8 +19,6 @@ class ApiEndpoints {
 
   static const String getProductsByCategory =
       'product/get_products_by_category';
-
-  static const String paginatonProducts = 'product/pagination';
   static const int limit = 2;
 
   //cart routes

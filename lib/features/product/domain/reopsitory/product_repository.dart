@@ -8,8 +8,6 @@ final productRepositoryProvider =
     Provider<IProductRepository>((ref) => ref.read(productRemoteRepository));
 
 abstract class IProductRepository {
-  Future<Either<Failure, List<ProductEntity>>> pagination(int page, int limit);
-
   Future<Either<Failure, List<ProductEntity>>> getProductsByCategory(
       int page, int limit, String category);
 }

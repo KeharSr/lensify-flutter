@@ -19,13 +19,11 @@ class HomeView extends ConsumerStatefulWidget {
 
 class _HomeViewState extends ConsumerState<HomeView> {
   final ScrollController _scrollController = ScrollController();
-  final String _selectedCategory = 'All'; // Default category
 
   @override
   void initState() {
     super.initState();
     ref.read(feedbackViewModelProvider.notifier).startListeningToGyroscope();
-    // _fetchProductsByCategory(); // Fetch initial category products
   }
 
   @override
@@ -34,18 +32,6 @@ class _HomeViewState extends ConsumerState<HomeView> {
     ref.read(feedbackViewModelProvider.notifier).stopListeningToGyroscope();
     super.dispose();
   }
-
-  // void _fetchProductsByCategory() {
-  //   if (_selectedCategory == 'All') {
-  //     ref
-  //         .read(productViewModelProvider.notifier)
-  //         .getProducts(); // Fetch all products with pagination
-  //   } else {
-  //     ref
-  //         .read(productViewModelProvider.notifier)
-  //         .getProductsByCategory(_selectedCategory);
-  //   }
-  // }
 
   void _showFeedbackDialog() {
     showDialog(
