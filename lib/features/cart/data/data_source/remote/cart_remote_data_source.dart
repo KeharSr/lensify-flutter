@@ -31,37 +31,44 @@ class CartRemoteDataSource {
     required this.userSharedPrefs,
   });
 
-  Future<Either<Failure, List<CartEntity>>> getCarts({
-    required String userId,
-    required String productId,
-    required int quantity,
-  }) async {
+  Future<Either<Failure, List<CartEntity>>> getCarts() async {
     try {
-      final token = await userSharedPrefs.getUserToken();
-      token.fold((l) => throw Failure(error: l.error), (r) => r);
-      final response = await dio.get(
-        ApiEndpoints.getCart,
-        queryParameters: {
-          'userId': userId,
-          'productId': productId,
-          'quantity': quantity,
-        },
-        options: Options(
-          headers: {
-            'authorization': 'Bearer $token',
-          },
-        ),
+      String? token;
+      var data = await userSharedPrefs.getUserToken();
+      data.fold(
+        (l) => token = null,
+        (r) => token = r,
       );
 
-      if (response.statusCode == 201) {
+      print('Token: $token');
+      var response = await dio.get(
+        ApiEndpoints.getCart,
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }),
+      );
+
+      print('Response status code: ${response.statusCode}');
+      print('Response data: ${response.data}');
+
+      if (response.statusCode == 200) {
         final cartDto = CartDto.fromJson(response.data);
-        return Right(cartApiModel.toEntityList(cartDto.carts));
+
+        return Right(cartApiModel.toEntityList(cartDto.products));
+      } else {
+        return Left(
+          Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString(),
+          ),
+        );
       }
-      return Left(Failure(
-        error: response.statusCode.toString(),
-      ));
     } on DioException catch (e) {
-      return Left(Failure(error: e.error.toString()));
+      return Left(
+        Failure(
+          error: e.message.toString(),
+        ),
+      );
     }
   }
 }
