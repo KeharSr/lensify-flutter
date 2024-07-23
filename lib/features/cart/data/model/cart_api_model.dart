@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:final_assignment/features/cart/domain/entity/cart_entity.dart';
+import 'package:final_assignment/features/product/data/model/product_api_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -13,34 +14,25 @@ final cartApiModelProvider =
 class CartApiModel extends Equatable {
   @JsonKey(name: '_id')
   final String? id;
-  final String userId;
-  final String productId;
+  final String? userId;
+  final ProductApiModel? productId;
   final int quantity;
-  final String productName;
-  final String productImage;
-  final int productPrice;
-  final String productDescription;
+  final String status;
 
   const CartApiModel({
     required this.id,
     required this.userId,
     required this.productId,
     required this.quantity,
-    required this.productName,
-    required this.productImage,
-    required this.productPrice,
-    required this.productDescription,
+    required this.status,
   });
 
   const CartApiModel.empty()
       : id = '',
         userId = '',
-        productId = '',
+        productId = null,
         quantity = 0,
-        productName = '',
-        productImage = '',
-        productPrice = 0,
-        productDescription = '';
+        status = '';
 
   factory CartApiModel.fromJson(Map<String, dynamic> json) =>
       _$CartApiModelFromJson(json);
@@ -52,13 +44,9 @@ class CartApiModel extends Equatable {
     return CartEntity(
         id: id,
         userId: userId,
-        productId: productId,
+        productId: productId!.toEntity(),
         quantity: quantity,
-        productName: productName,
-        productImage: productImage,
-        productPrice: productPrice,
-        productDescription: productDescription
-        );
+        status: status);
   }
 
   // Covert Entity to Api Object
@@ -66,13 +54,9 @@ class CartApiModel extends Equatable {
     return CartApiModel(
         id: entity.id,
         userId: entity.userId,
-        productId: entity.productId,
+        productId: ProductApiModel.fromEntity(entity.productId!),
         quantity: entity.quantity,
-        productName: entity.productName,
-        productImage: entity.productImage,
-        productPrice: entity.productPrice,
-        productDescription: entity.productDescription
-        );
+        status: entity.status);
   }
 
   //Convert Api List to Entity List
@@ -90,9 +74,6 @@ class CartApiModel extends Equatable {
         userId,
         productId,
         quantity,
-        productName,
-        productImage,
-        productPrice,
-        productDescription
+        status,
       ];
 }

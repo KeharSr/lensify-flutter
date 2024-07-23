@@ -32,6 +32,10 @@ class ProductViewmodel extends StateNotifier<ProductState> {
     navigator.openLoginView();
   }
 
+  void openCartView() {
+    navigator.navigateToCartView();
+  }
+
   Future resetState(String category) async {
     state = ProductState.initial();
     getProductsByCategory(category);

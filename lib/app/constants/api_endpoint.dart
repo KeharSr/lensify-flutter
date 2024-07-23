@@ -6,7 +6,7 @@ class ApiEndpoints {
 
   // static const String baseUrl = 'http://192.168.1.133:5000/api/';
 
-  static const String baseUrl = "http://192.168.1.133:5000/api/";
+  static const String baseUrl = "http://172.26.0.187:5000/api/";
 
 // ===========Auth Routes===========
   static const String loginUser = 'user/login';
@@ -26,5 +26,5 @@ class ApiEndpoints {
   static const String getCart = 'cart/get_cart';
 
   // static const String imageUrl = 'http://192.168.1.133:5000/products/';
-  static const String imageUrl = 'http://192.168.1.133:5000/products/';
+  static const String imageUrl = 'http://172.26.0.187:5000/products/';
 }

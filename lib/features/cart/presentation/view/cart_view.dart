@@ -2,7 +2,6 @@ import 'package:final_assignment/core/common/widgets/my_appbar.dart';
 import 'package:final_assignment/core/common/widgets/my_cart_items.dart';
 import 'package:final_assignment/core/common/widgets/my_search_container.dart';
 import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -71,14 +70,14 @@ class _CartViewState extends ConsumerState<CartView> {
                 Center(
                   child: Text(
                     'Error: ${cartState.error}',
-                    style: const TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.black),
                   ),
                 )
               else if (cartState.products.isEmpty)
                 const Center(
                   child: Text(
                     'Your cart is empty',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                   ),
                 )
               else
@@ -114,9 +113,6 @@ class _CartViewState extends ConsumerState<CartView> {
           ? Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
-                child: Text(
-                  'Checkout \$${cartState.products.fold(0, (sum, item) => sum + (item.productPrice * item.quantity)).toStringAsFixed(2)}',
-                ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   minimumSize: const Size(double.infinity, 50),
@@ -124,9 +120,12 @@ class _CartViewState extends ConsumerState<CartView> {
                 onPressed: () {
                   // Implement checkout logic
                 },
+                child: Text(
+                  'Checkout \$${cartState.products.fold(0, (sum, item) => sum + (item.productId!.productPrice * item.quantity)).toStringAsFixed(2)}',
+                ),
               ),
             )
-          : null,
+          : Text('New Text'),
     );
   }
 }

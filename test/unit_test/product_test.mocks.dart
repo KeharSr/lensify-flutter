@@ -118,7 +118,16 @@ class MockProductUsecase extends _i1.Mock implements _i4.ProductUsecase {
 /// A class which mocks [MainViewNavigator].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMainViewNavigator extends _i1.Mock implements _i8.MainViewNavigator {}
+class MockMainViewNavigator extends _i1.Mock implements _i8.MainViewNavigator {
+  @override
+  void navigateToCartView() => super.noSuchMethod(
+        Invocation.method(
+          #navigateToCartView,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}
 
 /// A class which mocks [UserSharedPrefs].
 ///

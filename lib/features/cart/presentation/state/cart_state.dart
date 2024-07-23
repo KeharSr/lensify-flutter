@@ -1,10 +1,10 @@
 import 'package:final_assignment/features/cart/domain/entity/cart_entity.dart';
 
-class CartState{
+class CartState {
   final List<CartEntity> products;
   final bool isLoading;
   final bool hasReachedMax;
-  final String error;
+  final String? error;
 
   CartState({
     required this.products,
@@ -18,7 +18,7 @@ class CartState{
       products: [],
       isLoading: false,
       hasReachedMax: false,
-      error: '',
+      error: null,
     );
   }
 

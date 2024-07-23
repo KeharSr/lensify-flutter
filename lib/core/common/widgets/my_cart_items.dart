@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:final_assignment/app/constants/api_endpoint.dart';
 import 'package:final_assignment/features/cart/domain/entity/cart_entity.dart';
+import 'package:flutter/material.dart';
 
 class MyCartItemCard extends StatelessWidget {
   final CartEntity cartItem;
@@ -9,7 +9,8 @@ class MyCartItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = '${ApiEndpoints.imageUrl}${cartItem.productImage}';
+    final imageUrl =
+        '${ApiEndpoints.imageUrl}${cartItem.productId!.productImage}';
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -45,7 +46,7 @@ class MyCartItemCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    cartItem.productName,
+                    cartItem.productId!.productName,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -54,7 +55,7 @@ class MyCartItemCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    cartItem.productDescription,
+                    cartItem.productId!.productDescription,
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.grey,
@@ -69,7 +70,7 @@ class MyCartItemCard extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '\$${cartItem.productPrice.toStringAsFixed(2)}',
+                    '\$${cartItem.productId!.productPrice.toStringAsFixed(2)}',
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.white,
@@ -118,4 +119,3 @@ class MyCartItemCard extends StatelessWidget {
     );
   }
 }
-  
