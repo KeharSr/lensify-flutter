@@ -5,9 +5,10 @@ import 'package:final_assignment/features/cart/domain/entity/cart_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final cartRepositoryProvider =
- Provider<ICartRepository>((ref)=>ref.read (cartRemoteRepositoryProvider));
+    Provider<ICartRepository>((ref) => ref.read(cartRemoteRepositoryProvider));
 
 abstract class ICartRepository {
- 
   Future<Either<Failure, List<CartEntity>>> getCarts();
+
+  Future<Either<Failure, bool>> addCart(String productId, int quantity);
 }

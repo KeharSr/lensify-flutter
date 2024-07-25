@@ -33,4 +33,6 @@ class CartViewModel extends StateNotifier<CartState> {
       showMySnackBar(message: 'Cart fetched successfully', color: Colors.green);
     });
   }
+
+// quantity
 }

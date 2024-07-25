@@ -10,7 +10,7 @@ final cartRemoteRepositoryProvider = Provider<CartRemoteRepository>((ref) {
   return CartRemoteRepository(cartRemoteDataSource: cartRemoteDataSource);
 });
 
-class CartRemoteRepository implements ICartRepository{
+class CartRemoteRepository implements ICartRepository {
   final CartRemoteDataSource cartRemoteDataSource;
 
   CartRemoteRepository({required this.cartRemoteDataSource});
@@ -18,5 +18,11 @@ class CartRemoteRepository implements ICartRepository{
   @override
   Future<Either<Failure, List<CartEntity>>> getCarts() {
     return cartRemoteDataSource.getCarts();
+  }
+
+  @override
+  Future<Either<Failure, bool>> addCart(String productId, int quantity) {
+    return cartRemoteDataSource.addToCart(
+        productId: productId, quantity: quantity);
   }
 }

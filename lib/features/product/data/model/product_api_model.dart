@@ -18,6 +18,7 @@ class ProductApiModel extends Equatable {
   final String productImage;
   final String productDescription;
   final String productCategory;
+  final int productQuantity;
 
   const ProductApiModel({
     required this.id,
@@ -26,6 +27,7 @@ class ProductApiModel extends Equatable {
     required this.productImage,
     required this.productDescription,
     required this.productCategory,
+    required this.productQuantity,
   });
 
   const ProductApiModel.empty()
@@ -34,7 +36,8 @@ class ProductApiModel extends Equatable {
         productPrice = 0,
         productImage = '',
         productCategory = '',
-        productDescription = '';
+        productDescription = '',
+        productQuantity = 0;
 
   factory ProductApiModel.fromJson(Map<String, dynamic> json) =>
       _$ProductApiModelFromJson(json);
@@ -50,6 +53,8 @@ class ProductApiModel extends Equatable {
       productImage: productImage,
       productCategory: productCategory,
       productDescription: productDescription,
+      productQuantity: productQuantity,
+
     );
   }
 
@@ -62,6 +67,7 @@ class ProductApiModel extends Equatable {
       productImage: entity.productImage,
       productCategory: entity.productCategory,
       productDescription: entity.productDescription,
+      productQuantity: entity.productQuantity,
     );
   }
 
@@ -83,6 +89,7 @@ class ProductApiModel extends Equatable {
         productImage,
         productPrice,
         productCategory,
-        productDescription
+        productDescription,
+        productQuantity,
       ];
 }

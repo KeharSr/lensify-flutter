@@ -9,12 +9,16 @@ final cartUsecaseProvider = Provider<CartUsecase>((ref) {
   return CartUsecase(cartRepository: cartRepository);
 });
 
-class CartUsecase{
+class CartUsecase {
   final ICartRepository cartRepository;
 
   CartUsecase({required this.cartRepository});
 
   Future<Either<Failure, List<CartEntity>>> getCarts() async {
     return cartRepository.getCarts();
+  }
+
+  Future<Either<Failure, bool>> addCart(String productId, int quantity) async {
+    return cartRepository.addCart(productId, quantity);
   }
 }
