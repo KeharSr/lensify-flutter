@@ -73,7 +73,7 @@ class CartRemoteDataSource {
     }
   }
 
-  // add to cart
+  // add to cart if product is already in cart, show error message
   Future<Either<Failure, bool>> addToCart({
     required String productId,
     required int quantity,
@@ -93,6 +93,95 @@ class CartRemoteDataSource {
           'productId': productId,
           'quantity': quantity,
         },
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }),
+      );
+
+      print('Response status code: ${response.statusCode}');
+      print('Response data: ${response.data}');
+
+      if (response.statusCode == 201) {
+        return const Right(true);
+      } else {
+        return Left(
+          Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString(),
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.message.toString(),
+        ),
+      );
+    }
+  }
+
+  // update cart
+  Future<Either<Failure, bool>> updateCart({
+    required String productId,
+    required int quantity,
+  }) async {
+    try {
+      String? token;
+      var data = await userSharedPrefs.getUserToken();
+      data.fold(
+        (l) => token = null,
+        (r) => token = r,
+      );
+
+      print('Token: $token');
+      var response = await dio.put(
+        ApiEndpoints.updateCart,
+        data: {
+          'productId': productId,
+          'quantity': quantity,
+        },
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }),
+      );
+
+      print('Response status code: ${response.statusCode}');
+      print('Response data: ${response.data}');
+
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else {
+        return Left(
+          Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString(),
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.message.toString(),
+        ),
+      );
+    }
+  }
+
+  // delete from cart
+  Future<Either<Failure, bool>> deleteFromCart({
+    required String id,
+  }) async {
+    try {
+      String? token;
+      var data = await userSharedPrefs.getUserToken();
+      data.fold(
+        (l) => token = null,
+        (r) => token = r,
+      );
+
+      print('Token: $token');
+      var response = await dio.delete(
+        '${ApiEndpoints.deleteCart}/$id',
         options: Options(headers: {
           'Authorization': 'Bearer $token',
         }),

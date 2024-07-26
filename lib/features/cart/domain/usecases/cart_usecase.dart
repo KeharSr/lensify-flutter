@@ -21,4 +21,13 @@ class CartUsecase {
   Future<Either<Failure, bool>> addCart(String productId, int quantity) async {
     return cartRepository.addCart(productId, quantity);
   }
+
+  Future<Either<Failure, bool>> updateCart(
+      String productId, int quantity) async {
+    return cartRepository.updateCart(productId, quantity);
+  }
+
+  Future<Either<Failure, bool>> deleteCart(String id) async {
+    return cartRepository.deleteCart(id);
+  }
 }

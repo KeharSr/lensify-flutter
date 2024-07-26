@@ -11,4 +11,8 @@ abstract class ICartRepository {
   Future<Either<Failure, List<CartEntity>>> getCarts();
 
   Future<Either<Failure, bool>> addCart(String productId, int quantity);
+
+  Future<Either<Failure, bool>> updateCart(String productId, int quantity);
+
+  Future<Either<Failure, bool>> deleteCart(String productId);
 }

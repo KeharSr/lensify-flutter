@@ -1,13 +1,20 @@
 import 'package:final_assignment/app/constants/api_endpoint.dart';
 import 'package:final_assignment/features/cart/domain/entity/cart_entity.dart';
-import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 
 class CartItem extends StatelessWidget {
   final CartEntity cartItem;
- 
+  final VoidCallback? onIncreasePressed;
+  final VoidCallback? onDecreasePressed;
+  final VoidCallback? onDeletePressed;
 
-  const CartItem({required this.cartItem, super.key});
+  const CartItem({
+    required this.cartItem,
+    this.onIncreasePressed,
+    this.onDecreasePressed,
+    this.onDeletePressed,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,24 +61,11 @@ class CartItem extends StatelessWidget {
                   style: TextStyle(color: Colors.grey, fontSize: 14),
                 ),
                 const SizedBox(height: 8),
-                // Quantity Controls
+                // Quantity Controls and Delete Button
                 Row(
                   children: [
                     GestureDetector(
-                      onTap: () {
-                        // quantity cannot be less than 1 pop up a snackbar
-
-                        if (cartItem.quantity > 1) {
-                          // Add decrease quantity logic here
-                          print("Decrease quantity");
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text("Quantity cannot be less than 1"),
-                            ),
-                          );
-                        }
-                      },
+                      onTap: onDecreasePressed,
                       child: Container(
                         width: 24,
                         height: 24,
@@ -93,21 +87,7 @@ class CartItem extends StatelessWidget {
                     ),
                     const SizedBox(width: 16),
                     GestureDetector(
-                      onTap: () {
-                        // if quantity is more than the productQuantity pop up a snackbar
-                        if (cartItem.quantity <
-                            cartItem.productId!.productQuantity) {
-                          // Add increase quantity logic here
-                          print("Increase quantity");
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                  "Quantity cannot be more than the available quantity"),
-                            ),
-                          );
-                        }
-                      },
+                      onTap: onIncreasePressed,
                       child: Container(
                         width: 24,
                         height: 24,
@@ -123,11 +103,28 @@ class CartItem extends StatelessWidget {
                     // Price
                     const SizedBox(width: 20),
                     Text(
-                      "\$${cartItem.productId!.productPrice.toStringAsFixed(2)}",
+                      "\$${cartItem.productId!.productPrice}",
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                         color: Colors.blue,
+                      ),
+                    ),
+                    // Delete Button
+                    const SizedBox(width: 5),
+                    GestureDetector(
+                      onTap: onDeletePressed,
+                      child: Container(
+                        width: 24,
+                        height: 24,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.red,
+                        ),
+                        child: const Center(
+                          child:
+                              Icon(Icons.delete, size: 16, color: Colors.white),
+                        ),
                       ),
                     ),
                   ],

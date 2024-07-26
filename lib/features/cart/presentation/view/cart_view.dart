@@ -160,7 +160,8 @@ class _CartViewState extends ConsumerState<CartView> {
       appBar: const MyAppbar(
         title: Text(
           "Cart",
-          style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         showBackArrow: true,
       ),
@@ -176,7 +177,26 @@ class _CartViewState extends ConsumerState<CartView> {
                 itemCount: cartState.products.length,
                 itemBuilder: (context, index) {
                   final cartItem = cartState.products[index];
-                  return CartItem(cartItem: cartItem);
+                  return CartItem(
+                    cartItem: cartItem,
+                    onDecreasePressed: () {
+                      ref.read(cartViewModelProvider.notifier).updateCart(
+                            cartItem.productId!,
+                            cartItem.quantity - 1,
+                          );
+                    },
+                    onIncreasePressed: () {
+                      ref.read(cartViewModelProvider.notifier).updateCart(
+                            cartItem.productId!,
+                            cartItem.quantity + 1,
+                          );
+                    },
+                    onDeletePressed: () {
+                      ref
+                          .read(cartViewModelProvider.notifier)
+                          .deleteCart(cartItem.id!.toString() ?? "");
+                    },
+                  );
                 },
               ),
             ),

@@ -25,4 +25,15 @@ class CartRemoteRepository implements ICartRepository {
     return cartRemoteDataSource.addToCart(
         productId: productId, quantity: quantity);
   }
+
+  @override
+  Future<Either<Failure, bool>> updateCart(String productId, int quantity) {
+    return cartRemoteDataSource.updateCart(
+        productId: productId, quantity: quantity);
+  }
+
+  @override
+  Future<Either<Failure, bool>> deleteCart(String id) {
+    return cartRemoteDataSource.deleteFromCart(id: id);
+  }
 }

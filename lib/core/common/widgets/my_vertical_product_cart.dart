@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 class MyProductCard extends StatelessWidget {
   final ProductEntity product;
+  final VoidCallback? onPressed;
 
-  const MyProductCard({required this.product, super.key});
+  const MyProductCard({required this.product, super.key, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -102,14 +103,14 @@ class MyProductCard extends StatelessWidget {
             bottom: 0,
             right: 0,
             child: IconButton(
-              icon: const Icon(
-                Icons.add_shopping_cart,
-                color: Colors.blue,
-              ),
-              onPressed: () {
-                // Add your add to cart button logic here
-              },
-            ),
+                icon: const Icon(
+                  Icons.add_shopping_cart,
+                  color: Colors.blue,
+                ),
+                onPressed: onPressed!
+                // read the cart view model
+
+                ),
           ),
         ],
       ),

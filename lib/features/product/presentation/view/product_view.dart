@@ -3,6 +3,7 @@ import 'package:final_assignment/core/common/widgets/my_carousel_slider.dart';
 import 'package:final_assignment/core/common/widgets/my_curved_edges.dart';
 import 'package:final_assignment/core/common/widgets/my_search_container.dart';
 import 'package:final_assignment/core/common/widgets/my_vertical_product_cart.dart';
+import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
 import 'package:final_assignment/features/feedback/presentation/navigator/feedback_navigator.dart';
 import 'package:final_assignment/features/feedback/presentation/viewmodel/feedback_viewmodel.dart';
 import 'package:final_assignment/features/product/presentation/view_model/products_viewmodel.dart';
@@ -243,7 +244,14 @@ class _HomeViewState extends ConsumerState<HomeView> {
                           itemCount: productState.products.length,
                           itemBuilder: (context, index) {
                             final product = productState.products[index];
-                            return MyProductCard(product: product);
+                            return MyProductCard(
+                              product: product,
+                              onPressed: () {
+                                ref
+                                    .read(cartViewModelProvider.notifier)
+                                    .addCart(product.id!, 1);
+                              },
+                            );
                           },
                         ),
                         if (productState.isLoading)
