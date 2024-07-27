@@ -18,4 +18,9 @@ class ProductUsecase {
       int page, int limit, String category) {
     return productRepository.getProductsByCategory(page, limit, category);
   }
+
+  // get single product
+  Future<Either<Failure, ProductEntity>> getProductById(String id) {
+    return productRepository.getProductById(id);
+  }
 }

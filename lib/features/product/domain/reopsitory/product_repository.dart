@@ -10,4 +10,6 @@ final productRepositoryProvider =
 abstract class IProductRepository {
   Future<Either<Failure, List<ProductEntity>>> getProductsByCategory(
       int page, int limit, String category);
+
+  Future<Either<Failure, ProductEntity>> getProductById(String id);
 }

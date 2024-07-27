@@ -22,4 +22,10 @@ class ProductRemoteRepository implements IProductRepository {
     return productRemoteDataSource.getProductsByCategory(
         page: page, limit: limit, category: category);
   }
+
+  // get single product
+  @override
+  Future<Either<Failure, ProductEntity>> getProductById(String id) {
+    return productRemoteDataSource.getSingleProduct(id);
+  }
 }

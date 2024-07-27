@@ -49,18 +49,19 @@ class CartViewModel extends StateNotifier<CartState> {
       );
       showMySnackBar(message: 'Product added to cart', color: Colors.green);
     });
+    getCarts();
   }
 
   //update cart
   Future<void> updateCart(ProductEntity productId, int quantity) async {
     state = state.copyWith(isLoading: true);
     if (quantity == 0) {
-      showMySnackBar(message: "Quantity cant be zero", color: Colors.red);
+      showMySnackBar(
+          message: "Quantity cant be less than 1", color: Colors.red);
       return;
     }
-    if (quantity > productId.productQuantity!) {
-      showMySnackBar(
-          message: "Quantity cant be more than stock", color: Colors.red);
+    if (quantity > productId.productQuantity) {
+      showMySnackBar(message: "Out of Stock", color: Colors.red);
       return;
     }
     final result = await cartUsecase.updateCart(productId.id!, quantity);

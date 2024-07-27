@@ -72,6 +72,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   Widget build(BuildContext context) {
     final productState = ref.watch(productViewModelProvider);
     final feedbackState = ref.watch(feedbackViewModelProvider);
+    final cartState = ref.watch(cartViewModelProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (feedbackState.showFeedbackDialog) {
@@ -162,9 +163,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                           borderRadius:
                                               BorderRadius.circular(50),
                                         ),
-                                        child: const Center(
+                                        child: Center(
                                           child: Text(
-                                            '2',
+                                            // update the cart count
+                                            cartState.products.length
+                                                .toString(),
                                             style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 12,
