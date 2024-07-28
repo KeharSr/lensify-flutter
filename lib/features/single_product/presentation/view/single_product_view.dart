@@ -1,24 +1,28 @@
 import 'package:final_assignment/core/common/widgets/my_appbar.dart';
+import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
 import 'package:final_assignment/features/single_product/presentation/view_model/single_product_view_model.dart';
 import 'package:final_assignment/features/single_product/presentation/widgets/my_single_product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ProductDetailsScreen extends ConsumerStatefulWidget {
+class SingleProductView extends ConsumerStatefulWidget {
   final String productId;
 
-  const ProductDetailsScreen({required this.productId, super.key});
+  const SingleProductView({required this.productId, super.key});
 
   @override
-  _ProductDetailsScreenState createState() => _ProductDetailsScreenState();
+  _SingleProductViewState createState() => _SingleProductViewState();
 }
 
-class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
+class _SingleProductViewState extends ConsumerState<SingleProductView> {
   @override
   void initState() {
     super.initState();
-    // Fetch the product details when the screen initializes
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    _fetchProductDetails();
+  }
+
+  void _fetchProductDetails() {
+    Future.microtask(() {
       ref
           .read(singleProductViewModelProvider.notifier)
           .getSingleProduct(widget.productId);
@@ -30,19 +34,37 @@ class _ProductDetailsScreenState extends ConsumerState<ProductDetailsScreen> {
     final productState = ref.watch(singleProductViewModelProvider);
 
     return Scaffold(
-      appBar: MyAppbar(
-        title: const Text('Product Details'),
+      appBar: const MyAppbar(
+        title: Text('Product Details'),
         showBackArrow: true,
       ),
-      body: SingleChildScrollView(
-        child: productState.isLoading
-            ? const Center(child: CircularProgressIndicator())
-            : productState.error != null
-                ? Center(child: Text(productState.error!))
-                : productState.singleProduct != null
-                    ? ProductDetails(singleProduct: productState.singleProduct!)
-                    : const Center(child: Text('Product not found')),
-      ),
+      body: productState.isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : productState.error != null
+              ? Center(child: Text(productState.error!))
+              : productState.singleProduct != null
+                  ? SingleView(
+                      singleProduct: productState.singleProduct!,
+                      selectedQuantity: productState.selectedQuantity,
+                      onAddToBag: () {
+                        ref.read(cartViewModelProvider.notifier).addCart(
+                            productState.singleProduct!.id!,
+                            productState.selectedQuantity);
+                      },
+                      onIncreaseQuantity: () {
+                        ref
+                            .read(singleProductViewModelProvider.notifier)
+                            .updateSelectedQuantity(
+                                productState.selectedQuantity + 1);
+                      },
+                      onDecreaseQuantity: () {
+                        ref
+                            .read(singleProductViewModelProvider.notifier)
+                            .updateSelectedQuantity(
+                                productState.selectedQuantity - 1);
+                      },
+                    )
+                  : const Center(child: Text('Product not found')),
     );
   }
 }

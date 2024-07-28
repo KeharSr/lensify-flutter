@@ -1,5 +1,7 @@
+import 'package:final_assignment/app/constants/colors.dart';
 import 'package:final_assignment/core/common/widgets/my_appbar.dart';
 import 'package:final_assignment/core/common/widgets/my_carousel_slider.dart';
+import 'package:final_assignment/core/common/widgets/my_cart_counter_icon.dart';
 import 'package:final_assignment/core/common/widgets/my_curved_edges.dart';
 import 'package:final_assignment/core/common/widgets/my_search_container.dart';
 import 'package:final_assignment/core/common/widgets/my_vertical_product_cart.dart';
@@ -113,71 +115,38 @@ class _HomeViewState extends ConsumerState<HomeView> {
                     clipper: MyCurvedEdges(),
                     child: Container(
                       height: 300,
-                      color: Colors.blue,
+                      color: TColors.primary,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 1.0),
                         child: Column(
                           children: [
                             MyAppbar(
-                              title: const Column(
+                              title: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    'Lets Shop',
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 222, 15, 15),
-                                      fontSize: 20,
-                                    ),
-                                  ),
+                                  Text('Good Day For Shopping',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelMedium!
+                                          .apply(color: TColors.grey)),
                                   Text(
                                     'Kehar Sr',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headlineSmall!
+                                        .apply(color: TColors.textWhite),
                                   ),
                                 ],
                               ),
                               actions: [
-                                Stack(
-                                  children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        ref
-                                            .read(productViewModelProvider
-                                                .notifier)
-                                            .openCartView();
-                                      },
-                                      icon: const Icon(
-                                        Icons.shopping_cart_rounded,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Positioned(
-                                      right: 0,
-                                      child: Container(
-                                        width: 18,
-                                        height: 18,
-                                        decoration: BoxDecoration(
-                                          color: Colors.black.withOpacity(0.5),
-                                          borderRadius:
-                                              BorderRadius.circular(50),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            // update the cart count
-                                            cartState.products.length
-                                                .toString(),
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                MyCartCounterIcon(
+                                    iconColor: TColors.textWhite,
+                                    onPressed: () {
+                                      ref
+                                          .read(
+                                              productViewModelProvider.notifier)
+                                          .openCartView();
+                                    })
                               ],
                             ),
                             const SizedBox(height: 16),

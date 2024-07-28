@@ -15,11 +15,10 @@ class MyProductCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        // navigator.push to single child view screen
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetailsScreen(productId: product.id!),
+            builder: (context) => SingleProductView(productId: product.id!),
           ),
         );
       },

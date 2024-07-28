@@ -1,6 +1,7 @@
 import 'package:final_assignment/core/common/widgets/my_button.dart';
 import 'package:final_assignment/core/common/widgets/my_text_form_field.dart';
 import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
+import 'package:final_assignment/features/forget_password/presentation/view/forget_password_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -15,7 +16,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController =
-      TextEditingController(text: "user@gmail.com");
+      TextEditingController(text: "keharojha04@gmail.com");
   final TextEditingController _passwordController =
       TextEditingController(text: "password");
 
@@ -130,7 +131,15 @@ class _LoginViewState extends ConsumerState<LoginView> {
                             ],
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ForgetPasswordView(),
+                                ),
+                              );
+                            },
                             child: const Text('Forgot Password'),
                           ),
                         ],

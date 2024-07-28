@@ -35,4 +35,17 @@ class SingleProductViewModel extends StateNotifier<SingleProductState> {
       );
     });
   }
+
+  void updateSelectedQuantity(int quantity) {
+    if (state.singleProduct != null &&
+        quantity > state.singleProduct!.productQuantity) {
+      showMySnackBar(message: 'Out of stock', color: Colors.red);
+      return;
+    }
+    if (quantity < 1) {
+      showMySnackBar(message: 'Quantity cannot be less 1', color: Colors.red);
+      return;
+    }
+    state = state.copyWith(selectedQuantity: quantity);
+  }
 }

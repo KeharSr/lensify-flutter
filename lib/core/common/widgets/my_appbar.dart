@@ -1,6 +1,4 @@
-
-
-
+import 'package:final_assignment/app/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
@@ -22,14 +20,15 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
       child: AppBar(
         automaticallyImplyLeading: false,
         leading: showBackArrow
             ? IconButton(
-          onPressed: leadingOnTap ?? () => Navigator.pop(context),
-          icon: Icon(leadingIcon ?? Icons.arrow_back, color: Colors.black),
-        )
+                onPressed: leadingOnTap ?? () => Navigator.pop(context),
+                icon:
+                    Icon(leadingIcon ?? Icons.arrow_back, color: Colors.black),
+              )
             : null,
         title: title,
         actions: actions,

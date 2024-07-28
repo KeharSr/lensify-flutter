@@ -14,9 +14,7 @@ class MyCarouselSlider extends StatelessWidget {
         autoPlay: true,
         enlargeCenterPage: true,
         aspectRatio: 2.0,
-        onPageChanged: (index, reason) {
-          
-        },
+        onPageChanged: (index, reason) {},
       ),
       items: [
         'https://img.freepik.com/free-vector/colorful-3d-spromotional-sale-wallpaper_23-2148410530.jpg?t=st=1719635271~exp=1719638871~hmac=e5fb1441e1970e118b2e2dc0738210019b03bca03473c2ee0256eb83cf4f93f6&w=996',
@@ -27,8 +25,7 @@ class MyCarouselSlider extends StatelessWidget {
           builder: (BuildContext context) {
             return Container(
               width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(
-                  horizontal: 5.0),
+              margin: const EdgeInsets.symmetric(horizontal: 5.0),
               decoration: const BoxDecoration(
                 color: Colors.amber,
               ),
@@ -43,5 +40,3 @@ class MyCarouselSlider extends StatelessWidget {
     );
   }
 }
-
-

@@ -37,7 +37,7 @@ class _CartViewState extends ConsumerState<CartView> {
           title: Text(
             "Cart",
             style: TextStyle(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           ),
           showBackArrow: true,
         ),

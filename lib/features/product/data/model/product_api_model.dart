@@ -54,7 +54,6 @@ class ProductApiModel extends Equatable {
       productCategory: productCategory,
       productDescription: productDescription,
       productQuantity: productQuantity,
-
     );
   }
 
