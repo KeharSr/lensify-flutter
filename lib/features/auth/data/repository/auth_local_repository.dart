@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:final_assignment/core/failure/failure.dart';
 import 'package:final_assignment/features/auth/data/data_source/local/auth_local_data_source.dart';
@@ -35,6 +37,12 @@ class AuthLocalRepository implements IAuthRepository {
   @override
   Future<Either<Failure, bool>> fingerPrintLogin(String id) {
     // TODO: implement fingerPrintLogin
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, String>> uploadProfilePicture(File file) {
+    // TODO: implement uploadProfilePicture
     throw UnimplementedError();
   }
 }

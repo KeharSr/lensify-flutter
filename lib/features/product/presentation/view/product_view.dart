@@ -1,12 +1,10 @@
 import 'package:final_assignment/app/constants/colors.dart';
-import 'package:final_assignment/core/common/widgets/my_appbar.dart';
 import 'package:final_assignment/core/common/widgets/my_carousel_slider.dart';
-import 'package:final_assignment/core/common/widgets/my_cart_counter_icon.dart';
-import 'package:final_assignment/core/common/widgets/my_curved_edges.dart';
-import 'package:final_assignment/core/common/widgets/my_search_container.dart';
 import 'package:final_assignment/core/common/widgets/my_vertical_product_cart.dart';
+import 'package:final_assignment/core/common/widgets/t_app_bar.dart';
+import 'package:final_assignment/core/common/widgets/t_curved_edges_widget.dart';
+import 'package:final_assignment/core/common/widgets/t_search_container.dart';
 import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
-import 'package:final_assignment/features/feedback/presentation/navigator/feedback_navigator.dart';
 import 'package:final_assignment/features/feedback/presentation/viewmodel/feedback_viewmodel.dart';
 import 'package:final_assignment/features/product/presentation/view_model/products_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -35,52 +33,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
     super.dispose();
   }
 
-  void _showFeedbackDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Send Feedback'),
-          content: const Text('Are you sure you want to send feedback?'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                ref
-                    .read(feedbackViewModelProvider.notifier)
-                    .setShowFeedbackDialog(false);
-              },
-              child: const Text('No'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog
-                ref.read(feedbackViewNavigatorProvider).openFeedbackView();
-                ref
-                    .read(feedbackViewModelProvider.notifier)
-                    .setShowFeedbackDialog(false);
-              },
-              child: const Text('Yes'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   int index = 0;
 
   @override
   Widget build(BuildContext context) {
     final productState = ref.watch(productViewModelProvider);
-    final feedbackState = ref.watch(feedbackViewModelProvider);
-    final cartState = ref.watch(cartViewModelProvider);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (feedbackState.showFeedbackDialog) {
-        _showFeedbackDialog();
-      }
-    });
 
     return DefaultTabController(
       length: 3, // Number of tabs
@@ -111,8 +68,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
               controller: _scrollController,
               child: Column(
                 children: [
-                  ClipPath(
-                    clipper: MyCurvedEdges(),
+                  TCurvedEdgeWidget(
                     child: Container(
                       height: 300,
                       color: TColors.primary,
@@ -120,37 +76,13 @@ class _HomeViewState extends ConsumerState<HomeView> {
                         padding: const EdgeInsets.symmetric(horizontal: 1.0),
                         child: Column(
                           children: [
-                            MyAppbar(
-                              title: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Good Day For Shopping',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium!
-                                          .apply(color: TColors.grey)),
-                                  Text(
-                                    'Kehar Sr',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall!
-                                        .apply(color: TColors.textWhite),
-                                  ),
-                                ],
-                              ),
-                              actions: [
-                                MyCartCounterIcon(
-                                    iconColor: TColors.textWhite,
-                                    onPressed: () {
-                                      ref
-                                          .read(
-                                              productViewModelProvider.notifier)
-                                          .openCartView();
-                                    })
-                              ],
-                            ),
+                            TAppBar(onPressed: () {
+                              ref
+                                  .read(productViewModelProvider.notifier)
+                                  .openCartView();
+                            }),
                             const SizedBox(height: 16),
-                            const MySearchContainer(
+                            const TSearchContainer(
                               text: 'Search for products',
                               icon: Icons.search,
                             ),
@@ -196,7 +128,8 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       ),
                     ),
                   ),
-                  const MyCarouselSlider(),
+                  // const MyCarouselSlider(),
+                  MyCarouselSlider(),
                   const SizedBox(height: 16),
                   Padding(
                     padding: const EdgeInsets.all(16.0),

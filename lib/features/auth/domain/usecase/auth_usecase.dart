@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:final_assignment/core/failure/failure.dart';
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
@@ -40,5 +42,10 @@ class AuthUseCase {
       }
       return Left(Failure(error: 'No fingerprint id found'));
     });
+  }
+
+  //uploadProfilePicture
+  Future<Either<Failure, String>> uploadProfilePicture(File file) async {
+    return await authRepository.uploadProfilePicture(file);
   }
 }

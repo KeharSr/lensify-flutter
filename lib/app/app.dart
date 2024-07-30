@@ -14,8 +14,8 @@ class App extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: KAppTheme.lightTheme,
       darkTheme: KAppTheme.darkTheme,
-      // home: SplashView(),
-      home: SplashView(),
+      // home: CheckoutScreen(),
+      home: const SplashView(),
     );
   }
 }

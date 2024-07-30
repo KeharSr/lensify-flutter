@@ -113,6 +113,34 @@ class MockProductUsecase extends _i1.Mock implements _i4.ProductUsecase {
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>>);
+
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, _i7.ProductEntity>> getProductById(
+          String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getProductById,
+          [id],
+        ),
+        returnValue:
+            _i5.Future<_i3.Either<_i6.Failure, _i7.ProductEntity>>.value(
+                _FakeEither_1<_i6.Failure, _i7.ProductEntity>(
+          this,
+          Invocation.method(
+            #getProductById,
+            [id],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i3.Either<_i6.Failure, _i7.ProductEntity>>.value(
+                _FakeEither_1<_i6.Failure, _i7.ProductEntity>(
+          this,
+          Invocation.method(
+            #getProductById,
+            [id],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, _i7.ProductEntity>>);
 }
 
 /// A class which mocks [MainViewNavigator].

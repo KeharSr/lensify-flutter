@@ -65,6 +65,7 @@ class AuthHiveModel {
         phoneNumber: phoneNumber,
         userName: userName,
         password: password,
+        
       );
 
   // Convert Entity to Hive Object

@@ -1,3 +1,4 @@
+import 'package:final_assignment/app/constants/colors.dart';
 import 'package:final_assignment/app/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -7,14 +8,14 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.actions,
     this.leadingIcon,
-    this.leadingOnTap,
+    this.leadingOnPressed,
     this.showBackArrow = false,
   });
 
   final Widget? title;
   final IconData? leadingIcon;
   final List<Widget>? actions;
-  final VoidCallback? leadingOnTap;
+  final VoidCallback? leadingOnPressed;
   final bool showBackArrow;
 
   @override
@@ -25,9 +26,9 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
         automaticallyImplyLeading: false,
         leading: showBackArrow
             ? IconButton(
-                onPressed: leadingOnTap ?? () => Navigator.pop(context),
+                onPressed: leadingOnPressed ?? () => Navigator.pop(context),
                 icon:
-                    Icon(leadingIcon ?? Icons.arrow_back, color: Colors.black),
+                    Icon(leadingIcon ?? Icons.arrow_back, color: TColors.grey),
               )
             : null,
         title: title,

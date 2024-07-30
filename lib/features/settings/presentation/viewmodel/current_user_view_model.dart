@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:final_assignment/core/common/widgets/my_snackbar.dart';
 import 'package:final_assignment/core/common/widgets/my_yes_no_dialog.dart';
 import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart';
@@ -42,7 +44,14 @@ class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
           state = state.copyWith(isLoading: false, error: l.error);
         },
         (r) {
-          state = state.copyWith(isLoading: false, authEntity: r);
+          if (r.profilePicture != null) {
+            state = state.copyWith(
+                isLoading: false,
+                authEntity: r,
+                uploadProfilePicture: r.profilePicture);
+          } else {
+            state = state.copyWith(isLoading: false, authEntity: r);
+          }
         },
       );
     } catch (e) {
@@ -105,5 +114,29 @@ class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
         }
       },
     );
+  }
+
+  Future<void> uploadProfilePicture(File file) async {
+    try {
+      state = state.copyWith(isLoading: true);
+      final data = await authUseCase.uploadProfilePicture(file);
+      data.fold(
+        (l) {
+          state = state.copyWith(isLoading: false, error: l.error);
+        },
+        (uploadProfilePicture) {
+          state = state.copyWith(
+              isLoading: false,
+              error: null,
+              uploadProfilePicture: uploadProfilePicture);
+          showMySnackBar(
+              message: 'Profile picture uploaded', color: Colors.green);
+        },
+      );
+    } catch (e) {
+      state = state.copyWith(
+          isLoading: false, error: 'Failed to upload profile picture.');
+      print('Error uploading profile picture: $e');
+    }
   }
 }

@@ -2,6 +2,7 @@ import 'package:final_assignment/app/constants/api_endpoint.dart';
 import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
 import 'package:final_assignment/features/single_product/presentation/view/single_product_view.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 
 class MyProductCard extends StatelessWidget {
   final ProductEntity product;
@@ -84,8 +85,8 @@ class MyProductCard extends StatelessWidget {
                       Text(
                         product.productPrice.toString(),
                         style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                     ],
@@ -100,7 +101,7 @@ class MyProductCard extends StatelessWidget {
                 padding: const EdgeInsets.all(1),
                 child: IconButton(
                   icon: const Icon(
-                    Icons.favorite_border,
+                    Iconsax.heart5,
                     color: Colors.red,
                   ),
                   onPressed: () {
@@ -114,7 +115,7 @@ class MyProductCard extends StatelessWidget {
               right: 0,
               child: IconButton(
                   icon: const Icon(
-                    Icons.add_shopping_cart,
+                    Iconsax.shopping_bag,
                     color: Colors.blue,
                   ),
                   onPressed: onPressed!

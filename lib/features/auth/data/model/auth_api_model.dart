@@ -18,6 +18,7 @@ class AuthApiModel {
   final String email;
   final String userName;
   final String? password;
+  final String? profilePicture;
 
   AuthApiModel({
     required this.id,
@@ -27,6 +28,7 @@ class AuthApiModel {
     required this.phoneNumber,
     required this.userName,
     required this.password,
+    this.profilePicture,
   });
 
   const AuthApiModel.empty()
@@ -36,7 +38,8 @@ class AuthApiModel {
         email = '',
         phoneNumber = '',
         userName = '',
-        password = '';
+        password = '',
+        profilePicture = '';
 
   factory AuthApiModel.fromJson(Map<String, dynamic> json) =>
       _$AuthApiModelFromJson(json);
@@ -53,6 +56,7 @@ class AuthApiModel {
       phoneNumber: phoneNumber,
       userName: userName,
       password: password ?? '',
+      profilePicture: profilePicture ?? '',
     );
   }
 
@@ -66,6 +70,7 @@ class AuthApiModel {
       phoneNumber: entity.phoneNumber,
       userName: entity.userName,
       password: entity.password,
+      profilePicture: entity.profilePicture,
     );
   }
 
@@ -75,6 +80,14 @@ class AuthApiModel {
   }
 
   @override
-  List<Object?> get props =>
-      [id, firstName, lastName, email, phoneNumber, userName, password];
+  List<Object?> get props => [
+        id,
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        userName,
+        password,
+        profilePicture,
+      ];
 }

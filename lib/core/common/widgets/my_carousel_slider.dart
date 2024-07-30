@@ -2,15 +2,18 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class MyCarouselSlider extends StatelessWidget {
-  const MyCarouselSlider({
-    super.key,
-  });
+  const MyCarouselSlider({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final double height =
+        MediaQuery.of(context).size.height * 0.25; // 25% of screen height
+    final double width =
+        MediaQuery.of(context).size.width * 0.8; // 80% of screen width
+
     return CarouselSlider(
       options: CarouselOptions(
-        height: 200,
+        height: height,
         autoPlay: true,
         enlargeCenterPage: true,
         aspectRatio: 2.0,
@@ -24,14 +27,19 @@ class MyCarouselSlider extends StatelessWidget {
         return Builder(
           builder: (BuildContext context) {
             return Container(
-              width: MediaQuery.of(context).size.width,
+              width: width,
               margin: const EdgeInsets.symmetric(horizontal: 5.0),
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.amber,
+                borderRadius: BorderRadius.circular(15), // rounded corners
               ),
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15), // rounded corners
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  height: height, // make sure the image fills the container
+                ),
               ),
             );
           },

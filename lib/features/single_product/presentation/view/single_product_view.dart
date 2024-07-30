@@ -1,4 +1,3 @@
-import 'package:final_assignment/core/common/widgets/my_appbar.dart';
 import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
 import 'package:final_assignment/features/single_product/presentation/view_model/single_product_view_model.dart';
 import 'package:final_assignment/features/single_product/presentation/widgets/my_single_product_view.dart';
@@ -34,10 +33,6 @@ class _SingleProductViewState extends ConsumerState<SingleProductView> {
     final productState = ref.watch(singleProductViewModelProvider);
 
     return Scaffold(
-      appBar: const MyAppbar(
-        title: Text('Product Details'),
-        showBackArrow: true,
-      ),
       body: productState.isLoading
           ? const Center(child: CircularProgressIndicator())
           : productState.error != null

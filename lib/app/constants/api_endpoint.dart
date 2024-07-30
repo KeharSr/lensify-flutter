@@ -17,6 +17,9 @@ class ApiEndpoints {
   static const String createUser = 'user/create';
   static const String currentUser = 'user/current';
   static const String getToken = "user/token";
+  static const String profileImage = 'user/profile_picture/';
+  static const String imageUrlprofile =
+      "http://192.168.1.133:5000/profile_pictures/";
 
   // ===========Product Routes===========
 

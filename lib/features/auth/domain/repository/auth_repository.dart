@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:final_assignment/core/common/provider/internet_connectivity.dart';
 import 'package:final_assignment/core/failure/failure.dart';
@@ -24,4 +26,6 @@ abstract class IAuthRepository {
   Future<Either<Failure, AuthEntity>> getCurrentUser();
 
   Future<Either<Failure, bool>> fingerPrintLogin(String id);
+
+  Future<Either<Failure, String>> uploadProfilePicture(File file);
 }

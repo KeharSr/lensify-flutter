@@ -4,6 +4,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i6;
+import 'dart:io' as _i9;
 
 import 'package:dartz/dartz.dart' as _i4;
 import 'package:final_assignment/core/failure/failure.dart' as _i7;
@@ -16,9 +17,9 @@ import 'package:final_assignment/features/auth/domain/repository/auth_repository
 import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart'
     as _i5;
 import 'package:final_assignment/features/auth/presentation/navigator/login_navigator.dart'
-    as _i9;
-import 'package:final_assignment/features/auth/presentation/navigator/register_navigator.dart'
     as _i10;
+import 'package:final_assignment/features/auth/presentation/navigator/register_navigator.dart'
+    as _i11;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -211,16 +212,43 @@ class MockAuthUseCase extends _i1.Mock implements _i5.AuthUseCase {
           ),
         )),
       ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
+
+  @override
+  _i6.Future<_i4.Either<_i7.Failure, String>> uploadProfilePicture(
+          _i9.File? file) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #uploadProfilePicture,
+          [file],
+        ),
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, String>>.value(
+            _FakeEither_2<_i7.Failure, String>(
+          this,
+          Invocation.method(
+            #uploadProfilePicture,
+            [file],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i4.Either<_i7.Failure, String>>.value(
+                _FakeEither_2<_i7.Failure, String>(
+          this,
+          Invocation.method(
+            #uploadProfilePicture,
+            [file],
+          ),
+        )),
+      ) as _i6.Future<_i4.Either<_i7.Failure, String>>);
 }
 
 /// A class which mocks [LoginViewNavigator].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLoginViewNavigator extends _i1.Mock
-    implements _i9.LoginViewNavigator {}
+    implements _i10.LoginViewNavigator {}
 
 /// A class which mocks [RegisterViewNavigator].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRegisterViewNavigator extends _i1.Mock
-    implements _i10.RegisterViewNavigator {}
+    implements _i11.RegisterViewNavigator {}

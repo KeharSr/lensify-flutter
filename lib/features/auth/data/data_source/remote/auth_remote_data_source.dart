@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:final_assignment/app/constants/api_endpoint.dart';
@@ -147,6 +149,68 @@ class AuthRemoteDataSource {
       );
     } on DioException catch (e) {
       return Left(Failure(error: e.error.toString()));
+    }
+  }
+
+// upload profile image
+
+  Future<Either<Failure, String>> uploadProfilePicture(File image) async {
+    try {
+      // Retrieve the token
+      String? token;
+      var data = await userSharedPrefs.getUserToken();
+      data.fold(
+        (l) => token = null,
+        (r) => token = r,
+      );
+
+      if (token == null) {
+        return Left(
+          Failure(
+            error: 'No token found',
+          ),
+        );
+      }
+
+      // Prepare the image file
+      String fileName = image.path.split('/').last;
+      FormData formData = FormData.fromMap(
+        {
+          'profilePicture': await MultipartFile.fromFile(
+            image.path,
+            filename: fileName,
+          ),
+        },
+      );
+
+      Response response = await dio.post(
+        // ApiEndpoints.profileImage,
+        '${ApiEndpoints.profileImage}/$id',
+        data: formData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return Right(response.data["data"]);
+      } else {
+        return Left(
+          Failure(
+            error: response.data['message'] ?? 'Failed to upload image',
+            statusCode: response.statusCode.toString(),
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.error.toString(),
+          statusCode: e.response?.statusCode.toString() ?? '0',
+        ),
+      );
     }
   }
 }

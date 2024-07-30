@@ -12,6 +12,7 @@ class AuthTestData {
       phoneNumber: '1234567890',
       userName: 'keharsr',
       password: '',
+      
     );
   }
 }
