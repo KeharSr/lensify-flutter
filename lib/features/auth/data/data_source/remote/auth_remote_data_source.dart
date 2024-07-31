@@ -213,4 +213,53 @@ class AuthRemoteDataSource {
       );
     }
   }
+
+  // update user
+  Future<Either<Failure, bool>> updateUser(AuthEntity updateUser) async {
+    try {
+      String? token;
+      var data = await userSharedPrefs.getUserToken();
+      data.fold(
+        (l) => token = null,
+        (r) => token = r,
+      );
+
+      if (token == null) {
+        return Left(
+          Failure(
+            error: 'No token found',
+          ),
+        );
+      }
+
+      Response response = await dio.put(
+        ApiEndpoints.updateUser,
+        data: authApiModel.fromEntity(updateUser).toJson(),
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else {
+        return Left(
+          Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString(),
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.error.toString(),
+          statusCode: e.response?.statusCode.toString() ?? '0',
+        ),
+      );
+    }
+  }
+
 }
