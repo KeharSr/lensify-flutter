@@ -1,12 +1,12 @@
 import 'package:final_assignment/app/constants/colors.dart';
 import 'package:final_assignment/core/common/widgets/my_carousel_slider.dart';
-import 'package:final_assignment/core/common/widgets/my_vertical_product_cart.dart';
 import 'package:final_assignment/core/common/widgets/t_app_bar.dart';
 import 'package:final_assignment/core/common/widgets/t_curved_edges_widget.dart';
 import 'package:final_assignment/core/common/widgets/t_search_container.dart';
 import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
 import 'package:final_assignment/features/feedback/presentation/viewmodel/feedback_viewmodel.dart';
 import 'package:final_assignment/features/product/presentation/view_model/products_viewmodel.dart';
+import 'package:final_assignment/features/product/presentation/widgets/my_vertical_product_cart.dart';
 import 'package:final_assignment/features/wishlist/presentation/view_model/wishlist_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
