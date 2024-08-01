@@ -48,4 +48,9 @@ class AuthUseCase {
   Future<Either<Failure, String>> uploadProfilePicture(File file) async {
     return await authRepository.uploadProfilePicture(file);
   }
+
+  //updateUser
+  Future<Either<Failure, bool>> updateUser(AuthEntity user) async {
+    return await authRepository.updateUser(user);
+  }
 }

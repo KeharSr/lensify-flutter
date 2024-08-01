@@ -8,8 +8,6 @@ class ApiEndpoints {
 
   // static const String baseUrl = "http://172.26.0.197:5000/api/";
 
-  static const String imageUrl = 'http://192.168.1.133:5000/products/';
-
   // static const String imageUrl = 'http://172.26.0.187:5000/products/';
 
   // ===========Auth Routes===========
@@ -28,10 +26,16 @@ class ApiEndpoints {
       'product/get_products_by_category';
   static const int limit = 2;
   static const getSingleProduct = 'product/get_single_product/';
+  static const String imageUrl = 'http://192.168.1.133:5000/products/';
 
   // ===========Cart Routes===========
   static const String addToCart = 'cart/add_to_cart';
   static const String getCart = 'cart/get_cart';
   static const String updateCart = 'cart/update_cart';
   static const String deleteCart = 'cart/remove_cart_item/';
+
+// ===========Wishlist Routes===========
+  static const String addFavourite = 'favorite/add_favorite';
+  static const String getFavourite = 'favorite/get_favorite';
+  static const String deleteFavourite = 'favorite/remove_favorite/';
 }

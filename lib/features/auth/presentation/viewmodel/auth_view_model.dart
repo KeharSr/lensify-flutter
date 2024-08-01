@@ -1,4 +1,3 @@
-
 import 'package:final_assignment/core/common/widgets/my_snackbar.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart';
@@ -35,11 +34,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
           isLoading: false,
           error: failure.error,
         );
-        // showMySnackBar(message: failure.error, color: Colors.red);
+        showMySnackBar(message: failure.error, color: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
-        // showMySnackBar(message: "Successfully registered");
+        showMySnackBar(message: "Successfully registered");
       },
     );
   }
@@ -53,11 +52,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
     data.fold(
       (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
-        // showMySnackBar(message: failure.error, color: Colors.red);
+        showMySnackBar(message: failure.error, color: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
-        // showMySnackBar(message: "Successfully logged in");
+        showMySnackBar(message: "Successfully logged in");
         openHomeView();
       },
     );
@@ -70,11 +69,11 @@ class AuthViewModel extends StateNotifier<AuthState> {
     data.fold(
       (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
-        // showMySnackBar(message: failure.error, color: Colors.red);
+        showMySnackBar(message: failure.error, color: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
-        // showMySnackBar(message: "Successfully logged in");
+        showMySnackBar(message: "Successfully logged in");
         openHomeView();
       },
     );

@@ -1,4 +1,5 @@
 import 'package:final_assignment/app/constants/api_endpoint.dart';
+import 'package:final_assignment/app/constants/colors.dart';
 import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
 import 'package:final_assignment/features/single_product/presentation/view/single_product_view.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class MyProductCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: TColors.grey,
           borderRadius: BorderRadius.circular(16),
           boxShadow: const [
             BoxShadow(
@@ -67,11 +68,15 @@ class MyProductCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        product.productDescription,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey,
+                      //Rating starts dummy data
+                      Row(
+                        children: List.generate(
+                          5,
+                          (index) => const Icon(
+                            Icons.star,
+                            color: Colors.amber,
+                            size: 16,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -95,14 +100,13 @@ class MyProductCard extends StatelessWidget {
               ],
             ),
             Positioned(
-              top: 0,
               right: 0,
+              bottom: 35,
               child: Padding(
                 padding: const EdgeInsets.all(1),
                 child: IconButton(
                   icon: const Icon(
                     Iconsax.heart5,
-                    color: Colors.red,
                   ),
                   onPressed: () {
                     // Add your favorite button logic here

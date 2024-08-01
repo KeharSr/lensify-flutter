@@ -260,11 +260,11 @@
 //   }
 // }
 
-
-
 import 'dart:io';
+
 import 'package:final_assignment/app/constants/api_endpoint.dart';
 import 'package:final_assignment/app/constants/colors.dart';
+import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/settings/presentation/state/current_user_state.dart';
 import 'package:final_assignment/features/settings/presentation/viewmodel/current_user_view_model.dart';
 import 'package:flutter/material.dart';
@@ -284,6 +284,8 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
   late TextEditingController lnameController;
   late TextEditingController emailController;
   late TextEditingController phoneController;
+  late TextEditingController usernameController;
+  late TextEditingController passwordController;
   File? _image;
 
   Future<void> checkCameraPermission() async {
@@ -327,6 +329,11 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
     emailController = TextEditingController(text: state.authEntity?.email);
     phoneController =
         TextEditingController(text: state.authEntity?.phoneNumber);
+    usernameController =
+        TextEditingController(text: state.authEntity?.userName);
+
+    passwordController =
+        TextEditingController(text: state.authEntity?.password);
   }
 
   @override
@@ -380,8 +387,36 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
                             hintText: 'Phone No',
                             controller: phoneController),
                         const SizedBox(height: 40),
+
+                        // Add username and password fields
+                        _buildTextField(
+                            icon: Icons.person,
+                            hintText: 'Username',
+                            controller: usernameController),
+                        const SizedBox(height: 20),
+
+                        _buildTextField(
+                            icon: Icons.lock,
+                            hintText: 'Password',
+                            isPassword: true,
+                            controller: passwordController),
+
                         ElevatedButton(
                           onPressed: () {
+                            ref
+                                .read(currentUserViewModelProvider.notifier)
+                                .updateUser(
+                                  AuthEntity(
+                                    //get the user id from the authEntity
+                                    id: state.authEntity!.id,
+                                    firstName: fnameController.text,
+                                    userName: usernameController.text,
+                                    lastName: lnameController.text,
+                                    email: emailController.text,
+                                    phoneNumber: phoneController.text,
+                                    password: passwordController.text,
+                                  ),
+                                );
                             // Add functionality to save profile changes
                           },
                           style: ElevatedButton.styleFrom(

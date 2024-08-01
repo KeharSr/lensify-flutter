@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:final_assignment/core/common/widgets/my_snackbar.dart';
 import 'package:final_assignment/core/common/widgets/my_yes_no_dialog.dart';
+import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart';
 import 'package:final_assignment/features/settings/presentation/state/current_user_state.dart';
 import 'package:flutter/material.dart';
@@ -137,6 +138,26 @@ class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
       state = state.copyWith(
           isLoading: false, error: 'Failed to upload profile picture.');
       print('Error uploading profile picture: $e');
+    }
+  }
+
+  Future<void> updateUser(AuthEntity user) async {
+    try {
+      state = state.copyWith(isLoading: true);
+      final data = await authUseCase.updateUser(user);
+      data.fold(
+        (l) {
+          state = state.copyWith(isLoading: false, error: l.error);
+        },
+        (r) {
+          state = state.copyWith(isLoading: false, error: null);
+          showMySnackBar(message: 'Profile updated', color: Colors.green);
+        },
+      );
+    } catch (e) {
+      state = state.copyWith(
+          isLoading: false, error: 'Failed to update profile picture.');
+      print('Error updating profile picture: $e');
     }
   }
 }

@@ -28,4 +28,6 @@ abstract class IAuthRepository {
   Future<Either<Failure, bool>> fingerPrintLogin(String id);
 
   Future<Either<Failure, String>> uploadProfilePicture(File file);
+
+  Future<Either<Failure, bool>> updateUser(AuthEntity user);
 }
