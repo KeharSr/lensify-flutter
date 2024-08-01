@@ -112,11 +112,12 @@ class _FavoriteState extends ConsumerState<FavoriteView> {
                                 top: 50,
                                 right: 35,
                                 child: GestureDetector(
-                                  // onTap: () {
-                                  //   ref
-                                  //       .read(wishlistViewModelProvider.notifier)
-                                  //       .removeFavorite(index);
-                                  // },
+                                  onTap: () {
+                                    ref
+                                        .read(
+                                            wishlistViewModelProvider.notifier)
+                                        .removeWishlist(favoriteItems.id!);
+                                  },
                                   child: const Icon(
                                     Icons.delete,
                                     color: Colors.red,

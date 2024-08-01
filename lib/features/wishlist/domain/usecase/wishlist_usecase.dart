@@ -17,4 +17,12 @@ class WishlistUsecase {
   Future<Either<Failure, List<WishlistEntity>>> getWishlist() async {
     return wishlistRepository.getWishlist();
   }
+
+  Future<Either<Failure, bool>> addWishlist(String productId) async {
+    return wishlistRepository.addWishlist(productId);
+  }
+
+  Future<Either<Failure, bool>> removeWishlist(String id) async {
+    return wishlistRepository.removeWishlist(id);
+  }
 }

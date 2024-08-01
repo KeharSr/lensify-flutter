@@ -26,7 +26,7 @@ class SingleProductViewModel extends StateNotifier<SingleProductState> {
     final result = await productUsecase.getProductById(productId);
     result.fold((failure) {
       state = state.copyWith(isLoading: false, error: failure.error);
-      showMySnackBar(message: failure.error, color: Colors.red);
+      showMySnackBar(message: failure.error, backgroundColor: Colors.red);
     }, (data) {
       state = state.copyWith(
         isLoading: false,
@@ -39,11 +39,12 @@ class SingleProductViewModel extends StateNotifier<SingleProductState> {
   void updateSelectedQuantity(int quantity) {
     if (state.singleProduct != null &&
         quantity > state.singleProduct!.productQuantity) {
-      showMySnackBar(message: 'Out of stock', color: Colors.red);
+      showMySnackBar(message: 'Out of stock', backgroundColor: Colors.red);
       return;
     }
     if (quantity < 1) {
-      showMySnackBar(message: 'Quantity cannot be less 1', color: Colors.red);
+      showMySnackBar(
+          message: 'Quantity cannot be less 1', backgroundColor: Colors.red);
       return;
     }
     state = state.copyWith(selectedQuantity: quantity);

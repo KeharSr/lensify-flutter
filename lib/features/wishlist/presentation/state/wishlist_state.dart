@@ -3,7 +3,7 @@ import 'package:final_assignment/features/wishlist/domain/entity/wishlist_entity
 class WishlistState {
   final List<WishlistEntity> favorites;
   final bool isLoading;
-  final String error;
+  final String? error;
 
   WishlistState({
     required this.favorites,
@@ -15,7 +15,7 @@ class WishlistState {
     return WishlistState(
       favorites: [],
       isLoading: false,
-      error: '',
+      error: null,
     );
   }
 

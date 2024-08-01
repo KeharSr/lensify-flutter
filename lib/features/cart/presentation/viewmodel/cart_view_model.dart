@@ -28,10 +28,11 @@ class CartViewModel extends StateNotifier<CartState> {
     var data = await cartUsecase.getCarts();
     data.fold((failure) {
       state = state.copyWith(isLoading: false, error: failure.error);
-      showMySnackBar(message: failure.error, color: Colors.red);
+      showMySnackBar(message: failure.error, backgroundColor: Colors.red);
     }, (success) {
       state = state.copyWith(isLoading: false, error: null, products: success);
-      showMySnackBar(message: 'Cart fetched successfully', color: Colors.green);
+      showMySnackBar(
+          message: 'Cart fetched successfully', backgroundColor: Colors.green);
     });
   }
 
@@ -41,13 +42,14 @@ class CartViewModel extends StateNotifier<CartState> {
     final result = await cartUsecase.addCart(productId, quantity);
     result.fold((failure) {
       state = state.copyWith(isLoading: false, error: failure.error);
-      showMySnackBar(message: failure.error, color: Colors.red);
+      showMySnackBar(message: failure.error, backgroundColor: Colors.red);
     }, (success) {
       state = state.copyWith(
         isLoading: false,
         error: null,
       );
-      showMySnackBar(message: 'Product added to cart', color: Colors.green);
+      showMySnackBar(
+          message: 'Product added to cart', backgroundColor: Colors.green);
     });
     getCarts();
   }
@@ -57,23 +59,24 @@ class CartViewModel extends StateNotifier<CartState> {
     state = state.copyWith(isLoading: true);
     if (quantity == 0) {
       showMySnackBar(
-          message: "Quantity cant be less than 1", color: Colors.red);
+          message: "Quantity cant be less than 1", backgroundColor: Colors.red);
       return;
     }
     if (quantity > productId.productQuantity) {
-      showMySnackBar(message: "Out of Stock", color: Colors.red);
+      showMySnackBar(message: "Out of Stock", backgroundColor: Colors.red);
       return;
     }
     final result = await cartUsecase.updateCart(productId.id!, quantity);
     result.fold((failure) {
       state = state.copyWith(isLoading: false, error: failure.error);
-      showMySnackBar(message: failure.error, color: Colors.red);
+      showMySnackBar(message: failure.error, backgroundColor: Colors.red);
     }, (success) {
       state = state.copyWith(
         isLoading: false,
         error: null,
       );
-      showMySnackBar(message: 'Cart updated successfully', color: Colors.green);
+      showMySnackBar(
+          message: 'Cart updated successfully', backgroundColor: Colors.green);
     });
     await getCarts();
   }
@@ -84,13 +87,14 @@ class CartViewModel extends StateNotifier<CartState> {
     final result = await cartUsecase.deleteCart(productId);
     result.fold((failure) {
       state = state.copyWith(isLoading: false, error: failure.error);
-      showMySnackBar(message: failure.error, color: Colors.red);
+      showMySnackBar(message: failure.error, backgroundColor: Colors.red);
     }, (success) {
       state = state.copyWith(
         isLoading: false,
         error: null,
       );
-      showMySnackBar(message: 'Product removed from cart', color: Colors.green);
+      showMySnackBar(
+          message: 'Product removed from cart', backgroundColor: Colors.green);
     });
     await getCarts();
   }

@@ -9,4 +9,8 @@ final wishlistRepositoryProvider = Provider<IWishlistRepository>(
 
 abstract class IWishlistRepository {
   Future<Either<Failure, List<WishlistEntity>>> getWishlist();
+
+  Future<Either<Failure, bool>> addWishlist(String productId);
+
+  Future<Either<Failure, bool>> removeWishlist(String id);
 }

@@ -7,6 +7,7 @@ import 'package:final_assignment/core/common/widgets/t_search_container.dart';
 import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
 import 'package:final_assignment/features/feedback/presentation/viewmodel/feedback_viewmodel.dart';
 import 'package:final_assignment/features/product/presentation/view_model/products_viewmodel.dart';
+import 'package:final_assignment/features/wishlist/presentation/view_model/wishlist_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -155,6 +156,11 @@ class _HomeViewState extends ConsumerState<HomeView> {
                                 ref
                                     .read(cartViewModelProvider.notifier)
                                     .addCart(product.id!, 1);
+                              },
+                              onWishlistTap: () {
+                                ref
+                                    .read(wishlistViewModelProvider.notifier)
+                                    .addWishlist(product.id!);
                               },
                             );
                           },

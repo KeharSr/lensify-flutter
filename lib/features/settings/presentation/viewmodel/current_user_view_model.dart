@@ -84,13 +84,15 @@ class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
         );
       } catch (e) {
         showMySnackBar(
-            message: 'Fingerprint authentication failed', color: Colors.red);
+            message: 'Fingerprint authentication failed',
+            backgroundColor: Colors.red);
       }
 
       if (authenticated) {
         state = state.copyWith(isFingerprintEnabled: true);
         userSharedPrefs.saveFingerPrintId(state.authEntity?.id ?? '');
-        showMySnackBar(message: 'Fingerprint enabled', color: Colors.green);
+        showMySnackBar(
+            message: 'Fingerprint enabled', backgroundColor: Colors.green);
       }
     }
   }
@@ -131,7 +133,8 @@ class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
               error: null,
               uploadProfilePicture: uploadProfilePicture);
           showMySnackBar(
-              message: 'Profile picture uploaded', color: Colors.green);
+              message: 'Profile picture uploaded',
+              backgroundColor: Colors.green);
         },
       );
     } catch (e) {
@@ -151,7 +154,8 @@ class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
         },
         (r) {
           state = state.copyWith(isLoading: false, error: null);
-          showMySnackBar(message: 'Profile updated', color: Colors.green);
+          showMySnackBar(
+              message: 'Profile updated', backgroundColor: Colors.green);
         },
       );
     } catch (e) {

@@ -12,7 +12,7 @@ class MainViewModel extends StateNotifier<bool> {
   final MainViewNavigator mainNavigator;
 
   void logout() async {
-    showMySnackBar(message: 'Logging out....', color: Colors.red);
+    showMySnackBar(message: 'Logging out....', backgroundColor: Colors.red);
     await Future.delayed(const Duration(seconds: 1));
     openLoginView();
   }

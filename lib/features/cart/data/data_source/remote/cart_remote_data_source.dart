@@ -73,7 +73,7 @@ class CartRemoteDataSource {
     }
   }
 
-  // add to cart if product is already in cart, show error message
+
   Future<Either<Failure, bool>> addToCart({
     required String productId,
     required int quantity,

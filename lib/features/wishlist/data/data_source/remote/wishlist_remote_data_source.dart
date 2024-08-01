@@ -56,48 +56,64 @@ class WishlistRemoteDataSource {
     }
   }
 
-// Future<Either<Failure, List<WishlistEntity>>> getWishlist() async {
-//   try {
-//     String? token;
-//     final data = await userSharedPrefs.getUserToken();
-//     data.fold((l) => null, (r) => token = r);
-//     print('Token: $token');
-//
-//     if (token == null) {
-//       return Left(Failure(error: 'Token is null'));
-//     }
-//
-//     var response = await dio.get(
-//       ApiEndpoints.getFavourite,
-//       options: Options(
-//         headers: {
-//           'authorization': 'Bearer $token',
-//         },
-//       ),
-//     );
-//
-//     if (response.statusCode == 200) {
-//       print('Response Data: ${response.data}');
-//       if (response.data is Map<String, dynamic> &&
-//           response.data['favourites'] != null) {
-//         final wishlistDto = WishlistDto.fromJson(response.data);
-//         return Right(wishlistApiModel.toEntityList(wishlistDto.favorites));
-//       } else {
-//         return Left(Failure(
-//           error: 'Unexpected response format',
-//           statusCode: response.statusCode.toString(),
-//         ));
-//       }
-//     } else {
-//       return Left(Failure(
-//         error: response.data['message'] ?? 'Unknown error',
-//         statusCode: response.statusCode.toString(),
-//       ));
-//     }
-//   } on DioException catch (e) {
-//     return Left(Failure(error: 'DioException: ${e.message}'));
-//   } catch (e) {
-//     return Left(Failure(error: 'Unknown error: ${e.toString()}'));
-//   }
-// }
+// Add Wishlist
+  Future<Either<Failure, bool>> addWishlist(String productId) async {
+    try {
+      String? token;
+      final data = await userSharedPrefs.getUserToken();
+      data.fold((l) => null, (r) => token = r);
+      print('Token: $token');
+
+      var response = await dio.post(
+        ApiEndpoints.addFavourite,
+        data: {
+          'productId': productId,
+        },
+        options: Options(
+          headers: {
+            'authorization': 'Bearer $token',
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else {
+        return Left(Failure(
+          error: response.data['message'],
+          statusCode: response.statusCode.toString(),
+        ));
+      }
+    } on DioException catch (e) {
+      return Left(Failure(error: e.message.toString()));
+    }
+  }
+
+// Remove Wishlist
+  Future<Either<Failure, bool>> removeWishlist(String id) async {
+    try {
+      String? token;
+      final data = await userSharedPrefs.getUserToken();
+      data.fold((l) => null, (r) => token = r);
+      print('Token: $token');
+
+      var response = await dio.delete(
+        '${ApiEndpoints.deleteFavourite}/$id',
+        options: Options(
+          headers: {
+            'authorization': 'Bearer $token',
+          },
+        ),
+      );
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else {
+        return Left(Failure(
+          error: response.data['message'],
+          statusCode: response.statusCode.toString(),
+        ));
+      }
+    } on DioException catch (e) {
+      return Left(Failure(error: e.message.toString()));
+    }
+  }
 }

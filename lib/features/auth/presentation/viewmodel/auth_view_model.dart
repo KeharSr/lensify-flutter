@@ -34,7 +34,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
           isLoading: false,
           error: failure.error,
         );
-        showMySnackBar(message: failure.error, color: Colors.red);
+        showMySnackBar(message: failure.error, backgroundColor: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
@@ -52,7 +52,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     data.fold(
       (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
-        showMySnackBar(message: failure.error, color: Colors.red);
+        showMySnackBar(message: failure.error, backgroundColor: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
@@ -69,7 +69,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     data.fold(
       (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
-        showMySnackBar(message: failure.error, color: Colors.red);
+        showMySnackBar(message: failure.error, backgroundColor: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
@@ -94,14 +94,15 @@ class AuthViewModel extends StateNotifier<AuthState> {
       );
     } catch (e) {
       showMySnackBar(
-          message: 'Fingerprint authentication failed', color: Colors.red);
+          message: 'Fingerprint authentication failed',
+          backgroundColor: Colors.red);
     }
 
     if (authenticated) {
       authUseCase.fingerPrintLogin().then((data) {
         data.fold(
           (l) {
-            showMySnackBar(message: l.error, color: Colors.red);
+            showMySnackBar(message: l.error, backgroundColor: Colors.red);
           },
           (r) {
             showMySnackBar(message: "User logged in successfully");
@@ -111,7 +112,8 @@ class AuthViewModel extends StateNotifier<AuthState> {
       });
     } else {
       showMySnackBar(
-          message: 'Fingerprint authentication failed', color: Colors.red);
+          message: 'Fingerprint authentication failed',
+          backgroundColor: Colors.red);
     }
   }
 

@@ -20,4 +20,14 @@ class WishlistRemoteRepository implements IWishlistRepository {
   Future<Either<Failure, List<WishlistEntity>>> getWishlist() {
     return wishlistRemoteDatasource.getWishlist();
   }
+
+  @override
+  Future<Either<Failure, bool>> addWishlist(String productId) {
+    return wishlistRemoteDatasource.addWishlist(productId);
+  }
+
+  @override
+  Future<Either<Failure, bool>> removeWishlist(String id) {
+    return wishlistRemoteDatasource.removeWishlist(id);
+  }
 }

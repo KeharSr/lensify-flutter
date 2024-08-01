@@ -8,8 +8,10 @@ import 'package:iconsax/iconsax.dart';
 class MyProductCard extends StatelessWidget {
   final ProductEntity product;
   final VoidCallback? onPressed;
+  final VoidCallback? onWishlistTap;
 
-  const MyProductCard({required this.product, super.key, this.onPressed});
+  const MyProductCard(
+      {required this.product, super.key, this.onPressed, this.onWishlistTap});
 
   @override
   Widget build(BuildContext context) {
@@ -108,9 +110,8 @@ class MyProductCard extends StatelessWidget {
                   icon: const Icon(
                     Iconsax.heart5,
                   ),
-                  onPressed: () {
-                    // Add your favorite button logic here
-                  },
+                  onPressed: onWishlistTap,
+                  // Add your favorite button logic he,
                 ),
               ),
             ),

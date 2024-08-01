@@ -26,9 +26,36 @@ class WishlistViewModel extends StateNotifier<WishlistState> {
     final result = await wishlistUseCase.getWishlist();
     result.fold((failure) {
       state = state.copyWith(isLoading: false, error: failure.error);
-      showMySnackBar(message: failure.error, color: Colors.red);
+      showMySnackBar(message: failure.error, backgroundColor: Colors.red);
     }, (success) {
       state = state.copyWith(isLoading: false, favorites: success);
     });
+  }
+
+  Future<void> addWishlist(String productId) async {
+    state = state.copyWith(isLoading: true);
+    final result = await wishlistUseCase.addWishlist(productId);
+    result.fold((failure) {
+      state = state.copyWith(isLoading: false, error: failure.error);
+      showMySnackBar(message: failure.error, backgroundColor: Colors.red);
+    }, (success) {
+      state = state.copyWith(isLoading: false, error: null);
+      showMySnackBar(
+          message: 'Added to wishlist', backgroundColor: Colors.green);
+    });
+  }
+
+  Future<void> removeWishlist(String productId) async {
+    state = state.copyWith(isLoading: true);
+    final result = await wishlistUseCase.removeWishlist(productId);
+    result.fold((failure) {
+      state = state.copyWith(isLoading: false, error: failure.error);
+      showMySnackBar(message: failure.error, backgroundColor: Colors.red);
+    }, (success) {
+      state = state.copyWith(isLoading: false);
+      showMySnackBar(
+          message: 'Removed from wishlist', backgroundColor: Colors.green);
+    });
+    await getWishlist();
   }
 }
