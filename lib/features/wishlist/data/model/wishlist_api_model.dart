@@ -14,15 +14,15 @@ class WishlistApiModel extends Equatable {
   @JsonKey(name: '_id')
   final String? id;
   final String? userId;
-  final ProductApiModel? productId;
+  final ProductApiModel? product;
 
   WishlistApiModel(
-      {required this.id, required this.userId, required this.productId});
+      {required this.id, required this.userId, required this.product});
 
   const WishlistApiModel.empty()
       : id = '',
         userId = '',
-        productId = null;
+        product = null;
 
   factory WishlistApiModel.fromJson(Map<String, dynamic> json) =>
       _$WishlistApiModelFromJson(json);
@@ -32,7 +32,7 @@ class WishlistApiModel extends Equatable {
   // To Entity
   WishlistEntity toEntity() {
     return WishlistEntity(
-        id: id, userId: userId, productId: productId!.toEntity());
+        id: id, userId: userId, productId: product!.toEntity());
   }
 
   // To Model
@@ -40,7 +40,7 @@ class WishlistApiModel extends Equatable {
     return WishlistApiModel(
         id: entity.id,
         userId: entity.userId,
-        productId: ProductApiModel.fromEntity(entity.productId!));
+        product: ProductApiModel.fromEntity(entity.productId!));
   }
 
   // To List
@@ -56,5 +56,5 @@ class WishlistApiModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, userId, productId];
+  List<Object?> get props => [id, userId, product];
 }

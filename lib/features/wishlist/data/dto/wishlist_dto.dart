@@ -7,10 +7,10 @@ part 'wishlist_dto.g.dart';
 class WishlistDto {
   final bool success;
   final String message;
-  final List<WishlistApiModel> favourites;
+  final List<WishlistApiModel> favorites;
 
   WishlistDto(
-      {required this.success, required this.message, required this.favourites});
+      {required this.success, required this.message, required this.favorites});
 
   factory WishlistDto.fromJson(Map<String, dynamic> json) =>
       _$WishlistDtoFromJson(json);

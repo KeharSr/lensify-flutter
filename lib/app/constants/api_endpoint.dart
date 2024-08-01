@@ -35,7 +35,7 @@ class ApiEndpoints {
   static const String deleteCart = 'cart/remove_cart_item/';
 
 // ===========Wishlist Routes===========
-  static const String addFavourite = 'favorite/add_favorite';
-  static const String getFavourite = 'favorite/get_favorite';
-  static const String deleteFavourite = 'favorite/remove_favorite/';
+  static const String addFavourite = 'favourite/add_favourite';
+  static const String getFavourite = 'favourite/get_favourite';
+  static const String deleteFavourite = 'favourite/remove_favourite/';
 }

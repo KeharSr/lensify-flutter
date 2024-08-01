@@ -1,7 +1,7 @@
 import 'package:final_assignment/features/home/presentation/view/bottom_view/explore_view.dart';
-import 'package:final_assignment/features/home/presentation/view/bottom_view/wishlist_view.dart';
 import 'package:final_assignment/features/product/presentation/view/product_view.dart';
 import 'package:final_assignment/features/settings/presentation/view/profile_view.dart';
+import 'package:final_assignment/features/wishlist/presentation/view/wishlist_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -17,7 +17,7 @@ class _MainViewState extends ConsumerState<MainView> {
   List<Widget> lstScreen = [
     const HomeView(),
     const ExploreView(),
-    const WishlistView(),
+    const FavoriteView(),
     const ProfileView(),
   ];
 

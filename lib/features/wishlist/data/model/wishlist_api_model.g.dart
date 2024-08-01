@@ -10,14 +10,14 @@ WishlistApiModel _$WishlistApiModelFromJson(Map<String, dynamic> json) =>
     WishlistApiModel(
       id: json['_id'] as String?,
       userId: json['userId'] as String?,
-      productId: json['productId'] == null
+      product: json['product'] == null
           ? null
-          : ProductApiModel.fromJson(json['productId'] as Map<String, dynamic>),
+          : ProductApiModel.fromJson(json['product'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$WishlistApiModelToJson(WishlistApiModel instance) =>
     <String, dynamic>{
       '_id': instance.id,
       'userId': instance.userId,
-      'productId': instance.productId,
+      'product': instance.product,
     };
