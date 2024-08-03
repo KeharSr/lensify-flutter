@@ -9,9 +9,9 @@ class RatingReviewEntity extends Equatable {
   final String review;
 
   const RatingReviewEntity({
-    this.id,
-    this.productId,
-    this.userId,
+    required this.id,
+    required this.productId,
+    required this.userId,
     required this.rating,
     required this.review,
   });

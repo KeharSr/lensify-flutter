@@ -15,7 +15,24 @@ class RatingReviewUsecase {
 
   RatingReviewUsecase(this.ratingReviewRepository);
 
-  Future<Either<Failure, List<RatingReviewEntity>>> getRatingReview() async {
-    return await ratingReviewRepository.getRatingReviews();
+  Future<Either<Failure, double>> getRatingReview(String productId) async {
+    return await ratingReviewRepository.getRatingReviews(productId);
+  }
+
+  Future<Either<Failure, bool>> addRatingReview(
+      String productId, double rating, String review) async {
+    return ratingReviewRepository.addRatingReview(productId, rating, review);
+  }
+
+  // update rating review
+  Future<Either<Failure, bool>> updateRatingReview(
+      String productId, double rating, String review) async {
+    return ratingReviewRepository.updateRatingReview(productId, rating, review);
+  }
+
+  // get reviews by productid
+  Future<Either<Failure, List<RatingReviewEntity>>> getReviewsProduct(
+      String productId) async {
+    return ratingReviewRepository.getReviewByProduct(productId);
   }
 }

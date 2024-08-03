@@ -1,17 +1,23 @@
 import 'package:final_assignment/app/constants/api_endpoint.dart';
 import 'package:final_assignment/app/constants/colors.dart';
 import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
-import 'package:final_assignment/features/single_product/presentation/view/single_product_view.dart';
+import 'package:final_assignment/features/single_product/presentation/view/single_products_view.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
 class MyProductCard extends StatelessWidget {
   final ProductEntity product;
+  final double rating;
   final VoidCallback? onPressed;
   final VoidCallback? onWishlistTap;
 
-  const MyProductCard(
-      {required this.product, super.key, this.onPressed, this.onWishlistTap});
+  const MyProductCard({
+    required this.product,
+    required this.rating,
+    super.key,
+    this.onPressed,
+    this.onWishlistTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,7 @@ class MyProductCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => SingleProductView(productId: product.id!),
+            builder: (context) => ProductViewPage(productId: product.id!),
           ),
         );
       },
@@ -70,17 +76,40 @@ class MyProductCard extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 4),
-                      //Rating starts dummy data
-                      Row(
-                        children: List.generate(
-                          5,
-                          (index) => const Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 16,
+                      // Display fetched rating
+                      if (rating > 0)
+                        Row(
+                          children: [
+                            const Text(
+                              'Rating: ',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            const Icon(
+                              Icons.star,
+                              color: Colors.amber,
+                              size: 16,
+                            ),
+                            Text(
+                              rating.toStringAsFixed(1),
+                              // Display the rating value
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        )
+                      else
+                        const Text(
+                          'Rating: N/A',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey,
                           ),
                         ),
-                      ),
                       const SizedBox(height: 4),
                       Text(
                         product.productCategory,
@@ -90,7 +119,7 @@ class MyProductCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        product.productPrice.toString(),
+                        '\$${product.productPrice.toString()}',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -111,7 +140,6 @@ class MyProductCard extends StatelessWidget {
                     Iconsax.heart5,
                   ),
                   onPressed: onWishlistTap,
-                  // Add your favorite button logic he,
                 ),
               ),
             ),
@@ -119,14 +147,12 @@ class MyProductCard extends StatelessWidget {
               bottom: 0,
               right: 0,
               child: IconButton(
-                  icon: const Icon(
-                    Iconsax.shopping_bag,
-                    color: Colors.blue,
-                  ),
-                  onPressed: onPressed!
-                  // read the cart view model
-
-                  ),
+                icon: const Icon(
+                  Iconsax.shopping_bag,
+                  color: Colors.blue,
+                ),
+                onPressed: onPressed,
+              ),
             ),
           ],
         ),

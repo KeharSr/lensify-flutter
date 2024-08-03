@@ -19,7 +19,31 @@ class RatingReviewRemoteRepository implements IRatingReviewRepository {
   RatingReviewRemoteRepository({required this.ratingReviewRemoteDataSource});
 
   @override
-  Future<Either<Failure, List<RatingReviewEntity>>> getRatingReviews() {
-    return ratingReviewRemoteDataSource.getReviewRating();
+  Future<Either<Failure, double>> getRatingReviews(String productId) {
+    return ratingReviewRemoteDataSource.getReviewRating(productId: productId);
+  }
+
+  @override
+  Future<Either<Failure, bool>> addRatingReview(
+    String productId,
+    double rating,
+    String review,
+  ) {
+    return ratingReviewRemoteDataSource.addReviewRating(
+        productId: productId, rating: rating, review: review);
+  }
+
+  @override
+  Future<Either<Failure, bool>> updateRatingReview(
+      String productId, double rating, String review) {
+    return ratingReviewRemoteDataSource.updateReviewRating(
+        productId: productId, rating: rating, review: review);
+  }
+
+  // get reviews by productid
+  @override
+  Future<Either<Failure, List<RatingReviewEntity>>> getReviewByProduct(
+      String productId) {
+    return ratingReviewRemoteDataSource.getReviewsProduct(productId: productId);
   }
 }

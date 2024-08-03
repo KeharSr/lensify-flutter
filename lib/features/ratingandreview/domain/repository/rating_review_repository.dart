@@ -9,5 +9,19 @@ final ratingReviewRepositoryProvider = Provider<IRatingReviewRepository>(
     (ref) => ref.read(ratingReviewRemoteRepositoryProvider));
 
 abstract class IRatingReviewRepository {
-  Future<Either<Failure, List<RatingReviewEntity>>> getRatingReviews();
+  Future<Either<Failure, double>> getRatingReviews(String productId);
+
+  Future<Either<Failure, bool>> addRatingReview(
+    String productId,
+    double rating,
+    String review,
+  );
+
+  // update rating review
+  Future<Either<Failure, bool>> updateRatingReview(
+      String productId, double rating, String review);
+
+  // get reviews by user and product
+  Future<Either<Failure, List<RatingReviewEntity>>> getReviewByProduct(
+      String productId);
 }

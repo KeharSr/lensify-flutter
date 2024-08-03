@@ -40,7 +40,10 @@ class ApiEndpoints {
   static const String deleteFavourite = 'favourite/remove_favourite/';
 
   // ===========Rating and Review Routes===========
-  static const String addRatingReview = 'reviews/add_rating_review';
-  static const String getRatingReview =
-      'reviews/get_reviews_by_user_and_product';
+  static const String addRatingReview = 'review/post_reviews';
+  static const String getAverageRating = 'review/get_average_rating/';
+  static const String updateRatingReview = 'review/update_reviews/';
+  static const String getReviews = 'review/get_reviews/';
+  static const String getReviewsByUserAndProduct =
+      'review/get_reviews_by_user_and_product/';
 }

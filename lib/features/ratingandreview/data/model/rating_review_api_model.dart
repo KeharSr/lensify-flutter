@@ -6,7 +6,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'rating_review_api_model.g.dart';
 
-//provider
+// Provider
 final ratingReviewApiModelProvider =
     Provider((ref) => RatingReviewApiModel.empty());
 
@@ -20,9 +20,9 @@ class RatingReviewApiModel extends Equatable {
   final String review;
 
   const RatingReviewApiModel({
-    this.id,
-    this.productId,
-    this.userId,
+    required this.id,
+    required this.productId,
+    required this.userId,
     required this.rating,
     required this.review,
   });
@@ -39,18 +39,18 @@ class RatingReviewApiModel extends Equatable {
 
   Map<String, dynamic> toJson() => _$RatingReviewApiModelToJson(this);
 
-  // to entity
+  // Convert to entity
   RatingReviewEntity toEntity() {
     return RatingReviewEntity(
       id: id,
-      productId: productId!.toEntity(),
+      productId: productId?.toEntity(),
       userId: userId,
       rating: rating,
       review: review,
     );
   }
 
-  // to  model
+  // Create from entity
   factory RatingReviewApiModel.fromEntity(RatingReviewEntity entity) {
     return RatingReviewApiModel(
       id: entity.id,
@@ -61,12 +61,12 @@ class RatingReviewApiModel extends Equatable {
     );
   }
 
-  // to list entity
+  // Convert list of models to list of entities
   List<RatingReviewEntity> toEntityList(List<RatingReviewApiModel> reviews) {
     return reviews.map((review) => review.toEntity()).toList();
   }
 
-  // From list entity
+  // Create list of models from list of entities
   List<RatingReviewApiModel> fromListEntity(List<RatingReviewEntity> reviews) {
     return reviews
         .map((review) => RatingReviewApiModel.fromEntity(review))

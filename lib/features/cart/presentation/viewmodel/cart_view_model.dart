@@ -26,6 +26,7 @@ class CartViewModel extends StateNotifier<CartState> {
     state = state.copyWith(isLoading: true);
     final result = await cartUsecase.getCarts();
     var data = await cartUsecase.getCarts();
+
     data.fold((failure) {
       state = state.copyWith(isLoading: false, error: failure.error);
       showMySnackBar(message: failure.error, backgroundColor: Colors.red);
@@ -40,6 +41,7 @@ class CartViewModel extends StateNotifier<CartState> {
   Future<void> addCart(String productId, int quantity) async {
     state = state.copyWith(isLoading: true);
     final result = await cartUsecase.addCart(productId, quantity);
+
     result.fold((failure) {
       state = state.copyWith(isLoading: false, error: failure.error);
       showMySnackBar(message: failure.error, backgroundColor: Colors.red);

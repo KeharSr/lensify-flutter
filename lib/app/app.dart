@@ -9,13 +9,11 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      navigatorKey: AppNavigator.navigatorKey,
-      themeMode: ThemeMode.system,
-      theme: KAppTheme.lightTheme,
-      darkTheme: KAppTheme.darkTheme,
-      // home: CheckoutScreen(),
-      home: const SplashView(),
-    );
+        debugShowCheckedModeBanner: false,
+        navigatorKey: AppNavigator.navigatorKey,
+        themeMode: ThemeMode.system,
+        theme: KAppTheme.lightTheme,
+        darkTheme: KAppTheme.darkTheme,
+        home: const SplashView());
   }
 }

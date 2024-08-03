@@ -1,4 +1,3 @@
-import 'package:final_assignment/features/ratingandreview/data/model/rating_review_api_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'rating_review_dto.g.dart';
@@ -7,12 +6,16 @@ part 'rating_review_dto.g.dart';
 class RatingReviewDto {
   final bool success;
   final String message;
-  final List<RatingReviewApiModel> review;
+  final double averageRating;
+  final int count;
+  final String productId;
 
   RatingReviewDto({
     required this.success,
     required this.message,
-    required this.review,
+    required this.averageRating,
+    required this.count,
+    required this.productId,
   });
 
   factory RatingReviewDto.fromJson(Map<String, dynamic> json) =>
