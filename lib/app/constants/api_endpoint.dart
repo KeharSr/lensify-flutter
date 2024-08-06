@@ -19,6 +19,8 @@ class ApiEndpoints {
   static const String imageUrlprofile =
       "http://192.168.1.133:5000/profile_pictures/";
   static const String updateUser = 'user/update';
+  static const String sentOtp = 'user/forgot_password';
+  static const String verifyOtp = 'user/verify_otp';
 
   // ===========Product Routes===========
 

@@ -262,4 +262,65 @@ class AuthRemoteDataSource {
       );
     }
   }
+
+  // sent otp
+  Future<Either<Failure, bool>> sentOtp(String phoneNumber) async {
+    try {
+      Response response = await dio.post(
+        ApiEndpoints.sentOtp,
+        data: {
+          "phoneNumber": phoneNumber,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return const Right(true);
+      }
+
+      return Left(
+        Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString()),
+      );
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.message.toString(),
+        ),
+      );
+    }
+  }
+
+  // reset password from otp
+  Future<Either<Failure, bool>> resetPassword(
+      {required String phoneNumber,
+      required String otp,
+      required String password}) async {
+    try {
+      Response response = await dio.post(
+        ApiEndpoints.sentOtp,
+        data: {
+          "phoneNumber": phoneNumber,
+          "otp": otp,
+          "password": password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return const Right(true);
+      }
+
+      return Left(
+        Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString()),
+      );
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.message.toString(),
+        ),
+      );
+    }
+  }
 }
