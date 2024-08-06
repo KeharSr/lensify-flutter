@@ -834,7 +834,8 @@ import 'package:final_assignment/core/common/widgets/t_search_container.dart';
 import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
 import 'package:final_assignment/features/product/presentation/view_model/products_viewmodel.dart';
 import 'package:final_assignment/features/product/presentation/widgets/my_vertical_product_cart.dart';
-import 'package:final_assignment/features/ratingandreview/presentation/view_model/rating_review_view_model.dart';
+
+import 'package:final_assignment/features/single_product/presentation/view_model/single_product_view_model.dart';
 import 'package:final_assignment/features/wishlist/presentation/view_model/wishlist_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -860,12 +861,12 @@ class _HomeViewState extends ConsumerState<HomeView> {
           .read(productViewModelProvider.notifier)
           .getProductsByCategory('All');
       final productState = ref.read(productViewModelProvider);
-      final ratingReviewViewModel =
-          ref.read(ratingReviewViewModelProvider.notifier);
+      final singleProductViewModel =
+          ref.read(singleProductViewModelProvider.notifier);
 
       if (productState.products.isNotEmpty) {
         for (final product in productState.products) {
-          await ratingReviewViewModel.getRatingReview(product.id!);
+          await singleProductViewModel.getRatingReview(product.id!);
         }
       }
     });
@@ -880,7 +881,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   Widget build(BuildContext context) {
     final productState = ref.watch(productViewModelProvider);
-    final ratingReviewState = ref.watch(ratingReviewViewModelProvider);
+    final ratingReviewState = ref.watch(singleProductViewModelProvider);
 
     return DefaultTabController(
       length: 3, // Number of tabs
@@ -908,7 +909,7 @@ class _HomeViewState extends ConsumerState<HomeView> {
                       : 'Power Glasses');
               final productState = ref.read(productViewModelProvider);
               final ratingReviewViewModel =
-                  ref.read(ratingReviewViewModelProvider.notifier);
+                  ref.read(singleProductViewModelProvider.notifier);
 
               if (productState.products.isNotEmpty) {
                 for (final product in productState.products) {

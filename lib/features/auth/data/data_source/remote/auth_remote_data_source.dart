@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:final_assignment/app/constants/api_endpoint.dart';
@@ -67,18 +68,18 @@ class AuthRemoteDataSource {
       );
 
       if (response.statusCode == 200) {
-        String token = response.data['token'];
+        final token = response.data['token'];
         await userSharedPrefs.setUserToken(token);
         return const Right(true);
-      } else {
-        return Left(
-          Failure(
-            error: response.data['message'],
-            statusCode: response.statusCode.toString(),
-          ),
-        );
       }
+
+      return Left(
+        Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString()),
+      );
     } on DioException catch (e) {
+      print(e);
       return Left(
         Failure(
           error: e.message.toString(),
@@ -123,7 +124,7 @@ class AuthRemoteDataSource {
     } on DioException catch (e) {
       return Left(
         Failure(
-          error: e.message.toString(),
+          error: e.error.toString(),
         ),
       );
     }
@@ -141,13 +142,14 @@ class AuthRemoteDataSource {
         await userSharedPrefs.setUserToken(token);
         return const Right(true);
       }
+
       return Left(
         Failure(
             error: response.data['message'],
             statusCode: response.statusCode.toString()),
       );
     } on DioException catch (e) {
-      return Left(Failure(error: e.error.toString()));
+      return Left(Failure(error: e.message.toString()));
     }
   }
 
@@ -260,5 +262,4 @@ class AuthRemoteDataSource {
       );
     }
   }
-
 }

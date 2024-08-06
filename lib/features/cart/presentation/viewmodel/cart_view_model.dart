@@ -2,24 +2,29 @@ import 'package:final_assignment/core/common/widgets/my_snackbar.dart';
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
 import 'package:final_assignment/features/cart/domain/usecases/cart_usecase.dart';
 import 'package:final_assignment/features/cart/presentation/state/cart_state.dart';
+import 'package:final_assignment/features/home/presentation/navigator/home_navigator.dart';
 import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final cartViewModelProvider =
     StateNotifierProvider<CartViewModel, CartState>((ref) => CartViewModel(
+      navigator: ref.watch(mainViewNavigatorProvider),
           cartUsecase: ref.watch(cartUsecaseProvider),
           userSharedPrefs: ref.watch(userSharedPrefsProvider),
+
         ));
 
 class CartViewModel extends StateNotifier<CartState> {
   CartViewModel({
     required this.cartUsecase,
     required this.userSharedPrefs,
+    required this.navigator,
   }) : super(CartState.initial());
 
   final CartUsecase cartUsecase;
   final UserSharedPrefs userSharedPrefs;
+  final MainViewNavigator navigator;
 
   //get cart
   Future<void> getCarts() async {
@@ -100,4 +105,5 @@ class CartViewModel extends StateNotifier<CartState> {
     });
     await getCarts();
   }
+
 }

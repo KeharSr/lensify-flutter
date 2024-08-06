@@ -49,8 +49,10 @@ class AuthViewModel extends StateNotifier<AuthState> {
   ) async {
     state = state.copyWith(isLoading: true);
     var data = await authUseCase.loginUser(email, password);
+
     data.fold(
       (failure) {
+        print(failure.statusCode);
         state = state.copyWith(isLoading: false, error: failure.error);
         showMySnackBar(message: failure.error, backgroundColor: Colors.red);
       },
