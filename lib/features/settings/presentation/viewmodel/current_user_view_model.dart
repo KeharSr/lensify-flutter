@@ -120,48 +120,35 @@ class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
   }
 
   Future<void> uploadProfilePicture(File file) async {
-    try {
-      state = state.copyWith(isLoading: true);
-      final data = await authUseCase.uploadProfilePicture(file);
-      data.fold(
-        (l) {
-          state = state.copyWith(isLoading: false, error: l.error);
-        },
-        (uploadProfilePicture) {
-          state = state.copyWith(
-              isLoading: false,
-              error: null,
-              uploadProfilePicture: uploadProfilePicture);
-          showMySnackBar(
-              message: 'Profile picture uploaded',
-              backgroundColor: Colors.green);
-        },
-      );
-    } catch (e) {
-      state = state.copyWith(
-          isLoading: false, error: 'Failed to upload profile picture.');
-      print('Error uploading profile picture: $e');
-    }
+    state = state.copyWith(isLoading: true);
+    final data = await authUseCase.uploadProfilePicture(file);
+    data.fold(
+      (l) {
+        state = state.copyWith(isLoading: false, error: l.error);
+      },
+      (uploadProfilePicture) {
+        state = state.copyWith(
+            isLoading: false,
+            error: null,
+            uploadProfilePicture: uploadProfilePicture);
+        showMySnackBar(
+            message: 'Profile picture uploaded', backgroundColor: Colors.green);
+      },
+    );
   }
 
   Future<void> updateUser(AuthEntity user) async {
-    try {
-      state = state.copyWith(isLoading: true);
-      final data = await authUseCase.updateUser(user);
-      data.fold(
-        (l) {
-          state = state.copyWith(isLoading: false, error: l.error);
-        },
-        (r) {
-          state = state.copyWith(isLoading: false, error: null);
-          showMySnackBar(
-              message: 'Profile updated', backgroundColor: Colors.green);
-        },
-      );
-    } catch (e) {
-      state = state.copyWith(
-          isLoading: false, error: 'Failed to update profile picture.');
-      print('Error updating profile picture: $e');
-    }
+    state = state.copyWith(isLoading: true);
+    final data = await authUseCase.updateUser(user);
+    data.fold(
+      (l) {
+        state = state.copyWith(isLoading: false, error: l.error);
+      },
+      (r) {
+        state = state.copyWith(isLoading: false, error: null);
+        showMySnackBar(
+            message: 'Profile updated', backgroundColor: Colors.green);
+      },
+    );
   }
 }

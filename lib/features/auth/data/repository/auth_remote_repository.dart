@@ -61,4 +61,14 @@ class AuthRemoteRepository implements IAuthRepository {
     return _authRemoteDataSource.resetPassword(
         phoneNumber: phoneNumber, password: password, otp: otp);
   }
+
+  @override
+  Future<Either<Failure, AuthEntity>> getUserByGoogle(String token) {
+    return _authRemoteDataSource.getGoogleUser(token);
+  }
+
+  @override
+  Future<Either<Failure, bool>> googleLogin(String token, String? password) {
+    return _authRemoteDataSource.googleLogin(token, password);
+  }
 }

@@ -78,13 +78,14 @@ class _ProductViewPageState extends ConsumerState<ProductViewPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final productState = ref.watch(singleProductViewModelProvider);
 
     bool userHasReviewed = productState.reviews.any((review) =>
         review.userId == ref.read(userSharedPrefsProvider).getUserToken());
 
     return Scaffold(
-      backgroundColor: Colors.grey[300],
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -96,16 +97,23 @@ class _ProductViewPageState extends ConsumerState<ProductViewPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.arrow_back),
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: theme.iconTheme.color,
+                      ),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                     IconButton(
-                        onPressed: () {
-                          ref
-                              .read(wishlistViewModelProvider.notifier)
-                              .addWishlist(productState.singleProduct!.id!);
-                        },
-                        icon: const Icon(Icons.favorite_border)),
+                      onPressed: () {
+                        ref
+                            .read(wishlistViewModelProvider.notifier)
+                            .addWishlist(productState.singleProduct!.id!);
+                      },
+                      icon: Icon(
+                        Icons.favorite_border,
+                        color: theme.iconTheme.color,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -150,17 +158,19 @@ class _ProductViewPageState extends ConsumerState<ProductViewPage> {
                   reviewonPressed: reviewonPressed,
                   rating: rating,
                   updateReview: updateReview,
-                  userHasReviewed:
-                      userHasReviewed, // Pass whether user has reviewed
+                  userHasReviewed: userHasReviewed,
+                  // Pass whether user has reviewed
                   averageRating:
                       productState.averageRating, // Pass average rating
                 ),
               if (productState.isLoading || productState.isLoading)
                 const Center(child: CircularProgressIndicator()),
               if (productState.error != null)
-                Center(child: Text(productState.error!)),
-              if (productState.error != null)
-                Center(child: Text(productState.error!)),
+                Center(
+                    child: Text(
+                  productState.error!,
+                  style: const TextStyle(),
+                )),
             ],
           ),
         ),

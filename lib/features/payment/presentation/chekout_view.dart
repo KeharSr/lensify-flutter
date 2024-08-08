@@ -14,6 +14,7 @@ class CheckoutView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: MyAppbar(
         showBackArrow: true,

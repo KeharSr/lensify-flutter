@@ -14,7 +14,7 @@ class AuthApiModel {
   final String id;
   final String firstName;
   final String lastName;
-  final String phoneNumber;
+  final String? phoneNumber;
   final String email;
   final String userName;
   final String? password;
@@ -25,9 +25,9 @@ class AuthApiModel {
     required this.firstName,
     required this.email,
     required this.lastName,
-    required this.phoneNumber,
+    this.phoneNumber,
     required this.userName,
-    required this.password,
+     this.password,
     this.profilePicture,
   });
 

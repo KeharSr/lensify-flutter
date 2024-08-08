@@ -1,6 +1,3 @@
-
-
-import 'dart:ui';
 import 'package:final_assignment/app/constants/api_endpoint.dart';
 import 'package:final_assignment/app/constants/colors.dart';
 import 'package:final_assignment/features/product/presentation/view_model/products_viewmodel.dart';
@@ -14,8 +11,8 @@ class ProfileDetails extends StatelessWidget {
   final dynamic authEntity; // You might want to specify the exact type here
   final WidgetRef ref;
 
-  const ProfileDetails({required this.authEntity, required this.ref, Key? key})
-      : super(key: key);
+  const ProfileDetails(
+      {required this.authEntity, required this.ref, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +57,7 @@ class ProfileDetails extends StatelessWidget {
         _buildMenuItem(Icons.group, 'User Management', () {}),
         _buildMenuItem(Icons.info, 'Information', () {}),
         _buildMenuItem(Iconsax.finger_scan, 'Enable FingerPrint', () {
-          ref
-              .read(currentUserViewModelProvider.notifier)
-              .enableFingerprint();
+          ref.read(currentUserViewModelProvider.notifier).enableFingerprint();
         }, color: Colors.red),
         _buildMenuItem(Iconsax.logout, 'Logout', () {
           ref.read(productViewModelProvider.notifier).logout();

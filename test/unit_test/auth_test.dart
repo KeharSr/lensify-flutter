@@ -5,6 +5,7 @@ import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart'
 import 'package:final_assignment/features/auth/presentation/navigator/login_navigator.dart';
 import 'package:final_assignment/features/auth/presentation/navigator/register_navigator.dart';
 import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
+import 'package:final_assignment/features/forgot_password/presentation/navigator/forgot_password_navigator.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -16,6 +17,7 @@ import 'auth_test.mocks.dart';
   MockSpec<AuthUseCase>(),
   MockSpec<LoginViewNavigator>(),
   MockSpec<RegisterViewNavigator>(),
+  MockSpec<ForgotPasswordViewNavigator>()
 ])
 Future<void> main() async {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -23,15 +25,20 @@ Future<void> main() async {
   late AuthUseCase mockAuthUseCase;
   late LoginViewNavigator mockLoginViewNavigator;
   late RegisterViewNavigator mockRegisterViewNavigator;
+  late ForgotPasswordViewNavigator mockForgotPasswordViewNavigator;
   late ProviderContainer container;
 
   setUp(() {
     mockAuthUseCase = MockAuthUseCase();
     mockLoginViewNavigator = MockLoginViewNavigator();
     mockRegisterViewNavigator = MockRegisterViewNavigator();
+    mockForgotPasswordViewNavigator = MockForgotPasswordViewNavigator();
     container = ProviderContainer(overrides: [
       authViewModelProvider.overrideWith((ref) => AuthViewModel(
-          mockLoginViewNavigator, mockRegisterViewNavigator, mockAuthUseCase))
+          mockLoginViewNavigator,
+          mockRegisterViewNavigator,
+          mockAuthUseCase,
+          mockForgotPasswordViewNavigator))
     ]);
   });
 
@@ -76,7 +83,7 @@ Future<void> main() async {
               user.password.isNotEmpty &&
               user.firstName.isNotEmpty &&
               user.lastName.isNotEmpty &&
-              user.phoneNumber.isNotEmpty &&
+              user.phoneNumber!.isEmpty &&
               user.userName.isNotEmpty
           ? const Right(true)
           : Left(Failure(error: 'Invalid user data')));

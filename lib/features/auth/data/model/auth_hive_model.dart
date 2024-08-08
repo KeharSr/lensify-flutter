@@ -25,13 +25,13 @@ class AuthHiveModel {
   final String email;
 
   @HiveField(4)
-  final String phoneNumber;
+  final String? phoneNumber;
 
   @HiveField(5)
   final String userName;
 
   @HiveField(6)
-  final String password;
+  final String? password;
 
   // Constructor
   AuthHiveModel({
@@ -39,9 +39,9 @@ class AuthHiveModel {
     required this.firstName,
     required this.lastName,
     required this.email,
-    required this.phoneNumber,
+    this.phoneNumber,
     required this.userName,
-    required this.password,
+     this.password,
   }) : userId = userId ?? const Uuid().v4();
 
   // empty constructor
@@ -65,7 +65,6 @@ class AuthHiveModel {
         phoneNumber: phoneNumber,
         userName: userName,
         password: password,
-        
       );
 
   // Convert Entity to Hive Object

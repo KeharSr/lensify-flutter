@@ -30,4 +30,15 @@ abstract class IAuthRepository {
   Future<Either<Failure, String>> uploadProfilePicture(File file);
 
   Future<Either<Failure, bool>> updateUser(AuthEntity user);
+
+  Future<Either<Failure, bool>> sendOtp(String phoneNumber);
+
+  Future<Either<Failure, bool>> googleLogin(String token, String? password);
+
+  Future<Either<Failure, AuthEntity>> getUserByGoogle(String token);
+
+  Future<Either<Failure, bool>> resetPass(
+      {required String phoneNumber,
+      required String password,
+      required String otp});
 }

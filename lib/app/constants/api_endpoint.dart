@@ -3,32 +3,30 @@ class ApiEndpoints {
 
   static const Duration connectionTimeout = Duration(seconds: 8000);
   static const Duration receiveTimeout = Duration(seconds: 8000);
-
-  static const String baseUrl = 'http://192.168.1.133:5000/api/';
-
-  // static const String baseUrl = "http://172.26.0.197:5000/api/";
-
-  // static const String imageUrl = 'http://172.26.0.187:5000/products/';
+  static const String baseUrl = 'http://192.168.1.96:5000/api/';
 
   // ===========Auth Routes===========
   static const String loginUser = 'user/login';
   static const String createUser = 'user/create';
   static const String currentUser = 'user/current';
   static const String getToken = "user/token";
-  static const String profileImage = 'user/profile_picture/';
+  static const String profileImage = 'user/profile_picture';
   static const String imageUrlprofile =
-      "http://192.168.1.133:5000/profile_pictures/";
+      "http://192.168.1.96:5000/profile_pictures/";
   static const String updateUser = 'user/update';
   static const String sentOtp = 'user/forgot_password';
   static const String verifyOtp = 'user/verify_otp';
 
-  // ===========Product Routes===========
+  // ===========Google Login Routes===========
+  static const String googleLogin = 'user/google';
+  static const String getUserByGoogle = 'user/getGoogleUser';
 
+  // ===========Product Routes===========
   static const String getProductsByCategory =
       'product/get_products_by_category';
   static const int limit = 2;
   static const getSingleProduct = 'product/get_single_product/';
-  static const String imageUrl = 'http://192.168.1.133:5000/products/';
+  static const String imageUrl = 'http://192.168.1.96:5000/products/';
 
   // ===========Cart Routes===========
   static const String addToCart = 'cart/add_to_cart';

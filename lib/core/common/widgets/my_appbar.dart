@@ -20,6 +20,8 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darkTheme = Theme.of(context).brightness == Brightness.dark;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
       child: AppBar(
@@ -27,8 +29,12 @@ class MyAppbar extends StatelessWidget implements PreferredSizeWidget {
         leading: showBackArrow
             ? IconButton(
                 onPressed: leadingOnPressed ?? () => Navigator.pop(context),
-                icon:
-                    Icon(leadingIcon ?? Icons.arrow_back, color: TColors.grey),
+                icon: Icon(
+                  leadingIcon ?? Icons.arrow_back,
+                  color: darkTheme
+                      ? TColors.white
+                      : TColors.black, // Set the color based on the theme
+                ),
               )
             : null,
         title: title,

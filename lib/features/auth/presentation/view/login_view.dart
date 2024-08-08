@@ -1,7 +1,6 @@
 import 'package:final_assignment/core/common/widgets/my_button.dart';
 import 'package:final_assignment/core/common/widgets/my_text_form_field.dart';
 import 'package:final_assignment/features/auth/presentation/viewmodel/auth_view_model.dart';
-import 'package:final_assignment/features/forget_password/presentation/view/forget_password_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -16,7 +15,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController =
-      TextEditingController(text: "keharojha04@gmail.com");
+      TextEditingController(text: "ram@gmail.com");
   final TextEditingController _passwordController =
       TextEditingController(text: "password");
 
@@ -132,13 +131,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           ),
                           TextButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ForgetPasswordView(),
-                                ),
-                              );
+                              ref
+                                  .read(authViewModelProvider.notifier)
+                                  .openForgotPasswordView();
                             },
                             child: const Text('Forgot Password'),
                           ),
@@ -229,7 +224,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
                         borderRadius: BorderRadius.circular(100),
                       ),
                       child: IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          ref
+                              .read(authViewModelProvider.notifier)
+                              .getUserByGoogle();
+                        },
                         icon: const Image(
                           height: 40,
                           width: 40,

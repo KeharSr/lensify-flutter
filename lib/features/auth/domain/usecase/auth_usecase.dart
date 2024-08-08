@@ -33,6 +33,16 @@ class AuthUseCase {
     return await authRepository.getCurrentUser();
   }
 
+  // googleSignIn
+  Future<Either<Failure, bool>> googleLogin(String? token, String? password) {
+    return authRepository.googleLogin(token ?? '', password);
+  }
+
+  //getgoogleuser
+  Future<Either<Failure, AuthEntity>> getUserByGoogle(String token) {
+    return authRepository.getUserByGoogle(token);
+  }
+
   Future<Either<Failure, bool>> fingerPrintLogin() async {
     final data = await userSharedPrefs.checkId();
     return data.fold((l) => Left(Failure(error: l.error)), (r) async {
@@ -52,5 +62,19 @@ class AuthUseCase {
   //updateUser
   Future<Either<Failure, bool>> updateUser(AuthEntity user) async {
     return await authRepository.updateUser(user);
+  }
+
+  //sendOtp
+  Future<Either<Failure, bool>> sendOtp(String phoneNumber) async {
+    return await authRepository.sendOtp(phoneNumber);
+  }
+
+  //resetPass
+  Future<Either<Failure, bool>> resetPass(
+      {required String phoneNumber,
+      required String password,
+      required String otp}) async {
+    return await authRepository.resetPass(
+        phoneNumber: phoneNumber, password: password, otp: otp);
   }
 }

@@ -45,10 +45,37 @@ class AuthLocalRepository implements IAuthRepository {
     // TODO: implement uploadProfilePicture
     throw UnimplementedError();
   }
-  
+
   @override
   Future<Either<Failure, bool>> updateUser(AuthEntity user) {
     // TODO: implement updateUser
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> sendOtp(String phoneNumber) {
+    // TODO: implement sendOtp
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> resetPass(
+      {required String phoneNumber,
+      required String password,
+      required String otp}) {
+    // TODO: implement resetPass
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, AuthEntity>> getUserByGoogle(String token) {
+    // TODO: implement getUserByGoogle
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, bool>> googleLogin(String token, String? password) {
+    // TODO: implement googleLogin
     throw UnimplementedError();
   }
 }

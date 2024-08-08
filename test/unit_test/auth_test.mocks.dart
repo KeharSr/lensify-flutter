@@ -20,6 +20,8 @@ import 'package:final_assignment/features/auth/presentation/navigator/login_navi
     as _i10;
 import 'package:final_assignment/features/auth/presentation/navigator/register_navigator.dart'
     as _i11;
+import 'package:final_assignment/features/forgot_password/presentation/navigator/forgot_password_navigator.dart'
+    as _i12;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -265,6 +267,77 @@ class MockAuthUseCase extends _i1.Mock implements _i5.AuthUseCase {
           ),
         )),
       ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
+
+  @override
+  _i6.Future<_i4.Either<_i7.Failure, bool>> sendOtp(String? phoneNumber) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #sendOtp,
+          [phoneNumber],
+        ),
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+            _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #sendOtp,
+            [phoneNumber],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+                _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #sendOtp,
+            [phoneNumber],
+          ),
+        )),
+      ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
+
+  @override
+  _i6.Future<_i4.Either<_i7.Failure, bool>> resetPass({
+    required String? phoneNumber,
+    required String? password,
+    required String? otp,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #resetPass,
+          [],
+          {
+            #phoneNumber: phoneNumber,
+            #password: password,
+            #otp: otp,
+          },
+        ),
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+            _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #resetPass,
+            [],
+            {
+              #phoneNumber: phoneNumber,
+              #password: password,
+              #otp: otp,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+                _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #resetPass,
+            [],
+            {
+              #phoneNumber: phoneNumber,
+              #password: password,
+              #otp: otp,
+            },
+          ),
+        )),
+      ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
 }
 
 /// A class which mocks [LoginViewNavigator].
@@ -278,3 +351,9 @@ class MockLoginViewNavigator extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockRegisterViewNavigator extends _i1.Mock
     implements _i11.RegisterViewNavigator {}
+
+/// A class which mocks [ForgotPasswordViewNavigator].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockForgotPasswordViewNavigator extends _i1.Mock
+    implements _i12.ForgotPasswordViewNavigator {}

@@ -174,19 +174,18 @@ class AuthRemoteDataSource {
       }
 
       // Prepare the image file
-      String fileName = image.path.split('/').last;
+
       FormData formData = FormData.fromMap(
         {
           'profilePicture': await MultipartFile.fromFile(
             image.path,
-            filename: fileName,
           ),
         },
       );
 
       Response response = await dio.post(
         // ApiEndpoints.profileImage,
-        '${ApiEndpoints.profileImage}/$id',
+        ApiEndpoints.profileImage,
         data: formData,
         options: Options(
           headers: {
@@ -196,11 +195,12 @@ class AuthRemoteDataSource {
       );
 
       if (response.statusCode == 200) {
-        return Right(response.data["data"]);
+        print(response.data);
+        return Right(response.data["profilePicture"]);
       } else {
         return Left(
           Failure(
-            error: response.data['message'] ?? 'Failed to upload image',
+            error: response.data['message'],
             statusCode: response.statusCode.toString(),
           ),
         );
@@ -209,7 +209,7 @@ class AuthRemoteDataSource {
       return Left(
         Failure(
           error: e.error.toString(),
-          statusCode: e.response?.statusCode.toString() ?? '0',
+          statusCode: e.response?.statusCode.toString(),
         ),
       );
     }
@@ -298,7 +298,7 @@ class AuthRemoteDataSource {
       required String password}) async {
     try {
       Response response = await dio.post(
-        ApiEndpoints.sentOtp,
+        ApiEndpoints.verifyOtp,
         data: {
           "phoneNumber": phoneNumber,
           "otp": otp,
@@ -321,6 +321,63 @@ class AuthRemoteDataSource {
           error: e.message.toString(),
         ),
       );
+    }
+  }
+
+  Future<Either<Failure, bool>> googleLogin(
+      String token, String? password) async {
+    try {
+      Response response = await dio.post(
+        ApiEndpoints.googleLogin,
+        data: {
+          "token": token,
+          "password": password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final token = response.data['token'];
+        await userSharedPrefs.setUserToken(token);
+        return const Right(true);
+      }
+
+      return Left(
+        Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString()),
+      );
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.message.toString(),
+        ),
+      );
+    }
+  }
+
+  // get google user
+  Future<Either<Failure, AuthEntity>> getGoogleUser(String token) async {
+    try {
+      Response response = await dio.post(
+        ApiEndpoints.getUserByGoogle,
+        data: {'token': token},
+      );
+      if (response.statusCode == 200) {
+        final authModel = AuthApiModel.fromJson(response.data['data']);
+
+        return Right(authModel.toEntity());
+      }
+      if (response.statusCode == 201) {
+        const authModel = AuthApiModel.empty();
+        return Right(authModel.toEntity());
+      }
+      return Left(
+        Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString()),
+      );
+    } catch (e) {
+      return Left(Failure(error: e.toString()));
     }
   }
 }
