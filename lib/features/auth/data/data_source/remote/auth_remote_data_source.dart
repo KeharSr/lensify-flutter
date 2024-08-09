@@ -335,7 +335,7 @@ class AuthRemoteDataSource {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         final token = response.data['token'];
         await userSharedPrefs.setUserToken(token);
         return const Right(true);

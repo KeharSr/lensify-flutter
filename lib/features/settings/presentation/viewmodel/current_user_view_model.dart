@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:final_assignment/core/common/widgets/my_snackbar.dart';
 import 'package:final_assignment/core/common/widgets/my_yes_no_dialog.dart';
+import 'package:final_assignment/core/google/google_service.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart';
+import 'package:final_assignment/features/home/presentation/navigator/home_navigator.dart';
 import 'package:final_assignment/features/settings/presentation/state/current_user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,16 +18,22 @@ final currentUserViewModelProvider =
         (ref) => CurrentUserViewModel(
               authUseCase: ref.read(authUseCaseProvider),
               userSharedPrefs: ref.read(userSharedPrefsProvider),
+              googleSignInService: ref.watch(googleSignInServiceProvider),
+              navigator: ref.read(mainViewNavigatorProvider),
             ));
 
 class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
   final AuthUseCase authUseCase;
   late LocalAuthentication _localAuth;
   final UserSharedPrefs userSharedPrefs;
+  final GoogleSignInService googleSignInService;
+  final MainViewNavigator navigator;
 
   CurrentUserViewModel({
     required this.authUseCase,
     required this.userSharedPrefs,
+    required this.googleSignInService,
+    required this.navigator,
   }) : super(CurrentUserState.initial()) {
     initialize();
   }
@@ -148,6 +156,23 @@ class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
         state = state.copyWith(isLoading: false, error: null);
         showMySnackBar(
             message: 'Profile updated', backgroundColor: Colors.green);
+      },
+    );
+  }
+
+  Future<void> logout() async {
+    state = state.copyWith(isLoading: true);
+    final data = await googleSignInService.signOutGoogle();
+    data.fold(
+      (l) {
+        state = state.copyWith(isLoading: false, error: l.error);
+      },
+      (r) {
+        state = state.copyWith(isLoading: false, error: null);
+        userSharedPrefs.removeUserToken();
+        showMySnackBar(
+            message: 'Logged out successfully', backgroundColor: Colors.green);
+        navigator.openLoginView();
       },
     );
   }

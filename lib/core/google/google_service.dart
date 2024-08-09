@@ -1,3 +1,5 @@
+import 'package:dartz/dartz.dart';
+import 'package:final_assignment/core/failure/failure.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -38,7 +40,12 @@ class GoogleSignInService {
     }
   }
 
-  Future<void> signOutFromGoogle() async {
-    await _googleSignIn.signOut();
+  Future<Either<Failure, bool>> signOutGoogle() async {
+    try {
+      await _googleSignIn.signOut();
+      return const Right(true);
+    } catch (error) {
+      return Left(Failure(error: error.toString()));
+    }
   }
 }

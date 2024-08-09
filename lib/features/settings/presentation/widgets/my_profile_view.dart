@@ -1,6 +1,5 @@
 import 'package:final_assignment/app/constants/api_endpoint.dart';
 import 'package:final_assignment/app/constants/colors.dart';
-import 'package:final_assignment/features/product/presentation/view_model/products_viewmodel.dart';
 import 'package:final_assignment/features/settings/presentation/view/edit_profile_view.dart';
 import 'package:final_assignment/features/settings/presentation/viewmodel/current_user_view_model.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +59,7 @@ class ProfileDetails extends StatelessWidget {
           ref.read(currentUserViewModelProvider.notifier).enableFingerprint();
         }, color: Colors.red),
         _buildMenuItem(Iconsax.logout, 'Logout', () {
-          ref.read(productViewModelProvider.notifier).logout();
+          ref.read(currentUserViewModelProvider.notifier).logout();
         }, color: Colors.red),
       ],
     );

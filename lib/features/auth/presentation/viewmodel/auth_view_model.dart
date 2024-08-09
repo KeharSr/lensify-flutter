@@ -12,16 +12,15 @@ import 'package:local_auth/local_auth.dart';
 
 final authViewModelProvider = StateNotifierProvider<AuthViewModel, AuthState>(
   (ref) => AuthViewModel(
-    ref.read(loginViewNavigatorProvider),
-    ref.read(registerViewNavigatorProvider),
-    ref.read(authUseCaseProvider),
-    ref.read(forgetPasswordViewNavigatorProvider),
-     ref.watch(googleSignInServiceProvider)
-  ),
+      ref.read(loginViewNavigatorProvider),
+      ref.read(registerViewNavigatorProvider),
+      ref.read(authUseCaseProvider),
+      ref.read(forgetPasswordViewNavigatorProvider),
+      ref.watch(googleSignInServiceProvider)),
 );
 
 class AuthViewModel extends StateNotifier<AuthState> {
-  AuthViewModel(this.navigator, this.registerNavigator, this.authUseCase, 
+  AuthViewModel(this.navigator, this.registerNavigator, this.authUseCase,
       this.forgetPasswordNavigator, this.googleSignInService)
       : super(AuthState.initial());
 
@@ -132,7 +131,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     final data = await authUseCase.googleLogin(token, password);
     data.fold((l) {
       state = state.copyWith(isLoading: false, error: l.error);
-      showMySnackBar(message: l.error);
+      showMySnackBar(message: l.error, textColor: Colors.red);
     }, (r) {
       state = state.copyWith(isLoading: false);
       openHomeView();
@@ -145,6 +144,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     final google = await googleSignInService.signInWithGoogle();
     if (google != null) {
       final token = google['idToken'];
+      print(token);
       final user = await authUseCase.getUserByGoogle(token);
       user.fold((l) {
         state = state.copyWith(isLoading: false, error: l.error);
@@ -157,6 +157,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
         state = state.copyWith(isLoading: false);
       });
     } else {
+      showMySnackBar(message: 'Google sign in failed');
       state = state.copyWith(isLoading: false);
     }
   }

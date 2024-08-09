@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -9,7 +10,7 @@ final authApiModelProvider =
     Provider<AuthApiModel>((ref) => const AuthApiModel.empty());
 
 @JsonSerializable()
-class AuthApiModel {
+class AuthApiModel extends Equatable {
   @JsonKey(name: '_id')
   final String id;
   final String firstName;
@@ -20,14 +21,14 @@ class AuthApiModel {
   final String? password;
   final String? profilePicture;
 
-  AuthApiModel({
+  const AuthApiModel({
     required this.id,
     required this.firstName,
     required this.email,
     required this.lastName,
     this.phoneNumber,
     required this.userName,
-     this.password,
+    this.password,
     this.profilePicture,
   });
 

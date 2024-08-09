@@ -87,7 +87,20 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="com.googleusercontent.apps.348505927725-cr4r7icrbji1gavs54r10etnojn911c8.apps.googleusercontent.com" />
+            </intent-filter>
         </activity>
+
+         <!-- Metadata for Google Sign-In -->
+        <meta-data
+            android:name="com.google.android.gms.auth.api.fallback_service"
+            android:value="@string/default_web_client_id" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data
