@@ -1,9 +1,9 @@
 import 'package:final_assignment/app/constants/sizes.dart';
 import 'package:final_assignment/features/auth/presentation/navigator/login_navigator.dart';
 import 'package:final_assignment/features/forgot_password/presentation/view_model/forgot_password_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:iconsax/iconsax.dart';
 
 class ForgetPasswordView extends ConsumerStatefulWidget {
   const ForgetPasswordView({super.key});
@@ -34,7 +34,7 @@ class _ForgetPasswordViewState extends ConsumerState<ForgetPasswordView> {
             onPressed: () {
               ref.read(loginViewNavigatorProvider).openLoginView();
             },
-            icon: const Icon(CupertinoIcons.clear),
+            icon: const Icon(Icons.clear),
           ),
         ],
       ),
@@ -97,7 +97,7 @@ class _ForgetPasswordViewState extends ConsumerState<ForgetPasswordView> {
                   controller: _otpController,
                   decoration: const InputDecoration(
                     labelText: 'OTP',
-                    prefixIcon: Icon(Icons.security),
+                    prefixIcon: Icon(Iconsax.security),
                   ),
                 ),
                 const SizedBox(height: TSizes.spaceBtwSections),
@@ -110,7 +110,7 @@ class _ForgetPasswordViewState extends ConsumerState<ForgetPasswordView> {
                   controller: _passwordController,
                   decoration: const InputDecoration(
                     labelText: 'New Password',
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: Icon(Iconsax.lock),
                   ),
                   obscureText: true,
                 ),
@@ -119,7 +119,7 @@ class _ForgetPasswordViewState extends ConsumerState<ForgetPasswordView> {
                   controller: _confirmPasswordController,
                   decoration: const InputDecoration(
                     labelText: 'Confirm Password',
-                    prefixIcon: Icon(Icons.lock),
+                    prefixIcon: Icon(Iconsax.lock),
                   ),
                   obscureText: true,
                 ),

@@ -6,8 +6,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 enum ConnectivityStatus { notDetermined, isConnected, isDisconnected }
 
 final connectivityStatusProvider =
-StateNotifierProvider<ConnectivityStatusNotifier, ConnectivityStatus>(
-      (ref) => ConnectivityStatusNotifier(),
+    StateNotifierProvider<ConnectivityStatusNotifier, ConnectivityStatus>(
+  (ref) => ConnectivityStatusNotifier(),
 );
 
 class ConnectivityStatusNotifier extends StateNotifier<ConnectivityStatus> {
@@ -17,7 +17,9 @@ class ConnectivityStatusNotifier extends StateNotifier<ConnectivityStatus> {
   ConnectivityStatusNotifier() : super(ConnectivityStatus.isConnected) {
     lastResult = state;
 
-    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+    Connectivity()
+        .onConnectivityChanged
+        .listen((List<ConnectivityResult> result) {
       if (result == ConnectivityResult.mobile ||
           result == ConnectivityResult.wifi) {
         newState = ConnectivityStatus.isConnected;

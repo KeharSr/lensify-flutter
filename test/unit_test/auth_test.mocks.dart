@@ -8,6 +8,7 @@ import 'dart:io' as _i9;
 
 import 'package:dartz/dartz.dart' as _i4;
 import 'package:final_assignment/core/failure/failure.dart' as _i7;
+import 'package:final_assignment/core/google/google_service.dart' as _i13;
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart'
     as _i3;
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart'
@@ -190,6 +191,71 @@ class MockAuthUseCase extends _i1.Mock implements _i5.AuthUseCase {
       ) as _i6.Future<_i4.Either<_i7.Failure, _i8.AuthEntity>>);
 
   @override
+  _i6.Future<_i4.Either<_i7.Failure, bool>> googleLogin(
+    String? token,
+    String? password,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #googleLogin,
+          [
+            token,
+            password,
+          ],
+        ),
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+            _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #googleLogin,
+            [
+              token,
+              password,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+                _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #googleLogin,
+            [
+              token,
+              password,
+            ],
+          ),
+        )),
+      ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
+
+  @override
+  _i6.Future<_i4.Either<_i7.Failure, _i8.AuthEntity>> getUserByGoogle(
+          String? token) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUserByGoogle,
+          [token],
+        ),
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, _i8.AuthEntity>>.value(
+            _FakeEither_2<_i7.Failure, _i8.AuthEntity>(
+          this,
+          Invocation.method(
+            #getUserByGoogle,
+            [token],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i4.Either<_i7.Failure, _i8.AuthEntity>>.value(
+                _FakeEither_2<_i7.Failure, _i8.AuthEntity>(
+          this,
+          Invocation.method(
+            #getUserByGoogle,
+            [token],
+          ),
+        )),
+      ) as _i6.Future<_i4.Either<_i7.Failure, _i8.AuthEntity>>);
+
+  @override
   _i6.Future<_i4.Either<_i7.Failure, bool>> fingerPrintLogin() =>
       (super.noSuchMethod(
         Invocation.method(
@@ -357,3 +423,45 @@ class MockRegisterViewNavigator extends _i1.Mock
 /// See the documentation for Mockito's code generation for more information.
 class MockForgotPasswordViewNavigator extends _i1.Mock
     implements _i12.ForgotPasswordViewNavigator {}
+
+/// A class which mocks [GoogleSignInService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGoogleSignInService extends _i1.Mock
+    implements _i13.GoogleSignInService {
+  @override
+  _i6.Future<Map<String, dynamic>?> signInWithGoogle() => (super.noSuchMethod(
+        Invocation.method(
+          #signInWithGoogle,
+          [],
+        ),
+        returnValue: _i6.Future<Map<String, dynamic>?>.value(),
+        returnValueForMissingStub: _i6.Future<Map<String, dynamic>?>.value(),
+      ) as _i6.Future<Map<String, dynamic>?>);
+
+  @override
+  _i6.Future<_i4.Either<_i7.Failure, bool>> signOutGoogle() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signOutGoogle,
+          [],
+        ),
+        returnValue: _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+            _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #signOutGoogle,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i4.Either<_i7.Failure, bool>>.value(
+                _FakeEither_2<_i7.Failure, bool>(
+          this,
+          Invocation.method(
+            #signOutGoogle,
+            [],
+          ),
+        )),
+      ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
+}

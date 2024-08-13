@@ -1,6 +1,8 @@
+import 'package:final_assignment/app/constants/colors.dart';
 import 'package:final_assignment/core/common/widgets/my_appbar.dart';
-import 'package:final_assignment/core/common/widgets/my_cart_items.dart';
 import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
+import 'package:final_assignment/features/cart/presentation/widgets/my_cart_items.dart';
+import 'package:final_assignment/features/place_order/presentation/view/chekout_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,100 +33,113 @@ class _CartViewState extends ConsumerState<CartView> {
   @override
   Widget build(BuildContext context) {
     final cartState = ref.watch(cartViewModelProvider);
+    final theme = Theme.of(context);
+    final isDarkMode = theme.brightness == Brightness.dark;
 
     return Scaffold(
-        appBar: const MyAppbar(
-          title: Text(
-            "Cart",
-            style: TextStyle(
-                color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+      appBar: MyAppbar(
+        title: Text(
+          "Cart",
+          style: TextStyle(
+            color: isDarkMode ? TColors.textWhite : TColors.textPrimary,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
-          showBackArrow: true,
         ),
-        body: NotificationListener<ScrollNotification>(
-          onNotification: (scrollNotification) {
-            if (scrollNotification is ScrollEndNotification &&
-                _scrollController.position.extentAfter == 0) {
-              ref.read(cartViewModelProvider.notifier).getCarts();
-            }
-            return true;
+        showBackArrow: true,
+      ),
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (scrollNotification) {
+          if (scrollNotification is ScrollEndNotification &&
+              _scrollController.position.extentAfter == 0) {
+            ref.read(cartViewModelProvider.notifier).getCarts();
+          }
+          return true;
+        },
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await ref.read(cartViewModelProvider.notifier).getCarts();
           },
-          child: RefreshIndicator(
-            onRefresh: () async {
-              await ref.read(cartViewModelProvider.notifier).getCarts();
-            },
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    controller: _scrollController,
-                    itemCount: cartState.products.length,
-                    itemBuilder: (context, index) {
-                      final cartItem = cartState.products[index];
-                      return CartItem(
-                        cartItem: cartItem,
-                        onDecreasePressed: () {
-                          ref.read(cartViewModelProvider.notifier).updateCart(
-                                cartItem.productId!,
-                                cartItem.quantity - 1,
-                              );
-                        },
-                        onIncreasePressed: () {
-                          ref.read(cartViewModelProvider.notifier).updateCart(
-                                cartItem.productId!,
-                                cartItem.quantity + 1,
-                              );
-                        },
-                        onDeletePressed: () {
-                          ref
-                              .read(cartViewModelProvider.notifier)
-                              .deleteCart(cartItem.id!.toString() ?? "");
-                        },
-                      );
-                    },
-                  ),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  controller: _scrollController,
+                  itemCount: cartState.products.length,
+                  itemBuilder: (context, index) {
+                    final cartItem = cartState.products[index];
+                    return CartItem(
+                      cartItem: cartItem,
+                      onDecreasePressed: () {
+                        ref.read(cartViewModelProvider.notifier).updateCart(
+                              cartItem.productId!,
+                              cartItem.quantity - 1,
+                            );
+                      },
+                      onIncreasePressed: () {
+                        ref.read(cartViewModelProvider.notifier).updateCart(
+                              cartItem.productId!,
+                              cartItem.quantity + 1,
+                            );
+                      },
+                      onDeletePressed: () {
+                        ref
+                            .read(cartViewModelProvider.notifier)
+                            .deleteCart(cartItem.id!.toString());
+                      },
+                    );
+                  },
                 ),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      // Add checkout logic here
-                      print("Proceeding to checkout");
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+              ),
+              Container(
+                color: theme.scaffoldBackgroundColor,
+                padding: const EdgeInsets.all(16),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CheckoutScreen(
+                          cartItems: cartState.products,
+                        ),
                       ),
-                      minimumSize: const Size(double.infinity, 50),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: TColors.buttonPrimary,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          "Checkout",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                    minimumSize: const Size(double.infinity, 50),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Checkout",
+                        style: TextStyle(
+                          color: TColors.textWhite,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Text(
-                          "\$${cartState.products.fold(0, (sum, item) => sum + (item.productId!.productPrice * item.quantity)).toStringAsFixed(2)}",
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      ),
+                      Text(
+                        "\$${cartState.products.fold(0, (sum, item) => sum + (item.productId!.productPrice * item.quantity)).toStringAsFixed(2)}",
+                        style: const TextStyle(
+                          color: TColors.textWhite,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

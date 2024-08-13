@@ -40,7 +40,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
           isLoading: false,
           error: failure.error,
         );
-        showMySnackBar(message: failure.error, backgroundColor: Colors.red);
+        // showMySnackBar(message: failure.error, backgroundColor: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
@@ -60,7 +60,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
       (failure) {
         print(failure.statusCode);
         state = state.copyWith(isLoading: false, error: failure.error);
-        showMySnackBar(message: failure.error, backgroundColor: Colors.red);
+        // showMySnackBar(message: failure.error, backgroundColor: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
@@ -77,7 +77,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     data.fold(
       (failure) {
         state = state.copyWith(isLoading: false, error: failure.error);
-        showMySnackBar(message: failure.error, backgroundColor: Colors.red);
+        // showMySnackBar(message: failure.error, backgroundColor: Colors.red);
       },
       (success) {
         state = state.copyWith(isLoading: false, error: null);
@@ -131,7 +131,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
     final data = await authUseCase.googleLogin(token, password);
     data.fold((l) {
       state = state.copyWith(isLoading: false, error: l.error);
-      showMySnackBar(message: l.error, textColor: Colors.red);
+      // showMySnackBar(message: l.error, textColor: Colors.red);
     }, (r) {
       state = state.copyWith(isLoading: false);
       openHomeView();
@@ -157,7 +157,7 @@ class AuthViewModel extends StateNotifier<AuthState> {
         state = state.copyWith(isLoading: false);
       });
     } else {
-      showMySnackBar(message: 'Google sign in failed');
+      // showMySnackBar(message: 'Google sign in failed');
       state = state.copyWith(isLoading: false);
     }
   }

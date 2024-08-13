@@ -6,7 +6,7 @@ import 'package:final_assignment/core/google/google_service.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
 import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart';
 import 'package:final_assignment/features/home/presentation/navigator/home_navigator.dart';
-import 'package:final_assignment/features/settings/presentation/state/current_user_state.dart';
+import 'package:final_assignment/features/profile/presentation/state/current_user_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:local_auth/local_auth.dart';

@@ -9,10 +9,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final cartViewModelProvider =
     StateNotifierProvider<CartViewModel, CartState>((ref) => CartViewModel(
-      navigator: ref.watch(mainViewNavigatorProvider),
+          navigator: ref.watch(mainViewNavigatorProvider),
           cartUsecase: ref.watch(cartUsecaseProvider),
           userSharedPrefs: ref.watch(userSharedPrefsProvider),
-
         ));
 
 class CartViewModel extends StateNotifier<CartState> {
@@ -37,8 +36,8 @@ class CartViewModel extends StateNotifier<CartState> {
       showMySnackBar(message: failure.error, backgroundColor: Colors.red);
     }, (success) {
       state = state.copyWith(isLoading: false, error: null, products: success);
-      showMySnackBar(
-          message: 'Cart fetched successfully', backgroundColor: Colors.green);
+      // showMySnackBar(
+      //     message: 'Cart fetched successfully', backgroundColor: Colors.green);
     });
   }
 
@@ -55,8 +54,8 @@ class CartViewModel extends StateNotifier<CartState> {
         isLoading: false,
         error: null,
       );
-      showMySnackBar(
-          message: 'Product added to cart', backgroundColor: Colors.green);
+      // showMySnackBar(
+      //     message: 'Product added to cart', backgroundColor: Colors.green);
     });
     getCarts();
   }
@@ -105,5 +104,4 @@ class CartViewModel extends StateNotifier<CartState> {
     });
     await getCarts();
   }
-
 }

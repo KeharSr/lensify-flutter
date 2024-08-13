@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:final_assignment/app/constants/api_endpoint.dart';
 import 'package:final_assignment/app/theme/theme_data/theme_data.dart';
 import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
-import 'package:final_assignment/features/settings/presentation/state/current_user_state.dart';
-import 'package:final_assignment/features/settings/presentation/viewmodel/current_user_view_model.dart';
+import 'package:final_assignment/features/profile/presentation/state/current_user_state.dart';
+import 'package:final_assignment/features/profile/presentation/viewmodel/current_user_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
@@ -29,11 +29,21 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
   @override
   void initState() {
     super.initState();
+
+    // Initialize the controllers with empty strings initially
     fnameController = TextEditingController();
     lnameController = TextEditingController();
     emailController = TextEditingController();
     phoneController = TextEditingController();
     usernameController = TextEditingController();
+
+    // Set the initial values after the controllers are initialized
+    final state = ref.read(currentUserViewModelProvider);
+    fnameController.text = state.authEntity?.firstName ?? '';
+    lnameController.text = state.authEntity?.lastName ?? '';
+    emailController.text = state.authEntity?.email ?? '';
+    phoneController.text = state.authEntity?.phoneNumber ?? '';
+    usernameController.text = state.authEntity?.userName ?? '';
   }
 
   @override
@@ -48,17 +58,9 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(currentUserViewModelProvider);
     final brightness = MediaQuery.of(context).platformBrightness;
     final isDarkMode = brightness == Brightness.dark;
     final theme = isDarkMode ? KAppTheme.darkTheme : KAppTheme.lightTheme;
-
-    // Initialize controllers with the current state
-    fnameController.text = state.authEntity?.firstName ?? '';
-    lnameController.text = state.authEntity?.lastName ?? '';
-    emailController.text = state.authEntity?.email ?? '';
-    phoneController.text = state.authEntity?.phoneNumber ?? '';
-    usernameController.text = state.authEntity?.userName ?? '';
 
     return Theme(
       data: theme,
@@ -83,7 +85,8 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _buildProfileImage(state, theme),
+                  _buildProfileImage(
+                      ref.watch(currentUserViewModelProvider), theme),
                   const SizedBox(height: 40),
                   _buildForm(theme),
                   const SizedBox(height: 20),
@@ -190,9 +193,7 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
     );
   }
 
-  Widget _buildSaveButton(
-    ThemeData theme,
-  ) {
+  Widget _buildSaveButton(ThemeData theme) {
     return ElevatedButton(
       onPressed: () {
         ref.read(currentUserViewModelProvider.notifier).updateUser(
@@ -211,28 +212,6 @@ class _EditProfileViewState extends ConsumerState<EditProfileView> {
       },
       style: theme.elevatedButtonTheme.style,
       child: const Text('Save Changes'),
-    );
-  }
-
-  Widget _buildErrorMessage(String error, ThemeData theme) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Text(
-        'Failed to upload image: $error',
-        style: theme.textTheme.bodyMedium
-            ?.copyWith(color: theme.colorScheme.error),
-      ),
-    );
-  }
-
-  Widget _buildSuccessMessage(ThemeData theme) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
-      child: Text(
-        'Image uploaded successfully',
-        style: theme.textTheme.bodyMedium
-            ?.copyWith(color: theme.colorScheme.secondary),
-      ),
     );
   }
 

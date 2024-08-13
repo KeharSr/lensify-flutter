@@ -9,6 +9,8 @@ import 'package:dartz/dartz.dart' as _i2;
 import 'package:final_assignment/core/failure/failure.dart' as _i5;
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart'
     as _i3;
+import 'package:final_assignment/features/home/presentation/navigator/home_navigator.dart'
+    as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -192,4 +194,18 @@ class MockUserSharedPrefs extends _i1.Mock implements _i3.UserSharedPrefs {
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.Failure, String>>);
+}
+
+/// A class which mocks [MainViewNavigator].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockMainViewNavigator extends _i1.Mock implements _i6.MainViewNavigator {
+  @override
+  void navigateToCartView() => super.noSuchMethod(
+        Invocation.method(
+          #navigateToCartView,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
 }

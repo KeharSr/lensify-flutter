@@ -1,7 +1,6 @@
 import 'package:final_assignment/app/constants/api_endpoint.dart';
-import 'package:final_assignment/app/constants/colors.dart';
 import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
-import 'package:final_assignment/features/single_product/presentation/view/single_products_view.dart';
+import 'package:final_assignment/features/single_product/presentation/view/single_product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -22,6 +21,11 @@ class MyProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageUrl = '${ApiEndpoints.imageUrl}${product.productImage}';
+    final theme = Theme.of(context); // Access the current theme
+    final textColor =
+        theme.textTheme.labelLarge?.color ?? Colors.black; // Default text color
+    final isDarkMode =
+        theme.brightness == Brightness.dark; // Check if dark mode is enabled
 
     return GestureDetector(
       onTap: () {
@@ -34,11 +38,11 @@ class MyProductCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: TColors.grey,
+          color: theme.cardColor,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
-              color: Colors.black12,
+              color: theme.shadowColor.withOpacity(0.1),
               blurRadius: 4,
               spreadRadius: 2,
             ),
@@ -70,9 +74,10 @@ class MyProductCard extends StatelessWidget {
                     children: [
                       Text(
                         product.productName,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          color: textColor, // Text color based on the theme
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -80,11 +85,12 @@ class MyProductCard extends StatelessWidget {
                       if (rating > 0)
                         Row(
                           children: [
-                            const Text(
+                            Text(
                               'Rating: ',
                               style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.grey,
+                                color: textColor.withOpacity(
+                                    0.7), // Slightly muted text color
                               ),
                             ),
                             const Icon(
@@ -95,34 +101,38 @@ class MyProductCard extends StatelessWidget {
                             Text(
                               rating.toStringAsFixed(1),
                               // Display the rating value
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 14,
-                                color: Colors.grey,
+                                color: textColor.withOpacity(
+                                    0.7), // Slightly muted text color
                               ),
                             ),
                           ],
                         )
                       else
-                        const Text(
+                        Text(
                           'Rating: N/A',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Colors.grey,
+                            color: textColor
+                                .withOpacity(0.7), // Slightly muted text color
                           ),
                         ),
                       const SizedBox(height: 4),
                       Text(
                         product.productCategory,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey,
+                          color: textColor
+                              .withOpacity(0.7), // Slightly muted text color
                         ),
                       ),
                       Text(
                         '\$${product.productPrice.toString()}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
+                          color: textColor, // Text color based on the theme
                         ),
                       ),
                     ],
@@ -136,8 +146,10 @@ class MyProductCard extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(1),
                 child: IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Iconsax.heart5,
+                    color:
+                        theme.iconTheme.color, // Icon color based on the theme
                   ),
                   onPressed: onWishlistTap,
                 ),
@@ -147,9 +159,12 @@ class MyProductCard extends StatelessWidget {
               bottom: 0,
               right: 0,
               child: IconButton(
-                icon: const Icon(
+                icon: Icon(
                   Iconsax.shopping_bag,
-                  color: Colors.blue,
+                  color: isDarkMode
+                      ? Colors.red
+                      : theme
+                          .primaryColor, // Red in dark mode, theme primary color in light mode
                 ),
                 onPressed: onPressed,
               ),

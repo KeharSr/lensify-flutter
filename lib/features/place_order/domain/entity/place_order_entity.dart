@@ -1,41 +1,57 @@
 import 'package:equatable/equatable.dart';
-import 'package:final_assignment/features/auth/domain/entity/auth_entity.dart';
-import 'package:final_assignment/features/place_order/domain/entity/address_entity.dart';
-import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
+import 'package:final_assignment/features/cart/domain/entity/cart_entity.dart';
 
-class OrderEntity extends Equatable {
+class PlaceOrderEntity extends Equatable {
   final String? id;
-  final AuthEntity? userId;
-  final List<ProductEntity> products;
+  final String? userId;
+  final List<CartEntity>? carts;
   final num totalPrice;
-  final AddressEntity address;
+  final String name;
+  final String email;
+  final String street;
+  final String city;
+  final String state;
+  final String zipCode;
+  final String country;
+  final String phone;
   final String status;
   final bool payment;
   final String paymentMethod;
-  final DateTime date;
 
-  OrderEntity({
-    required this.id,
-    required this.userId,
-    required this.products,
+  PlaceOrderEntity({
+    this.id,
+    this.userId,
+    required this.carts,
     required this.totalPrice,
-    required this.address,
     required this.status,
     required this.payment,
     required this.paymentMethod,
-    required this.date,
+    required this.name,
+    required this.email,
+    required this.street,
+    required this.city,
+    required this.state,
+    required this.zipCode,
+    required this.country,
+    required this.phone,
   });
 
   @override
   List<Object?> get props => [
         id,
         userId,
-        products,
+        carts,
         totalPrice,
-        address,
         status,
         payment,
         paymentMethod,
-        date,
+        name,
+        email,
+        street,
+        city,
+        state,
+        zipCode,
+        country,
+        phone,
       ];
 }

@@ -1,7 +1,8 @@
+import 'package:final_assignment/app/constants/sizes.dart';
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
 import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
 import 'package:final_assignment/features/single_product/presentation/view_model/single_product_view_model.dart';
-import 'package:final_assignment/features/single_product/presentation/widgets/my_product_details.dart';
+import 'package:final_assignment/features/single_product/presentation/widgets/my_single_product_view.dart';
 import 'package:final_assignment/features/wishlist/presentation/view_model/wishlist_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,27 +17,22 @@ class ProductViewPage extends ConsumerStatefulWidget {
 }
 
 class _ProductViewPageState extends ConsumerState<ProductViewPage> {
-  bool isDescriptionExpanded = false;
-  bool isReviewsExpanded = false;
   TextEditingController reviewController = TextEditingController();
   double rating = 0;
 
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-        () => ref.read(singleProductViewModelProvider.notifier).init(
-              widget.productId,
-            ));
+    Future.microtask(() => ref
+        .read(singleProductViewModelProvider.notifier)
+        .init(widget.productId));
   }
 
   @override
   void didUpdateWidget(covariant ProductViewPage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.productId != oldWidget.productId) {
-      ref.read(singleProductViewModelProvider.notifier).init(
-            widget.productId,
-          );
+      ref.read(singleProductViewModelProvider.notifier).init(widget.productId);
     }
   }
 
@@ -92,7 +88,7 @@ class _ProductViewPageState extends ConsumerState<ProductViewPage> {
             children: [
               // Header
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(TSizes.md),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -120,21 +116,11 @@ class _ProductViewPageState extends ConsumerState<ProductViewPage> {
 
               // Product Details
               if (productState.singleProduct != null)
-                ProductDetails(
+                MySingleProductView(
                   product: productState.singleProduct!,
                   selectedQuantity: productState.selectedQuantity,
-                  isDescriptionExpanded: isDescriptionExpanded,
-                  onDescriptionToggle: () {
-                    setState(() {
-                      isDescriptionExpanded = !isDescriptionExpanded;
-                    });
-                  },
-                  isReviewsExpanded: isReviewsExpanded,
-                  onReviewsToggle: () {
-                    setState(() {
-                      isReviewsExpanded = !isReviewsExpanded;
-                    });
-                  },
+                  reviewController: reviewController,
+                  addReview: addReview,
                   onDecreaseQuantity: () {
                     ref
                         .read(singleProductViewModelProvider.notifier)
@@ -153,24 +139,21 @@ class _ProductViewPageState extends ConsumerState<ProductViewPage> {
                         productState.selectedQuantity);
                   },
                   reviews: productState.reviews.map((e) => e.review).toList(),
-                  reviewController: reviewController,
-                  addReview: addReview,
                   reviewonPressed: reviewonPressed,
                   rating: rating,
                   updateReview: updateReview,
                   userHasReviewed: userHasReviewed,
-                  // Pass whether user has reviewed
-                  averageRating:
-                      productState.averageRating, // Pass average rating
+                  averageRating: productState.averageRating,
                 ),
-              if (productState.isLoading || productState.isLoading)
+              if (productState.isLoading)
                 const Center(child: CircularProgressIndicator()),
               if (productState.error != null)
                 Center(
-                    child: Text(
-                  productState.error!,
-                  style: const TextStyle(),
-                )),
+                  child: Text(
+                    productState.error!,
+                    style: const TextStyle(),
+                  ),
+                ),
             ],
           ),
         ),

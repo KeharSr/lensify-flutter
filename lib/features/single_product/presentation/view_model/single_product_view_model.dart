@@ -140,6 +140,4 @@ class SingleProductViewModel extends StateNotifier<SingleProductState> {
           backgroundColor: Colors.red);
     }
   }
-
-
 }
