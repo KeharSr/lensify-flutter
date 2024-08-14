@@ -18,8 +18,9 @@ class CartUsecase {
     return cartRepository.getCarts();
   }
 
-  Future<Either<Failure, bool>> addCart(String productId, int quantity) async {
-    return cartRepository.addCart(productId, quantity);
+  Future<Either<Failure, bool>> addCart(
+      String? productId, int? quantity) async {
+    return cartRepository.addCart(productId ?? '', quantity ?? 0);
   }
 
   Future<Either<Failure, bool>> updateCart(

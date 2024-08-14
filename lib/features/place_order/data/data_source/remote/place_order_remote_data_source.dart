@@ -61,4 +61,39 @@ class PlaceOrderRemoteDataSource {
   }
 
 // get orders by user
+//   Future<Either<Failure, bool>> changeStatus(String orderId) async {
+//     try {
+//       String? token;
+//       var data = await userSharedPrefs.getUserToken();
+//       data.fold((l) => null, (r) => token = r);
+//
+//       print('Token: $token');
+//
+//       var response = await dio.post(
+//         ApiEndpoints.changeStatus,
+//         data: {
+//           'order_id': orderId,
+//         },
+//         options: Options(headers: {
+//           'Authorization': 'Bearer $token',
+//         }),
+//       );
+//
+//       print('Change Status Response: ${response.data}');
+//       print('Response data: ${response.data}');
+//
+//       if (response.statusCode == 200) {
+//         return Right(true);
+//       } else {
+//         return Left(Failure(
+//           error: response.data['message'],
+//           statusCode: response.statusCode.toString(),
+//         ));
+//       }
+//     } on DioException catch (e) {
+//       return Left(Failure(
+//         error: e.message.toString(),
+//       ));
+//     }
+//   }
 }

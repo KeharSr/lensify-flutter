@@ -1,15 +1,15 @@
 import 'package:final_assignment/core/common/widgets/my_snackbar.dart';
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
 import 'package:final_assignment/features/cart/domain/usecases/cart_usecase.dart';
+import 'package:final_assignment/features/cart/presentation/navigator/cart_navigator.dart';
 import 'package:final_assignment/features/cart/presentation/state/cart_state.dart';
-import 'package:final_assignment/features/home/presentation/navigator/home_navigator.dart';
 import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final cartViewModelProvider =
     StateNotifierProvider<CartViewModel, CartState>((ref) => CartViewModel(
-          navigator: ref.watch(mainViewNavigatorProvider),
+          navigator: ref.watch(cartViewNavigatorProvider),
           cartUsecase: ref.watch(cartUsecaseProvider),
           userSharedPrefs: ref.watch(userSharedPrefsProvider),
         ));
@@ -23,12 +23,12 @@ class CartViewModel extends StateNotifier<CartState> {
 
   final CartUsecase cartUsecase;
   final UserSharedPrefs userSharedPrefs;
-  final MainViewNavigator navigator;
+  final CartViewNavigator navigator;
 
   //get cart
   Future<void> getCarts() async {
     state = state.copyWith(isLoading: true);
-    final result = await cartUsecase.getCarts();
+    // final result = await cartUsecase.getCarts();
     var data = await cartUsecase.getCarts();
 
     data.fold((failure) {
@@ -103,5 +103,11 @@ class CartViewModel extends StateNotifier<CartState> {
           message: 'Product removed from cart', backgroundColor: Colors.green);
     });
     await getCarts();
+  }
+
+  openCheckoutScreen() {
+    navigator.openPlaceOrderView(
+      state.products,
+    );
   }
 }

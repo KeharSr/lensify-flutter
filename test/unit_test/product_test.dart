@@ -9,7 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'product_entity_data.dart';
+import '../test_data/product_entity_data.dart';
 import 'product_test.mocks.dart';
 
 @GenerateNiceMocks([

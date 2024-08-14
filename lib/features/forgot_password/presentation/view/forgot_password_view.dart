@@ -89,7 +89,7 @@ class _ForgetPasswordViewState extends ConsumerState<ForgetPasswordView> {
               if (forgotPasswordState.isSent) ...[
                 const SizedBox(height: TSizes.spaceBtwSections * 2),
                 Text(
-                  'Enter the OTP sent to your phone number',
+                  'Enter OTP Here',
                   style: Theme.of(context).textTheme.labelMedium,
                 ),
                 const SizedBox(height: TSizes.spaceBtwItems),

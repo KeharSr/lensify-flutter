@@ -2,7 +2,6 @@ import 'package:final_assignment/app/constants/colors.dart';
 import 'package:final_assignment/core/common/widgets/my_appbar.dart';
 import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
 import 'package:final_assignment/features/cart/presentation/widgets/my_cart_items.dart';
-import 'package:final_assignment/features/place_order/presentation/view/chekout_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -97,14 +96,9 @@ class _CartViewState extends ConsumerState<CartView> {
                 padding: const EdgeInsets.all(16),
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CheckoutScreen(
-                          cartItems: cartState.products,
-                        ),
-                      ),
-                    );
+                    ref
+                        .read(cartViewModelProvider.notifier)
+                        .openCheckoutScreen();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: TColors.buttonPrimary,
@@ -116,7 +110,7 @@ class _CartViewState extends ConsumerState<CartView> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         "Checkout",
                         style: TextStyle(
                           color: TColors.textWhite,

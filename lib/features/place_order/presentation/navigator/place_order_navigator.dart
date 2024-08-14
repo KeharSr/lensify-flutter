@@ -3,15 +3,17 @@ import 'package:final_assignment/features/payment/presentation/navigator/payment
 import 'package:final_assignment/features/place_order/presentation/view/chekout_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../cart/domain/entity/cart_entity.dart';
+
 final placeOrderViewNavigatorProvider =
     Provider((ref) => PlaceOrderViewNavigator());
 
 class PlaceOrderViewNavigator with PaymentViewRoute {}
 
 mixin PlaceOrderViewRoute {
-  void openPlaceOrderView() {
-    NavigateRoute.pushRoute(const CheckoutScreen(
-      cartItems: [],
+  void openPlaceOrderView(List<CartEntity> carts) {
+    NavigateRoute.pushRoute(CheckoutScreen(
+      cartItems: carts,
     ));
   }
 }
