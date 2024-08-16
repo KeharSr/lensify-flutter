@@ -1,6 +1,8 @@
 import 'package:final_assignment/app/constants/api_endpoint.dart';
 import 'package:final_assignment/app/constants/colors.dart';
 import 'package:final_assignment/core/common/widgets/my_curved_edges.dart';
+import 'package:final_assignment/features/my_orders/presentation/view/order_view.dart';
+import 'package:final_assignment/features/product/presentation/view_model/products_viewmodel.dart';
 import 'package:final_assignment/features/profile/presentation/view/edit_profile_view.dart';
 import 'package:final_assignment/features/profile/presentation/viewmodel/current_user_view_model.dart';
 import 'package:final_assignment/features/profile/presentation/widgets/my_profile_view.dart';
@@ -50,7 +52,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                       color: TColors.primary,
                     ),
                   ),
-                  Positioned(
+                  const Positioned(
                     top: 40,
                     left: 16,
                     child: Text(
@@ -66,7 +68,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                     top: 40,
                     right: 16,
                     child: IconButton(
-                      icon: Icon(Iconsax.edit, color: TColors.white),
+                      icon: const Icon(Iconsax.edit, color: TColors.white),
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -94,7 +96,7 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
                         const SizedBox(height: 8),
                         Text(
                           '${authEntity.firstName} ${authEntity.lastName}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                             color: TColors.white,
@@ -115,7 +117,19 @@ class _ProfileViewState extends ConsumerState<ProfileView> {
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: ProfileDetails(authEntity: authEntity, ref: ref),
+                child: ProfileDetails(
+                  authEntity: authEntity,
+                  ref: ref,
+                  onMyCartTap: () {
+                    ref.read(productViewModelProvider.notifier).openCartView();
+                  },
+                  onMyOrdersTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyOrdersView()));
+                  },
+                ),
               ),
             ],
           ),

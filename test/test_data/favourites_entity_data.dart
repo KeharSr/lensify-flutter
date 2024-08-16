@@ -9,7 +9,7 @@ class FavouritesEntityData {
       WishlistEntity(
         id: '1',
         userId: 'user123',
-        productId: ProductEntity(
+        productId: const ProductEntity(
           id: 'product123',
           productName: 'Product A',
           productPrice: 100,
@@ -22,7 +22,7 @@ class FavouritesEntityData {
       WishlistEntity(
         id: '2',
         userId: 'user124',
-        productId: ProductEntity(
+        productId: const ProductEntity(
           id: 'product124',
           productName: 'Product B',
           productPrice: 200,
@@ -35,7 +35,7 @@ class FavouritesEntityData {
       WishlistEntity(
         id: '3',
         userId: 'user125',
-        productId: ProductEntity(
+        productId: const ProductEntity(
           id: 'product125',
           productName: 'Product C',
           productPrice: 300,

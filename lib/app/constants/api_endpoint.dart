@@ -3,7 +3,7 @@ class ApiEndpoints {
 
   static const Duration connectionTimeout = Duration(seconds: 8000);
   static const Duration receiveTimeout = Duration(seconds: 8000);
-  static const String baseUrl = 'http://192.168.101.6:5000/api/';
+  static const String baseUrl = 'http://192.168.1.133:5000/api/';
 
   // ===========Auth Routes===========
   static const String loginUser = 'user/login';
@@ -12,7 +12,7 @@ class ApiEndpoints {
   static const String getToken = "user/token";
   static const String profileImage = 'user/profile_picture';
   static const String imageUrlprofile =
-      "http://192.168.101.6:5000/profile_pictures/";
+      "http://192.168.1.133:5000/profile_pictures/";
   static const String updateUser = 'user/update';
   static const String sentOtp = 'user/forgot_password';
   static const String verifyOtp = 'user/verify_otp';
@@ -26,13 +26,15 @@ class ApiEndpoints {
       'product/get_products_by_category';
   static const int limit = 2;
   static const getSingleProduct = 'product/get_single_product/';
-  static const String imageUrl = 'http://192.168.101.6:5000/products/';
+  static const String searchProductByName = 'product/search';
+  static const String imageUrl = 'http://192.168.1.133:5000/products/';
 
   // ===========Cart Routes===========
   static const String addToCart = 'cart/add_to_cart';
   static const String getCart = 'cart/get_cart';
   static const String updateCart = 'cart/update_cart';
   static const String deleteCart = 'cart/remove_cart_item/';
+  static const String updateCartStatus = 'cart/update_status';
 
 // ===========Wishlist Routes===========
   static const String addFavourite = 'favourite/add_favourite';
@@ -54,5 +56,5 @@ class ApiEndpoints {
 
   // ===========Payment Routes===========
   static const String initlizePayment = 'khalti/initialize-khalti';
-  static const String verifyPayment = 'khalti/complete-khalti-payment';
+  static const String verifyPayment = 'khalti/verify-khalti-payment';
 }

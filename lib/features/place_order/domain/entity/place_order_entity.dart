@@ -18,7 +18,7 @@ class PlaceOrderEntity extends Equatable {
   final bool payment;
   final String paymentMethod;
 
-  PlaceOrderEntity({
+  const PlaceOrderEntity({
     this.id,
     this.userId,
     required this.carts,

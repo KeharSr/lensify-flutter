@@ -3,6 +3,8 @@ import 'package:final_assignment/core/failure/failure.dart';
 import 'package:final_assignment/features/payment/domain/repository/payment_respository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../entity/payment_entity.dart';
+
 // provider
 final paymentUsecaseProvider = Provider<PaymentUsecase>((ref) {
   final paymentRepository = ref.watch(paymentRepositoryProvider);
@@ -18,5 +20,10 @@ class PaymentUsecase {
       {required String orderId, required double totalPrice}) async {
     return paymentRepository.initializeKhaltiPayment(
         orderId: orderId, totalPrice: totalPrice);
+  }
+
+  Future<Either<Failure, String>> verifyKhaltiPayment(
+      PaymentEntity entity) async {
+    return paymentRepository.verifyKhaltiPayment(entity);
   }
 }

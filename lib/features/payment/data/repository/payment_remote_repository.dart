@@ -28,7 +28,7 @@ class PaymentRemoteRepository implements IPaymentRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> verifyKhaltiPayment(PaymentEntity entity) {
+  Future<Either<Failure, String>> verifyKhaltiPayment(PaymentEntity entity) {
     return paymentRemoteDataSource.verifyKhaltiPayment(entity);
   }
 }

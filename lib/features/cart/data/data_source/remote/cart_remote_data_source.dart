@@ -73,7 +73,6 @@ class CartRemoteDataSource {
     }
   }
 
-
   Future<Either<Failure, bool>> addToCart({
     required String productId,
     required int quantity,
@@ -182,6 +181,45 @@ class CartRemoteDataSource {
       print('Token: $token');
       var response = await dio.delete(
         '${ApiEndpoints.deleteCart}/$id',
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }),
+      );
+
+      print('Response status code: ${response.statusCode}');
+      print('Response data: ${response.data}');
+
+      if (response.statusCode == 200) {
+        return const Right(true);
+      } else {
+        return Left(
+          Failure(
+            error: response.data['message'],
+            statusCode: response.statusCode.toString(),
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return Left(
+        Failure(
+          error: e.message.toString(),
+        ),
+      );
+    }
+  }
+
+  Future<Either<Failure, bool>> updateCartStatus() async {
+    try {
+      String? token;
+      var data = await userSharedPrefs.getUserToken();
+      data.fold(
+        (l) => token = null,
+        (r) => token = r,
+      );
+
+      print('Token: $token');
+      var response = await dio.put(
+        ApiEndpoints.updateCartStatus,
         options: Options(headers: {
           'Authorization': 'Bearer $token',
         }),

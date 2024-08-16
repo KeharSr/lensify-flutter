@@ -7,11 +7,15 @@ import 'package:iconsax/iconsax.dart';
 class ProfileDetails extends StatelessWidget {
   final dynamic authEntity; // Specify the exact type if possible
   final WidgetRef ref;
+  final VoidCallback onMyCartTap;
+  final VoidCallback onMyOrdersTap;
 
   const ProfileDetails({
     required this.authEntity,
     required this.ref,
     super.key,
+    required this.onMyCartTap,
+    required this.onMyOrdersTap,
   });
 
   @override
@@ -31,14 +35,14 @@ class ProfileDetails extends StatelessWidget {
           title: const Text('My Cart',
               style: TextStyle(color: TColors.textPrimary)),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () {},
+          onTap: onMyCartTap,
         ),
         ListTile(
           leading: const Icon(Iconsax.shopping_bag, color: TColors.primary),
           title: const Text('My Orders',
               style: TextStyle(color: TColors.textPrimary)),
           trailing: const Icon(Icons.chevron_right),
-          onTap: () {},
+          onTap: onMyOrdersTap,
         ),
         ListTile(
           leading: const Icon(Iconsax.bank, color: TColors.primary),
@@ -99,7 +103,7 @@ class ProfileDetails extends StatelessWidget {
           onTap: () {},
         ),
         ListTile(
-          leading: Icon(Iconsax.finger_scan, color: Colors.blueAccent),
+          leading: const Icon(Iconsax.finger_scan, color: Colors.blueAccent),
           title: const Text('Enable FingerPrint',
               style: TextStyle(color: TColors.textPrimary)),
           trailing: const Icon(Icons.chevron_right),

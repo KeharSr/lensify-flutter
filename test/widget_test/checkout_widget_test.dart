@@ -1,4 +1,4 @@
-import 'package:final_assignment/features/place_order/presentation/view/chekout_view.dart';
+import 'package:final_assignment/features/place_order/presentation/view/place_order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,7 +10,7 @@ void main() {
       await tester.pumpWidget(
         const ProviderScope(
           child: MaterialApp(
-            home: CheckoutScreen(cartItems: []), // Empty cart for simplicity
+            home: PlaceOrderView(cartItems: []), // Empty cart for simplicity
           ),
         ),
       );
@@ -28,37 +28,38 @@ void main() {
     });
 
     testWidgets('validates form fields when Checkout button is pressed',
-    (tester) async {
-  await tester.pumpWidget(
-    const ProviderScope(
-      child: MaterialApp(
-        home: CheckoutScreen(cartItems: []), // Empty cart for simplicity
-      ),
-    ),
-  );
+        (tester) async {
+      await tester.pumpWidget(
+        const ProviderScope(
+          child: MaterialApp(
+            home: PlaceOrderView(cartItems: []), // Empty cart for simplicity
+          ),
+        ),
+      );
 
-  await tester.pumpAndSettle();
+      await tester.pumpAndSettle();
 
-  // Tap the Checkout button without entering any details
-  await tester.tap(find.textContaining('Checkout'));
-  await tester.pumpAndSettle();
+      // Tap the Checkout button without entering any details
+      await tester.tap(find.textContaining('Checkout'));
+      await tester.pumpAndSettle();
 
-  // Check if validation errors are displayed by finding the hint texts
-  expect(find.widgetWithText(TextFormField, 'Name'), findsOneWidget);
-  expect(find.widgetWithText(TextFormField, 'Email'), findsOneWidget);
-  expect(find.widgetWithText(TextFormField, 'Street'), findsOneWidget);
-  expect(find.widgetWithText(TextFormField, 'City'), findsOneWidget);
-  expect(find.widgetWithText(TextFormField, 'State'), findsOneWidget);
-  expect(find.widgetWithText(TextFormField, 'Zip Code'), findsOneWidget);
-  expect(find.widgetWithText(TextFormField, 'Country'), findsOneWidget);
-  expect(find.widgetWithText(TextFormField, 'Phone Number'), findsOneWidget);
-});
+      // Check if validation errors are displayed by finding the hint texts
+      expect(find.widgetWithText(TextFormField, 'Name'), findsOneWidget);
+      expect(find.widgetWithText(TextFormField, 'Email'), findsOneWidget);
+      expect(find.widgetWithText(TextFormField, 'Street'), findsOneWidget);
+      expect(find.widgetWithText(TextFormField, 'City'), findsOneWidget);
+      expect(find.widgetWithText(TextFormField, 'State'), findsOneWidget);
+      expect(find.widgetWithText(TextFormField, 'Zip Code'), findsOneWidget);
+      expect(find.widgetWithText(TextFormField, 'Country'), findsOneWidget);
+      expect(
+          find.widgetWithText(TextFormField, 'Phone Number'), findsOneWidget);
+    });
 
     testWidgets('fills form fields and simulates checkout', (tester) async {
       await tester.pumpWidget(
         const ProviderScope(
           child: MaterialApp(
-            home: CheckoutScreen(cartItems: []), // Empty cart for simplicity
+            home: PlaceOrderView(cartItems: []), // Empty cart for simplicity
           ),
         ),
       );

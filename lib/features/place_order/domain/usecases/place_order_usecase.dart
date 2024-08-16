@@ -17,4 +17,8 @@ class PlaceOrderUsecase {
   Future<Either<Failure, String>> placeOrder(PlaceOrderEntity entity) async {
     return placeOrderRepository.placeOrder(entity);
   }
+
+  Future<Either<Failure, List<PlaceOrderEntity>>> getOrderByUser() async {
+    return placeOrderRepository.getOrderByUser();
+  }
 }

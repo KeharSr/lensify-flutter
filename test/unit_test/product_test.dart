@@ -41,7 +41,7 @@ Future<void> main() async {
 
   // Test getProducts
   test('get product entity and return true if sucessfully get', () async {
-    when(mockProductUsecase.getProductsByCategory(1, 2, "All"))
+    when(mockProductUsecase.getProductsByCategory(1, 2, "All", ""))
         .thenAnswer((_) => Future.value(Right(products)));
 
     // Test getProducts
@@ -60,7 +60,7 @@ Future<void> main() async {
 
   // Test resetState
   test('reset state and get products by category', () async {
-    when(mockProductUsecase.getProductsByCategory(1, 2, "All"))
+    when(mockProductUsecase.getProductsByCategory(1, 2, "All", ""))
         .thenAnswer((_) => Future.value(Right(products)));
 
     // Test resetState
@@ -70,6 +70,27 @@ Future<void> main() async {
     final productState = container.read(productViewModelProvider);
 
     // check the state
+    expect(productState.isLoading, false);
+    expect(productState.hasReachedMax, false);
+    expect(productState.products, products);
+  });
+
+  //Test searchProduct
+
+  test('search product and return true if successfully get', () async {
+    // Mock the getProductsByCategory method with any combination of arguments
+    when(mockProductUsecase.getProductsByCategory(any, any, any, any))
+        .thenAnswer((_) => Future.value(Right(products)));
+
+    // Test searchProduct
+    await container
+        .read(productViewModelProvider.notifier)
+        .searchProducts('All', 'KeharOjha');
+
+    // Store the state
+    final productState = container.read(productViewModelProvider);
+
+    // Check the state
     expect(productState.isLoading, false);
     expect(productState.hasReachedMax, false);
     expect(productState.products, products);

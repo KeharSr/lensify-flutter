@@ -9,4 +9,5 @@ final placeOrderRepositoryProvider = Provider<IPlaceOrderRepository>(
 
 abstract class IPlaceOrderRepository {
   Future<Either<Failure, String>> placeOrder(PlaceOrderEntity entity);
+  Future<Either<Failure, List<PlaceOrderEntity>>> getOrderByUser();
 }

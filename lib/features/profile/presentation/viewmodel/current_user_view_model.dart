@@ -160,20 +160,81 @@ class CurrentUserViewModel extends StateNotifier<CurrentUserState> {
     );
   }
 
+  // Future<void> logout() async {
+  //   state = state.copyWith(isLoading: true);
+  //   final data = await googleSignInService.signOutGoogle();
+  //   data.fold(
+  //     (l) {
+  //       state = state.copyWith(isLoading: false, error: l.error);
+  //     },
+  //     (r) {
+  //       state = state.copyWith(isLoading: false, error: null);
+  //       userSharedPrefs.removeUserToken();
+  //       showMySnackBar(
+  //           message: 'Logged out successfully', backgroundColor: Colors.green);
+  //       navigator.openLoginView();
+  //     },
+  //   );
+  // }
+
   Future<void> logout() async {
-    state = state.copyWith(isLoading: true);
+  // Show the Yes/No dialog to confirm logout
+  final accept = await myYesNoDialog(title: 'Are you sure you want to logout?');
+
+  // If the user does not confirm, exit the function
+  if (!accept) return;
+
+  state = state.copyWith(isLoading: true);
+
+  // Check if the user is signed in via Google
+  bool isGoogleSignIn = await googleSignInService.isSignedIn();
+
+  if (isGoogleSignIn) {
+    // Handle Google Sign-In logout
     final data = await googleSignInService.signOutGoogle();
     data.fold(
       (l) {
+        // Handle error during Google Sign-Out
         state = state.copyWith(isLoading: false, error: l.error);
+        showMySnackBar(
+          message: l.error,
+          backgroundColor: Colors.red,
+        );
       },
       (r) {
+        // Successfully signed out from Google
         state = state.copyWith(isLoading: false, error: null);
-        userSharedPrefs.removeUserToken();
+        userSharedPrefs.removeUserToken(); // Remove token from shared preferences
         showMySnackBar(
-            message: 'Logged out successfully', backgroundColor: Colors.green);
-        navigator.openLoginView();
+          message: 'Logged out successfully',
+          backgroundColor: Colors.green,
+        );
+        navigator.openLoginView(); // Navigate to login view
+      },
+    );
+  } else {
+    // Handle normal logout
+    final result = await userSharedPrefs.removeUserToken();
+    result.fold(
+      (failure) {
+        // Handle error during normal logout
+        state = state.copyWith(isLoading: false, error: failure.error);
+        showMySnackBar(
+          message: failure.error,
+          backgroundColor: Colors.red,
+        );
+      },
+      (success) {
+        // Successfully signed out normally
+        state = state.copyWith(isLoading: false, error: null);
+        showMySnackBar(
+          message: 'Successfully logged out',
+          backgroundColor: Colors.green,
+        );
+        navigator.openLoginView(); // Navigate to login view
       },
     );
   }
+}
+
 }

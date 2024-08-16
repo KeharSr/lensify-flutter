@@ -24,4 +24,9 @@ class PlaceOrderRemoteRepository implements IPlaceOrderRepository {
   Future<Either<Failure, String>> placeOrder(PlaceOrderEntity entity) async {
     return placeOrderRemoteDataSource.placeOrder(entity);
   }
+
+  @override
+  Future<Either<Failure, List<PlaceOrderEntity>>> getOrderByUser() async {
+    return placeOrderRemoteDataSource.getOrderByUser();
+  }
 }

@@ -15,14 +15,14 @@ class RatingReviewApiModel extends Equatable {
   @JsonKey(name: '_id')
   final String? id;
   final ProductApiModel? productId;
-  final String? userId;
+  final String? user;
   final int rating;
   final String review;
 
   const RatingReviewApiModel({
     required this.id,
     required this.productId,
-    required this.userId,
+    required this.user,
     required this.rating,
     required this.review,
   });
@@ -30,7 +30,7 @@ class RatingReviewApiModel extends Equatable {
   const RatingReviewApiModel.empty()
       : id = '',
         productId = null,
-        userId = '',
+        user = '',
         rating = 0,
         review = '';
 
@@ -44,7 +44,7 @@ class RatingReviewApiModel extends Equatable {
     return RatingReviewEntity(
       id: id,
       productId: productId?.toEntity(),
-      userId: userId,
+      userId: user,
       rating: rating,
       review: review,
     );
@@ -55,7 +55,7 @@ class RatingReviewApiModel extends Equatable {
     return RatingReviewApiModel(
       id: entity.id,
       productId: ProductApiModel.fromEntity(entity.productId!),
-      userId: entity.userId,
+      user: entity.userId,
       rating: entity.rating,
       review: entity.review,
     );
@@ -77,7 +77,7 @@ class RatingReviewApiModel extends Equatable {
   List<Object?> get props => [
         id,
         productId,
-        userId,
+        user,
         rating,
         review,
       ];

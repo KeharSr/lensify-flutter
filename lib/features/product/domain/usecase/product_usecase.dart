@@ -15,12 +15,22 @@ class ProductUsecase {
   ProductUsecase({required this.productRepository});
 
   Future<Either<Failure, List<ProductEntity>>> getProductsByCategory(
-      int page, int limit, String category) {
-    return productRepository.getProductsByCategory(page, limit, category);
+      int? page, int? limit, String? category, String? search) {
+    return productRepository.getProductsByCategory(
+        page ?? 0, limit ?? 0, category ?? '', search ?? '');
   }
 
   // get single product
   Future<Either<Failure, ProductEntity>> getProductById(String id) {
     return productRepository.getProductById(id);
+  }
+
+  // search product
+  Future<Either<Failure, List<ProductEntity>>> searchProduct(String query) {
+    return productRepository.searchProduct(query);
+  }
+
+  getProductsFromHive() {
+    return productRepository.getProductFromHive();
   }
 }

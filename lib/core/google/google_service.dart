@@ -48,4 +48,8 @@ class GoogleSignInService {
       return Left(Failure(error: error.toString()));
     }
   }
+
+  bool isSignedIn() {
+    return _googleSignIn.currentUser != null;
+  }
 }

@@ -1,5 +1,4 @@
 import 'package:final_assignment/app/constants/sizes.dart';
-import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
 import 'package:final_assignment/features/cart/presentation/viewmodel/cart_view_model.dart';
 import 'package:final_assignment/features/single_product/presentation/view_model/single_product_view_model.dart';
 import 'package:final_assignment/features/single_product/presentation/widgets/my_single_product_view.dart';
@@ -76,9 +75,8 @@ class _ProductViewPageState extends ConsumerState<ProductViewPage> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final productState = ref.watch(singleProductViewModelProvider);
-
-    bool userHasReviewed = productState.reviews.any((review) =>
-        review.userId == ref.read(userSharedPrefsProvider).getUserToken());
+    final hasReviewed =
+        ref.watch(singleProductViewModelProvider.notifier).hasReview();
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -142,7 +140,7 @@ class _ProductViewPageState extends ConsumerState<ProductViewPage> {
                   reviewonPressed: reviewonPressed,
                   rating: rating,
                   updateReview: updateReview,
-                  userHasReviewed: userHasReviewed,
+                  userHasReviewed: hasReviewed,
                   averageRating: productState.averageRating,
                 ),
               if (productState.isLoading)

@@ -28,6 +28,10 @@ class CartUsecase {
     return cartRepository.updateCart(productId, quantity);
   }
 
+  Future<Either<Failure, bool>> updateCartStatus() async {
+    return cartRepository.updateCartStatus();
+  }
+
   Future<Either<Failure, bool>> deleteCart(String id) async {
     return cartRepository.deleteCart(id);
   }

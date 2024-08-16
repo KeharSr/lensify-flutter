@@ -14,5 +14,5 @@ abstract class IPaymentRepository {
   });
 
   // verify payment
-  Future<Either<Failure, bool>> verifyKhaltiPayment(PaymentEntity entity);
+  Future<Either<Failure, String>> verifyKhaltiPayment(PaymentEntity entity);
 }

@@ -76,6 +76,7 @@ class MockProductUsecase extends _i1.Mock implements _i4.ProductUsecase {
     int? page,
     int? limit,
     String? category,
+    String? search,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -84,6 +85,7 @@ class MockProductUsecase extends _i1.Mock implements _i4.ProductUsecase {
             page,
             limit,
             category,
+            search,
           ],
         ),
         returnValue:
@@ -96,6 +98,7 @@ class MockProductUsecase extends _i1.Mock implements _i4.ProductUsecase {
               page,
               limit,
               category,
+              search,
             ],
           ),
         )),
@@ -109,6 +112,7 @@ class MockProductUsecase extends _i1.Mock implements _i4.ProductUsecase {
               page,
               limit,
               category,
+              search,
             ],
           ),
         )),
@@ -141,6 +145,34 @@ class MockProductUsecase extends _i1.Mock implements _i4.ProductUsecase {
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.Failure, _i7.ProductEntity>>);
+
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>> searchProduct(
+          String? query) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #searchProduct,
+          [query],
+        ),
+        returnValue:
+            _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>>.value(
+                _FakeEither_1<_i6.Failure, List<_i7.ProductEntity>>(
+          this,
+          Invocation.method(
+            #searchProduct,
+            [query],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>>.value(
+                _FakeEither_1<_i6.Failure, List<_i7.ProductEntity>>(
+          this,
+          Invocation.method(
+            #searchProduct,
+            [query],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, List<_i7.ProductEntity>>>);
 }
 
 /// A class which mocks [MainViewNavigator].

@@ -170,6 +170,32 @@ class MockCartUsecase extends _i1.Mock implements _i4.CartUsecase {
       ) as _i5.Future<_i3.Either<_i6.Failure, bool>>);
 
   @override
+  _i5.Future<_i3.Either<_i6.Failure, bool>> updateCartStatus() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #updateCartStatus,
+          [],
+        ),
+        returnValue: _i5.Future<_i3.Either<_i6.Failure, bool>>.value(
+            _FakeEither_1<_i6.Failure, bool>(
+          this,
+          Invocation.method(
+            #updateCartStatus,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i3.Either<_i6.Failure, bool>>.value(
+                _FakeEither_1<_i6.Failure, bool>(
+          this,
+          Invocation.method(
+            #updateCartStatus,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.Failure, bool>>);
+
+  @override
   _i5.Future<_i3.Either<_i6.Failure, bool>> deleteCart(String? id) =>
       (super.noSuchMethod(
         Invocation.method(

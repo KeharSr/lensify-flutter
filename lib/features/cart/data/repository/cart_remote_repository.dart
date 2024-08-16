@@ -36,4 +36,9 @@ class CartRemoteRepository implements ICartRepository {
   Future<Either<Failure, bool>> deleteCart(String id) {
     return cartRemoteDataSource.deleteFromCart(id: id);
   }
+
+  @override
+  Future<Either<Failure, bool>> updateCartStatus() {
+    return cartRemoteDataSource.updateCartStatus();
+  }
 }

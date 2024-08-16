@@ -1,3 +1,4 @@
+
 import 'package:final_assignment/features/wishlist/domain/entity/wishlist_entity.dart';
 
 class WishlistState {

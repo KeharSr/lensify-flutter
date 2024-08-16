@@ -1,6 +1,8 @@
 import 'package:final_assignment/features/product/domain/entity/product_entity.dart';
 import 'package:final_assignment/features/ratingandreview/domain/entity/rating_review_entity.dart';
 
+import '../../../auth/domain/entity/auth_entity.dart';
+
 class SingleProductState {
   final ProductEntity? singleProduct;
   final bool isLoading;
@@ -12,6 +14,7 @@ class SingleProductState {
   final String review;
   final double rating;
   final bool selectedreview;
+  final AuthEntity? auth;
 
   SingleProductState({
     required this.singleProduct,
@@ -24,6 +27,7 @@ class SingleProductState {
     required this.review,
     required this.rating,
     required this.selectedreview,
+    required this.auth,
   });
 
   factory SingleProductState.initial() => SingleProductState(
@@ -37,6 +41,7 @@ class SingleProductState {
         review: '',
         rating: 0.0,
         selectedreview: false,
+        auth: null,
       );
 
   SingleProductState copyWith({
@@ -50,6 +55,7 @@ class SingleProductState {
     String? review,
     double? rating,
     bool? selectedreview,
+    AuthEntity? auth,
   }) {
     return SingleProductState(
       singleProduct: singleProduct ?? this.singleProduct,
@@ -62,6 +68,7 @@ class SingleProductState {
       review: review ?? this.review,
       rating: rating ?? this.rating,
       selectedreview: selectedreview ?? this.selectedreview,
+      auth: auth ?? this.auth,
     );
   }
 }

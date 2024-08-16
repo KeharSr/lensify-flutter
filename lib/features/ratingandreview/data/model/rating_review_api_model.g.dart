@@ -13,7 +13,7 @@ RatingReviewApiModel _$RatingReviewApiModelFromJson(
       productId: json['productId'] == null
           ? null
           : ProductApiModel.fromJson(json['productId'] as Map<String, dynamic>),
-      userId: json['userId'] as String?,
+      user: json['user'] as String?,
       rating: (json['rating'] as num).toInt(),
       review: json['review'] as String,
     );
@@ -23,7 +23,7 @@ Map<String, dynamic> _$RatingReviewApiModelToJson(
     <String, dynamic>{
       '_id': instance.id,
       'productId': instance.productId,
-      'userId': instance.userId,
+      'user': instance.user,
       'rating': instance.rating,
       'review': instance.review,
     };

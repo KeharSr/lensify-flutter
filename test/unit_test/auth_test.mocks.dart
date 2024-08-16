@@ -464,4 +464,14 @@ class MockGoogleSignInService extends _i1.Mock
           ),
         )),
       ) as _i6.Future<_i4.Either<_i7.Failure, bool>>);
+
+  @override
+  bool isSignedIn() => (super.noSuchMethod(
+        Invocation.method(
+          #isSignedIn,
+          [],
+        ),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
 }

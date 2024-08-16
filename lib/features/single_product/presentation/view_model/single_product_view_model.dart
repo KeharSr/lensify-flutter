@@ -1,5 +1,6 @@
 import 'package:final_assignment/core/common/widgets/my_snackbar.dart';
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
+import 'package:final_assignment/features/auth/domain/usecase/auth_usecase.dart';
 import 'package:final_assignment/features/product/domain/usecase/product_usecase.dart';
 import 'package:final_assignment/features/ratingandreview/domain/usecases/rating_review_usecase.dart';
 import 'package:final_assignment/features/single_product/presentation/state/single_product_state.dart';
@@ -12,6 +13,7 @@ final singleProductViewModelProvider =
               productUsecase: ref.watch(productUsecaseProvider),
               userSharedPrefs: ref.watch(userSharedPrefsProvider),
               ratingReviewUsecase: ref.watch(ratingReviewUsecaseProvider),
+              authUseCase: ref.watch(authUseCaseProvider),
             ));
 
 class SingleProductViewModel extends StateNotifier<SingleProductState> {
@@ -19,11 +21,13 @@ class SingleProductViewModel extends StateNotifier<SingleProductState> {
     required this.productUsecase,
     required this.userSharedPrefs,
     required this.ratingReviewUsecase,
+    required this.authUseCase,
   }) : super(SingleProductState.initial());
 
   final ProductUsecase productUsecase;
   final UserSharedPrefs userSharedPrefs;
   final RatingReviewUsecase ratingReviewUsecase;
+  final AuthUseCase authUseCase;
 
   Future<void> getSingleProduct(String productId) async {
     state = state.copyWith(isLoading: true);
@@ -44,6 +48,7 @@ class SingleProductViewModel extends StateNotifier<SingleProductState> {
     await getSingleProduct(productId);
     await getRatingReview(productId);
     await getReviewsByProduct(productId);
+    await fetchUser();
   }
 
   // get rating review
@@ -139,5 +144,26 @@ class SingleProductViewModel extends StateNotifier<SingleProductState> {
           message: 'Please provide a review and rating',
           backgroundColor: Colors.red);
     }
+  }
+
+  fetchUser() async {
+    final result = await authUseCase.getCurrentUser();
+    result.fold((failure) {
+      state = state.copyWith(auth: null);
+    }, (auth) {
+      state = state.copyWith(auth: auth);
+    });
+  }
+
+  bool hasReview() {
+    if (state.auth != null) {
+      final result = state.reviews.where((element) {
+        print(element.userId);
+
+        return element.userId == state.auth!.id;
+      }).toList();
+      return result.isNotEmpty;
+    }
+    return false;
   }
 }

@@ -18,14 +18,33 @@ class ProductRemoteRepository implements IProductRepository {
 
   @override
   Future<Either<Failure, List<ProductEntity>>> getProductsByCategory(
-      int page, int limit, String category) {
+      int page, int limit, String category, String search) {
     return productRemoteDataSource.getProductsByCategory(
-        page: page, limit: limit, category: category);
+        page: page, limit: limit, category: category, search: search);
   }
 
   // get single product
   @override
   Future<Either<Failure, ProductEntity>> getProductById(String id) {
     return productRemoteDataSource.getSingleProduct(id);
+  }
+
+  // search product
+  @override
+  Future<Either<Failure, List<ProductEntity>>> searchProduct(String query) {
+    return productRemoteDataSource.searchProduct(query);
+  }
+
+  @override
+  Future<Either<Failure, bool>> addProductsToHive(
+      List<ProductEntity> products) {
+    // TODO: implement addProductsToHive
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failure, List<ProductEntity>>> getProductFromHive() {
+    // TODO: implement getProductFromHive
+    throw UnimplementedError();
   }
 }

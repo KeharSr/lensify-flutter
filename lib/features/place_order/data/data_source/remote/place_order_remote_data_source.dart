@@ -5,6 +5,7 @@ import 'package:final_assignment/core/failure/failure.dart';
 import 'package:final_assignment/core/networking/remote/http_service.dart';
 import 'package:final_assignment/core/shared_prefs/user_shared_prefs.dart';
 import 'package:final_assignment/features/place_order/data/model/place_order_api_model.dart';
+import 'package:final_assignment/features/place_order/domain/entity/place_order_entity.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 //provider
@@ -60,40 +61,37 @@ class PlaceOrderRemoteDataSource {
     }
   }
 
-// get orders by user
-//   Future<Either<Failure, bool>> changeStatus(String orderId) async {
-//     try {
-//       String? token;
-//       var data = await userSharedPrefs.getUserToken();
-//       data.fold((l) => null, (r) => token = r);
-//
-//       print('Token: $token');
-//
-//       var response = await dio.post(
-//         ApiEndpoints.changeStatus,
-//         data: {
-//           'order_id': orderId,
-//         },
-//         options: Options(headers: {
-//           'Authorization': 'Bearer $token',
-//         }),
-//       );
-//
-//       print('Change Status Response: ${response.data}');
-//       print('Response data: ${response.data}');
-//
-//       if (response.statusCode == 200) {
-//         return Right(true);
-//       } else {
-//         return Left(Failure(
-//           error: response.data['message'],
-//           statusCode: response.statusCode.toString(),
-//         ));
-//       }
-//     } on DioException catch (e) {
-//       return Left(Failure(
-//         error: e.message.toString(),
-//       ));
-//     }
-//   }
+  // get order by user
+  Future<Either<Failure, List<PlaceOrderEntity>>> getOrderByUser() async {
+    try {
+      String? token;
+      var data = await userSharedPrefs.getUserToken();
+      data.fold((l) => null, (r) => token = r);
+
+      print('Token: $token');
+
+      var response = await dio.get(
+        ApiEndpoints.getOrders,
+        options: Options(headers: {
+          'Authorization': 'Bearer $token',
+        }),
+      );
+
+      print('Get Order By User Response: ${response.data}');
+      print('Response data: ${response.data}');
+
+      if (response.statusCode == 200) {
+        return Right(response.data['data']);
+      } else {
+        return Left(Failure(
+          error: response.data['message'],
+          statusCode: response.statusCode.toString(),
+        ));
+      }
+    } on DioException catch (e) {
+      return Left(Failure(
+        error: e.message.toString(),
+      ));
+    }
+  }
 }

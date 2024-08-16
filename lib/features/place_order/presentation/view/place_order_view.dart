@@ -7,16 +7,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../payment/presentation/view_model/payment_view_model.dart';
 
-class CheckoutScreen extends ConsumerStatefulWidget {
+class PlaceOrderView extends ConsumerStatefulWidget {
   final List<CartEntity> cartItems;
 
-  const CheckoutScreen({required this.cartItems, super.key});
+  const PlaceOrderView({required this.cartItems, super.key});
 
   @override
-  _CheckoutScreenState createState() => _CheckoutScreenState();
+  _PlaceOrderViewState createState() => _PlaceOrderViewState();
 }
 
-class _CheckoutScreenState extends ConsumerState<CheckoutScreen> {
+class _PlaceOrderViewState extends ConsumerState<PlaceOrderView> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();

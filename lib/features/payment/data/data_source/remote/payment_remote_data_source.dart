@@ -64,7 +64,7 @@ class PaymentRemoteDataSource {
   }
 
   // Verify Khalti payment
-  Future<Either<Failure, bool>> verifyKhaltiPayment(
+  Future<Either<Failure, String>> verifyKhaltiPayment(
       PaymentEntity entity) async {
     try {
       String? token;
@@ -80,7 +80,8 @@ class PaymentRemoteDataSource {
       );
 
       if (response.statusCode == 200 && response.data['success']) {
-        return Right(true); // Payment verified successfully
+        return Right(response.data['transactionId']
+            .toString()); // Payment verified successfully
       } else {
         return Left(Failure(
           error: response.data['message'] ?? 'Failed to verify payment',

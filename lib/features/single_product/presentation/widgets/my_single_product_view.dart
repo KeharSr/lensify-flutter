@@ -43,6 +43,7 @@ class MySingleProductView extends StatelessWidget {
     final imageUrl = '${ApiEndpoints.imageUrl}${product.productImage}';
     double newRating = 0;
     double updateRating = 0;
+    print('User has reviewed: $userHasReviewed');
 
     return Stack(
       children: [

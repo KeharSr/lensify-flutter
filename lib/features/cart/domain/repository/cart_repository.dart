@@ -15,4 +15,6 @@ abstract class ICartRepository {
   Future<Either<Failure, bool>> updateCart(String productId, int quantity);
 
   Future<Either<Failure, bool>> deleteCart(String productId);
+
+  Future<Either<Failure, bool>> updateCartStatus();
 }

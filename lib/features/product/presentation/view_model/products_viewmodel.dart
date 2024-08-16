@@ -70,8 +70,9 @@ class ProductViewmodel extends StateNotifier<ProductState> {
     final hasReachedMax = currentState.hasReachedMax;
     if (!hasReachedMax) {
       // get data from data source
+
       final result =
-          await productUsecase.getProductsByCategory(page, 2, category);
+          await productUsecase.getProductsByCategory(page, 2, category, "");
       result.fold(
         (failure) =>
             state = state.copyWith(hasReachedMax: true, isLoading: false),
@@ -90,5 +91,48 @@ class ProductViewmodel extends StateNotifier<ProductState> {
     }
   }
 
-  
+  Future<void> getProductFromHive() async {
+    state = state.copyWith(isLoading: true);
+    final currentState = state;
+    final page = currentState.page + 1;
+    final products = currentState.products;
+    final hasReachedMax = currentState.hasReachedMax;
+    if (!hasReachedMax) {
+      // get data from data source
+      final result = await productUsecase.getProductsFromHive();
+      result.fold(
+        (failure) =>
+            state = state.copyWith(hasReachedMax: true, isLoading: false),
+        (data) {
+          if (data.isEmpty) {
+            showMySnackBar(message: "No products found");
+          } else {
+            state = state.copyWith(
+              products: [...products, ...data],
+              page: page,
+              isLoading: false,
+            );
+          }
+        },
+      );
+    }
+  }
+
+  Future<void> searchProducts(String category, String search) async {
+    state = ProductState.initial();
+    state = state.copyWith(isLoading: true);
+
+    // get data from data source
+    final result = await productUsecase.getProductsFromHive();
+    result.fold(
+      (failure) =>
+          state = state.copyWith(hasReachedMax: true, isLoading: false),
+      (data) {
+        state = state.copyWith(
+          products: data,
+          isLoading: false,
+        );
+      },
+    );
+  }
 }
