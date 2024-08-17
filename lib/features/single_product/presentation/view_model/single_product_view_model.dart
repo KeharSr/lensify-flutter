@@ -121,9 +121,9 @@ class SingleProductViewModel extends StateNotifier<SingleProductState> {
       state = state.copyWith(isLoading: false, error: failure.error);
     }, (reviews) {
       state = state.copyWith(isLoading: false, reviews: reviews, error: null);
-      showMySnackBar(
-          message: 'Review fetched successfully',
-          backgroundColor: Colors.green);
+      // showMySnackBar(
+      //     message: 'Review fetched successfully',
+      //     backgroundColor: Colors.green);
     });
   }
 

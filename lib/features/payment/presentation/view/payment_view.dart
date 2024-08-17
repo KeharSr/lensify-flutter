@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:khalti_checkout_flutter/khalti_checkout_flutter.dart';
-import 'package:lottie/lottie.dart';
 
 import '../../domain/entity/payment_entity.dart';
 import '../view_model/payment_view_model.dart';
@@ -80,10 +79,8 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
             future: khalti,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Lottie.network(
-                  'https://assets5.lottiefiles.com/packages/lf20_usmfx6bp.json',
-                  width: 200,
-                  height: 200,
+                return CircularProgressIndicator(
+                  color: Colors.white,
                 );
               }
               final khaltiSnapshot = snapshot.data;
@@ -97,11 +94,6 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Lottie.network(
-                        'https://assets9.lottiefiles.com/packages/lf20_9gvzjrcr.json',
-                        width: 200,
-                        height: 200,
-                      ),
                       const SizedBox(height: 40),
                       const Text(
                         'Rs. 22',
@@ -165,11 +157,6 @@ class _PaymentViewState extends ConsumerState<PaymentView> {
                           ),
                         ).animate().fadeIn().scale(),
                       const SizedBox(height: 40),
-                      const Text(
-                        'Make a payment to claim the insurance package.',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
-                        textAlign: TextAlign.center,
-                      ).animate().fadeIn(delay: 900.ms),
                     ],
                   ),
                 ),

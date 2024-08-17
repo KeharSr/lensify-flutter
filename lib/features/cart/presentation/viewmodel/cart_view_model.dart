@@ -54,8 +54,8 @@ class CartViewModel extends StateNotifier<CartState> {
         isLoading: false,
         error: null,
       );
-      // showMySnackBar(
-      //     message: 'Product added to cart', backgroundColor: Colors.green);
+      showMySnackBar(
+          message: 'Product added to cart', backgroundColor: Colors.green);
     });
     getCarts();
   }
@@ -81,8 +81,8 @@ class CartViewModel extends StateNotifier<CartState> {
         isLoading: false,
         error: null,
       );
-      showMySnackBar(
-          message: 'Cart updated successfully', backgroundColor: Colors.green);
+      // showMySnackBar(
+      //     message: 'Cart updated successfully', backgroundColor: Colors.green);
     });
     await getCarts();
   }

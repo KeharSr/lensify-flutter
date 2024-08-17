@@ -55,7 +55,7 @@ Future<void> main() async {
     final wishlistState = container.read(wishlistViewModelProvider);
 
     expect(wishlistState.isLoading, false);
-    expect(wishlistState.error, isNull);
+    expect(wishlistState.error, Null);
     expect(wishlistState.favorites, wishlist); // Ensure it matches the wishlist
   });
 
@@ -71,7 +71,6 @@ Future<void> main() async {
     expect(wishlistState.isLoading, false);
     expect(wishlistState.error, isNull);
   });
-
 
   // Test removeWishlist
   test('test wishlist and return success if successfully removed', () async {

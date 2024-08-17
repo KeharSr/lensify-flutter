@@ -40,8 +40,8 @@ class WishlistViewModel extends StateNotifier<WishlistState> {
       // showMySnackBar(message: failure.error, backgroundColor: Colors.red);
     }, (success) {
       state = state.copyWith(isLoading: false, error: null);
-      // showMySnackBar(
-      //     message: 'Added to wishlist', backgroundColor: Colors.green);
+      showMySnackBar(
+          message: 'Added to wishlist', backgroundColor: Colors.green);
     });
   }
 
@@ -50,11 +50,11 @@ class WishlistViewModel extends StateNotifier<WishlistState> {
     final result = await wishlistUseCase.removeWishlist(productId);
     result.fold((failure) {
       state = state.copyWith(isLoading: false, error: failure.error);
-      // showMySnackBar(message: failure.error, backgroundColor: Colors.red);
+      showMySnackBar(message: failure.error, backgroundColor: Colors.red);
     }, (success) {
       state = state.copyWith(isLoading: false);
-      // showMySnackBar(
-      //     message: 'Removed from wishlist', backgroundColor: Colors.green);
+      showMySnackBar(
+          message: 'Removed from wishlist', backgroundColor: Colors.green);
     });
     await getWishlist();
   }

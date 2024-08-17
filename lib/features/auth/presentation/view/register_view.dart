@@ -171,22 +171,13 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                         const SizedBox(height: 16),
                         Row(
                           children: [
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Checkbox(
-                                value: true,
-                                onChanged: (value) {},
-                              ),
-                            ),
-                            const SizedBox(width: 19),
                             const Flexible(
                               child: Text.rich(
                                 TextSpan(
                                   children: [
                                     TextSpan(
                                       text: "I agree to the ",
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(color: Colors.blue),
                                     ),
                                     TextSpan(
                                       text: "Privacy Policy ",
@@ -199,7 +190,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                                     ),
                                     TextSpan(
                                       text: "and ",
-                                      style: TextStyle(color: Colors.black),
+                                      style: TextStyle(color: Colors.blue),
                                     ),
                                     TextSpan(
                                       text: "Terms of use ",
@@ -230,7 +221,6 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                                 userName: _userNameController.text,
                                 phoneNumber: _phoneNumberController.text,
                                 password: _passwordController.text,
-                                
                               );
                               ref
                                   .read(authViewModelProvider.notifier)
