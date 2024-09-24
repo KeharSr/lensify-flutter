@@ -20,7 +20,7 @@ class SplashViewModel extends StateNotifier<void> {
     });
   }
 
-  // Later on we will add open home page method here as well
+
   void openHomeView() {
     // Your code goes here
   }
